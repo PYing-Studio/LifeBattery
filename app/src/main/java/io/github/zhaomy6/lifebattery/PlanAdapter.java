@@ -68,15 +68,17 @@ public class PlanAdapter extends BaseAdapter {
 class Plan {
     private String title;
     private String DDL;
+    private String planType;
     private String currentProgress;
     private String planDetail;
     private String color;
 
-    public Plan(String title, String DDL, String currentProgress, String planDetail) {
+    public Plan(String title, String DDL, String planType, String currentProgress, String planDetail) {
         this.title = title;
         this.DDL = DDL;
         this.currentProgress = currentProgress;
         this.planDetail = planDetail;
+        this.planType = planType;
     }
 
     public String getTitle() {
@@ -99,6 +101,10 @@ class Plan {
 //        return color;
 //    }
 
+    public String getPlanType() {
+        return planType;
+    }
+
     public void setDDL(String DDL) {
         this.DDL = DDL;
     }
@@ -109,5 +115,9 @@ class Plan {
 
     public void setPlanDetail(String planDetail) {
         this.planDetail = planDetail;
+    }
+
+    public void setPlanType(String planType) {
+        this.planType = planType;
     }
 }

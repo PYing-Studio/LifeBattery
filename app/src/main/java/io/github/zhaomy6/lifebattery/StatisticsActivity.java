@@ -9,5 +9,6 @@ public class StatisticsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+        setTitle("使用统计");
     }
 }

@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="d4f2354418c78aca2ca7f50d883c78423272f4a1">
+        sha1="e115ca6197d108dff884baafc45312d3815ee395">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_4adcc956d294a0bd88ccb5c5b70da8ac3314a6bd\classes.dex" />
     </item>
     <item
@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="a9a16cd862443604cd39b520d62f8fa183e436c7">
+        sha1="29e975e9d9fcdc971d7b8637248b160840315f22">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_bf0d5361d7a978312eeacdd0c377d298a52cfd1f\classes.dex" />
     </item>
     <item
@@ -93,21 +93,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\zhangsht\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.1_25b1a67f84e9d99a27f19a71fe4a389c97b270a3\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_161c81c92addcaf711cc236c5b7584c059b14ebf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\zhangsht\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.1_25b1a67f84e9d99a27f19a71fe4a389c97b270a3\classes.dex" />
     </item>
     <item
         is-multidex="true"
