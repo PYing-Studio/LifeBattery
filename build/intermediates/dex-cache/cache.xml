@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="8a0dd8952752bedc49f9daf5ad682ea77c277386">
+        sha1="1725148a5ebdcb55ed28bc12f6970823d54ab275">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_4adcc956d294a0bd88ccb5c5b70da8ac3314a6bd\classes.dex" />
     </item>
     <item
@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="a6fa62393935364525c1493b6a62deb8ebbab80f">
+        sha1="0fcfa9a7fcfc0f4e789821bfc6df84bf61be5180">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_bf0d5361d7a978312eeacdd0c377d298a52cfd1f\classes.dex" />
     </item>
     <item
