@@ -15,9 +15,11 @@
         android:layout_marginStart="@dimen/p_list_margin"
         android:layout_marginEnd="@dimen/p_list_margin"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/colorDarkBackground"
         android:textSize="@dimen/font_normal"
         android:text="add"/>
+
     <ListView
         android:id="@+id/store_list"
         android:layout_width="match_parent"
@@ -26,6 +28,4 @@
         android:layout_marginEnd="@dimen/p_list_margin"
         android:layout_above="@id/store_add_btn">
     </ListView>
-
-
 </LinearLayout>

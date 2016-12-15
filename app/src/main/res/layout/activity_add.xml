@@ -13,6 +13,8 @@
     <EditText
         android:id="@+id/titleEdit"
         android:layout_centerHorizontal="true"
+        style="?android:attr/editTextStyle"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_normal"
@@ -53,9 +55,10 @@
                 android:layout_weight="2"
                 android:timePickerMode="spinner"
                 android:layout_height="wrap_content"
-            ></TimePicker>
+                ></TimePicker>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/typeContainer"
         android:layout_below="@+id/DDLContainer"
@@ -104,7 +107,6 @@
         android:minLines="3"
         android:layout_height="wrap_content"
         />
-
     <LinearLayout
         android:layout_below="@+id/detailEdit"
         style="?android:attr/buttonBarStyle"

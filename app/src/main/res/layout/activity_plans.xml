@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/activity_plans"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhiteLilac"
     tools:context="io.github.zhaomy6.lifebattery.PlansActivity">
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolBar"
-      android:layout_width="match_parent"
-      android:background="@color/colorPrimary"
-      android:layout_height="?attr/actionBarSize">
-  </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/colorWhite">
+    </android.support.v7.widget.Toolbar>
+
     <ListView
         android:id="@+id/planList"
         android:layout_below="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="@dimen/p_list_margin"
         android:layout_marginEnd="@dimen/p_list_margin">
     </ListView>

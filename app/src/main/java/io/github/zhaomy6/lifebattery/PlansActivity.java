@@ -117,7 +117,7 @@ public class PlansActivity extends AppCompatActivity {
 
                 TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
-                TextView d_planProgress = (TextView)views.findViewById(R.id.d_planProgress);
+                TextView d_planTag = (TextView)views.findViewById(R.id.d_planTag);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
@@ -130,22 +130,23 @@ public class PlansActivity extends AppCompatActivity {
                 cursor1.moveToFirst();
 
                 final String progressText = cursor1.getString(cursor1.getColumnIndex("progress"));
-                d_planProgress.setText(progressText);
+                d_planTag.setText(progressText);
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
                 Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
 
                 builder.setTitle(titleText);
-                builder.setNegativeButton("取消任务", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        myDB.deleteDB(titleText);
-                        updateListView();
+                        //  do nothing
                     }
                 });
                 builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        myDB.deleteDB(titleText);
+                        updateListView();
                     }
                 });
 
@@ -177,6 +178,12 @@ public class PlansActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateListView();
     }
 
     @Override

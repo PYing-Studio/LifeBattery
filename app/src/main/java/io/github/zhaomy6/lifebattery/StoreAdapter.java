@@ -22,12 +22,10 @@ public class StoreAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
-        String content = (String) getItem(position);
 
         TextView pos = (TextView) view.findViewById(R.id.store_pos);
         String posStr = position + "";
         pos.setText(posStr);
-
         TextView tv = (TextView) view.findViewById(R.id.store_description);
         tv.setText(getItem(position));
 
