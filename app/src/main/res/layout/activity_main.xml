@@ -20,11 +20,11 @@
         android:elevation="3dp">
         <ImageView
             android:id="@+id/m_battery_icon"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:layout_marginStart="-20dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/main_battery"
             android:contentDescription="@string/app_name"/>
 
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorAccentLight"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:text="5992\n78%"
-            android:layout_marginStart="-5dp"
+            android:layout_marginStart="-15dp"
             android:elevation="3dp"/>
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@id/m_battery"
         android:elevation="3dp">
 
@@ -53,15 +53,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="@dimen/m_padding_top_and_bottom"
+            android:paddingBottom="@dimen/m_padding_top_and_bottom"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@color/colorWhite"
             android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
+            android:textSize="@dimen/font_normal"
             android:text="Android 大作业"/>
 
         <View
@@ -77,15 +77,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="@dimen/m_padding_top_and_bottom"
+            android:paddingBottom="@dimen/m_padding_top_and_bottom"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@color/colorWhite"
             android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
+            android:textSize="@dimen/font_normal"
             android:text="2016-12-14"/>
 
         <View
@@ -101,16 +101,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="@dimen/m_padding_top_and_bottom"
+            android:paddingBottom="@dimen/m_padding_top_and_bottom"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:layout_below="@id/div2"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@color/colorWhite"
             android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
+            android:textSize="@dimen/font_normal"
             android:text="剩余  2  天"/>
 
     </LinearLayout>

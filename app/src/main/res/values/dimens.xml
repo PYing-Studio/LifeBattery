@@ -8,5 +8,7 @@
     <dimen name="font_little">14sp</dimen>
 
     <dimen name="m_margin">20dp</dimen>
+    <dimen name="m_padding_top_and_bottom">12dp</dimen>
+
     <dimen name="p_list_margin">10dp</dimen>
 </resources>
