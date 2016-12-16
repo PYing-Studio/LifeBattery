@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import java.util.Timer;
 
 public class SetupActivity extends Activity {
-    private final int DISPLAY_LENGTH = 1500;
+    private final int DISPLAY_LENGTH = 1700;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

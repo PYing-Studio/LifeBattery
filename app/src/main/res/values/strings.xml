@@ -7,4 +7,6 @@
     <string name="m_summary_btn_str">统计</string>
 
     <string name="store_add_btn">添加</string>
+
+    <string name="store_description">点击电池以查看具体规划</string>
 </resources>
