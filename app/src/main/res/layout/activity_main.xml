@@ -112,6 +112,14 @@
             android:textSize="@dimen/font_normal"
             android:text="剩余  2  天"/>
 
+        <View
+            android:id="@+id/div3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/m_margin"
+            android:layout_marginEnd="@dimen/m_margin"
+            android:background="@color/colorDiv"/>
+
     </LinearLayout>
 
 

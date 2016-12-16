@@ -26,7 +26,11 @@
             android:textColor="@color/colorDarkBackground"
             android:text="@string/setup_app_name"/>
 
-        <!--TODO: anim to be added-->
+        <ImageView
+            android:id="@+id/setup_anim"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 
