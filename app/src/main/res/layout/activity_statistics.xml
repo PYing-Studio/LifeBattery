@@ -72,10 +72,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <!--打卡日历，需要进一步思考实现方式-->
-        <View
-            android:id="@+id/statistic_cal"
+        <CalendarView
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:layout_height="220dp">
+        </CalendarView>
+
 
         <Button
             android:id="@+id/statistic_about"
@@ -89,6 +90,8 @@
             android:background="@color/colorWhite"
             android:textColor="@color/colorDarkBackground"
             android:text="关于"/>
+
+
 
         <View
             android:id="@+id/statistic_div"

@@ -2,6 +2,7 @@ package io.github.zhaomy6.lifebattery;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,10 +29,19 @@ public class SetupActivity extends Activity {
         AnimationDrawable anim = (AnimationDrawable) imageView.getBackground();
         anim.start();
 
+        //  TODO: 检测是否曾经注册并登录过，使用SharedPreference
+        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+        final boolean isFirstTime = true;
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
-                startActivity(mainIntent);
+                Intent intent = null;
+                if (!isFirstTime) {
+                    intent = new Intent(SetupActivity.this, MainActivity.class);
+                } else {
+                    intent = new Intent(SetupActivity.this, LoginActivity.class);
+                }
+                startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.my_fade_in, R.anim.my_fade_out);
             }
