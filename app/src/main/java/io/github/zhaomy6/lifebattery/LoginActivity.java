@@ -8,10 +8,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
@@ -47,7 +54,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("hasLoginBefore", true);
                 editor.putString("username", username);
+                //  birthday format: yyyy/mm/dd
+                //  ** need modify if the format is changed **
                 editor.putString("birthday", birthday);
+                String birthYear = birthday.split("/")[0];
+                int totalWeeks = calculateTotalWeeks(birthYear);
+                editor.putInt("totalWeeks", totalWeeks);
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                String registerTime = df.format(new Date());  //  year-month-day
+                editor.putString("registerTime", registerTime);
+
                 editor.apply();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -57,5 +74,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    //  birthday
+    //  return totalWeeks/leftWeeks
+    private int calculateTotalWeeks(String birthYear) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        String curYear = df.format(new Date()).split("-")[0];  //  year/month/day
+        Log.d("calculate", curYear);
+        int age = Integer.parseInt(curYear) - Integer.parseInt(birthYear);
+        Random rand = new Random();
+        if (age <= 0) age = 0;
+        int acc = age > 80 ? age + 10 : 80;
+        return (acc + rand.nextInt(20)) * 52;
     }
 }

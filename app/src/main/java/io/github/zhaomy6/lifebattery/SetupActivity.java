@@ -31,6 +31,7 @@ public class SetupActivity extends Activity {
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
         final boolean hasLoginBefore = sp.getBoolean("hasLoginBefore", true);
+//        final boolean hasLoginBefore = false;
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
