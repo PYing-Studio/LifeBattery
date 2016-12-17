@@ -18,10 +18,10 @@ public class SetupActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
         ImageView imageView = (ImageView) findViewById(R.id.setup_anim);
@@ -29,14 +29,13 @@ public class SetupActivity extends Activity {
         AnimationDrawable anim = (AnimationDrawable) imageView.getBackground();
         anim.start();
 
-        //  TODO: 检测是否曾经注册并登录过，使用SharedPreference
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
-        final boolean isFirstTime = true;
+        final boolean hasLoginBefore = sp.getBoolean("hasLoginBefore", true);
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 Intent intent = null;
-                if (!isFirstTime) {
+                if (hasLoginBefore) {
                     intent = new Intent(SetupActivity.this, MainActivity.class);
                 } else {
                     intent = new Intent(SetupActivity.this, LoginActivity.class);

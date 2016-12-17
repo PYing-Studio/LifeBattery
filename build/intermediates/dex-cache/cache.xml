@@ -12,87 +12,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_c8c3c4b590b298c4963b00eb5575880765818786/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_4283c951cc4a15cf079ee2074ec7af8593d630be/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="7cfa6be6f17fdb84faa1e80e994a911d997e8ac9">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_34836f400159b25d681111aa77dc4cb57b4115e9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.1_24f4f631c29b3eada0e9b1b9e90360eb2a62e411/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_f3da04ecb25d388a1b1dff5e9f82bcd22de19a77/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_eca313e332d54b652cb18882cea9b02cb163023d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f83b00041ecfba705603fec40363416c7de69719">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_f6c3c11635a38225dbeeba2565a68bf54340680b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.1_2299728b8717b52c9b6ab6c0d2342cc3effb50db/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
-        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_12fce7c8e3276e33dc99175c4b51debb6a52cc57/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -111,12 +30,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_c8c3c4b590b298c4963b00eb5575880765818786/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
         <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.0.1_ec82a5a9595edb1622b8cdf59759adba74e4577f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_4283c951cc4a15cf079ee2074ec7af8593d630be/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -138,6 +75,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7cfa6be6f17fdb84faa1e80e994a911d997e8ac9">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_34836f400159b25d681111aa77dc4cb57b4115e9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.1_24f4f631c29b3eada0e9b1b9e90360eb2a62e411/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -147,11 +102,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_f3da04ecb25d388a1b1dff5e9f82bcd22de19a77/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="fc28ca7c2a043a61f964b60d96509c785245eb3a">
+        sha1="a4fed8dab2662ef35a24b21ebfa5c35489c974f9">
         <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_b19f294e0064d0b3cc8854f16b368314afab5b69/classes.dex" />
     </item>
     <item
@@ -162,6 +126,24 @@
         revision="25.0.1"
         sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
         <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_1368afebf5799f7b20fe88f77881de9aa4757c6c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_eca313e332d54b652cb18882cea9b02cb163023d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_f6c3c11635a38225dbeeba2565a68bf54340680b/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -180,6 +162,24 @@
         revision="25.0.1"
         sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
         <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_5c2a1e058e74fac5a38fb6084ffb84b0d8110ff9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.1_2299728b8717b52c9b6ab6c0d2342cc3effb50db/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/zhaomingyu/Study/LifeBattery/LifeBattery/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_12fce7c8e3276e33dc99175c4b51debb6a52cc57/classes.dex" />
     </item>
     <item
         is-multidex="true"
