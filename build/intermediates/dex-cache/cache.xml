@@ -3,39 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
+        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.1_b02988afe8db9d37d02b63f0dd21c692647ba6cf\classes.dex" />
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.1_f2338e2a9c80a9e2fc65b54e07a715795d71ccb3\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\libs\android-support-v7-recyclerview.jar"
+        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="12b40458075441c1a66d3fe16e72217ee7472a47">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\2\android-support-v7-recyclerview_a0185d7a5aca94f3e1430565f315ee2fe47c16b3\classes.dex" />
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.1_89852103f106803d4aa900af7d42b5bb67016a8c\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\design\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="437b5ba42417dcdfec98dab99d3d5b8172212ad7">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_4adcc956d294a0bd88ccb5c5b70da8ac3314a6bd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_1b18295a80339d9b833e663f2a9ea49b2e8a3468\classes.dex" />
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.1_ad3553bb3dc501eafbaec8230db0dadfe4d15692\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -43,125 +34,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="c016ed9204142921ba4b9c8e4181a831f0d740ee">
+        sha1="07334f0d64f34c68779dbd70c6a12d22df228db0">
         <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_bf0d5361d7a978312eeacdd0c377d298a52cfd1f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.1_036663f3755c1ddc95cf50d9bc399fa0d438177e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_161c81c92addcaf711cc236c5b7584c059b14ebf\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.1_876aee5a99515cf9405c8f1e7ebd6f8c6f302599\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_493c4e42c3f3df5bb47248dfd920fbfa263ee0ce\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.1_fc5afd10a7a882351647e2b6847dbda5deaaf19f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_2c204e143b0417f47022b9dd75ad11a1c5c54208\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_a085b1b9486b19e6cb30788e877648d4f69ae082\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_c648c53d5af7b7061cef2f5b36ffc3b281d9630c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f83b00041ecfba705603fec40363416c7de69719">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_bd1288598ec0e5b5b503d3a6fbfb9b16f9642119\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\libs\internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_9fdc6d130a54a59ab68b69f5d89b314ce3b051ce\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_84054b8042aae6ead6cd0d970c1c73e00000aad1\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\zhangsht\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.1_25b1a67f84e9d99a27f19a71fe4a389c97b270a3\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
-        <dex dex="E:\documents\Grade3\phoneDev\LifeBattery\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.1_3394a52e13c09aa29d507a98657bd560ed527a02\classes.dex" />
     </item>
 
 </items>

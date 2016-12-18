@@ -7,113 +7,212 @@
     android:layout_height="match_parent"
     tools:context="io.github.zhaomy6.lifebattery.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/m_battery"
-        android:orientation="horizontal"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="@dimen/m_margin"
-        android:layout_marginEnd="@dimen/m_margin"
-        android:background="@color/colorDarkBackground"
-        android:layout_centerHorizontal="true"
-        android:elevation="3dp">
-        <ImageView
-            android:id="@+id/m_battery_icon"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:layout_marginStart="-20dp"
-            android:src="@drawable/main_battery"
-            android:contentDescription="@string/app_name"/>
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/m_left_weeks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/colorAccentLight"
-            android:textSize="60sp"
-            android:text="5992\n78%"
-            android:layout_marginStart="-5dp"
-            android:elevation="3dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="25dp"
-        android:layout_below="@id/m_battery"
-        android:elevation="3dp">
-
-        <TextView
-            android:id="@+id/m_plan_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:layout_marginStart="@dimen/m_margin"
-            android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorWhite"
-            android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
-            android:text="Android 大作业"/>
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/div1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="@dimen/m_margin"
-            android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorDiv"/>
+            <RelativeLayout
+                android:id="@+id/m_battery"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin"
+                android:background="@drawable/round_rect_dark"
+                android:elevation="3dp">
+                <ImageView
+                    android:id="@+id/m_battery_icon"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerVertical="true"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/main_battery"
+                    android:contentDescription="@string/app_name"/>
 
-        <TextView
-            android:id="@+id/m_plan_ddL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:layout_marginStart="@dimen/m_margin"
-            android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorWhite"
-            android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
-            android:text="2016-12-14"/>
+                <TextView
+                    android:id="@+id/m_left_weeks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/m_battery_icon"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="50sp"
+                    android:text="5992\n78%"
+                    android:layout_marginStart="-15dp"
+                    android:elevation="3dp"/>
 
-        <View
-            android:id="@+id/div2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="@dimen/m_margin"
-            android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorDiv"/>
+                <ImageView
+                    android:id="@+id/main_battery_info"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="3dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_add_white"
+                    android:background="@drawable/main_detail_button"
+                    android:contentDescription="main_detail_button" />
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/m_plan_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:layout_below="@id/div2"
-            android:layout_marginStart="@dimen/m_margin"
-            android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorWhite"
-            android:textColor="@color/colorDarkBackground"
-            android:textSize="@dimen/font_big"
-            android:text="剩余  2  天"/>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/m_battery"
+                android:elevation="3dp">
 
-    </LinearLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_margin"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin">
+                    <View
+                        android:id="@+id/div0"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/div_margin"
+                        android:layout_weight="1"
+                        android:background="@color/colorDiv"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin"
+                    android:background="@drawable/round_rect">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_title"/>
+
+                    <TextView
+                        android:paddingTop="@dimen/m_padding_top_and_bottom"
+                        android:paddingBottom="@dimen/m_padding_top_and_bottom"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="4"
+                        android:id="@+id/m_plan_title"
+                        android:textColor="@color/colorDarkBackground"
+                        android:textSize="@dimen/font_normal"
+                        android:text="Android 大作业"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_margin"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin">
+                    <View
+                        android:id="@+id/div1"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/div_margin"
+                        android:layout_weight="1"
+                        android:background="@color/colorDiv"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin"
+                    android:background="@drawable/round_rect">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_access_time"/>
+
+                    <TextView
+                        android:paddingTop="@dimen/m_padding_top_and_bottom"
+                        android:paddingBottom="@dimen/m_padding_top_and_bottom"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="4"
+                        android:textColor="@color/colorDarkBackground"
+                        android:textSize="@dimen/font_normal"
+                        android:text="2016-12-14"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_margin"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin">
+                    <View
+                        android:id="@+id/div2"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/div_margin"
+                        android:layout_weight="1"
+                        android:background="@color/colorDiv"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin"
+                    android:background="@drawable/round_rect">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_hourglass"/>
+
+                    <TextView
+                        android:paddingTop="@dimen/m_padding_top_and_bottom"
+                        android:paddingBottom="@dimen/m_padding_top_and_bottom"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="4"
+                        android:id="@+id/m_plan_progress"
+                        android:textColor="@color/colorDarkBackground"
+                        android:textSize="@dimen/font_normal"
+                        android:text="剩余  2  天"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_margin"
+                    android:layout_marginStart="@dimen/m_margin"
+                    android:layout_marginEnd="@dimen/m_margin">
+                    <View
+                        android:id="@+id/div3"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/div_margin"
+                        android:layout_weight="1"
+                        android:background="@color/colorDiv"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
     <LinearLayout
@@ -132,13 +231,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
             android:text="@string/m_plan_btn_str"/>
 
         <View
-            android:layout_width="2dp"
+            android:layout_width="@dimen/div_margin"
             android:layout_height="match_parent"
             android:background="@color/colorDiv"/>
 
@@ -148,13 +246,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
             android:text="@string/m_store_btn_str"/>
 
         <View
-            android:layout_width="2dp"
+            android:layout_width="@dimen/div_margin"
             android:layout_height="match_parent"
             android:background="@color/colorDiv"/>
 
@@ -164,7 +261,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
             android:text="@string/m_summary_btn_str"

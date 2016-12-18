@@ -8,22 +8,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SetupActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PlansActivity"
-            android:theme="@style/Appbar">
-        </activity>
+
         <activity android:name=".AddActivity" />
         <activity android:name=".StatisticsActivity" />
         <activity android:name=".StoreActivity" />
-        <activity android:name=".StatisticsActivity" />
-        <activity android:name=".HandleSearchActivity"
+        <activity android:name=".HandleSearchActivity"/>
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".PlansActivity"
+            android:theme="@style/Appbar"
             android:launchMode="singleTop">
         </activity>
     </application>
