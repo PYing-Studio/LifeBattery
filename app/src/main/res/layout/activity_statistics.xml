@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteLilac">
     <!--对用户的统计信息-->
 
     <RelativeLayout
@@ -14,14 +15,14 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="@dimen/m_margin"
         android:layout_marginEnd="@dimen/m_margin"
-        android:background="@color/colorPrimaryDark">
+        android:background="@drawable/round_rect_primary_dark">
 
         <ImageView
             android:id="@+id/statistic_avatar"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="15dp"
             android:layout_centerVertical="true"
             android:src="@drawable/me"
             android:background="@drawable/avatar_icon"/>
@@ -71,29 +72,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!--打卡日历，需要进一步思考实现方式-->
-        <CalendarView
+
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="2dp"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/round_rect">
-        </CalendarView>
+            android:layout_marginTop="5dp"
+            android:background="@color/colorDiv"/>
 
+        <Button
+            android:id="@+id/statistic_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_normal"
+            android:paddingTop="@dimen/s_padding_top_and_bottom"
+            android:paddingBottom="@dimen/s_padding_top_and_bottom"
+            android:layout_marginStart="@dimen/m_margin"
+            android:layout_marginEnd="@dimen/m_margin"
+            android:background="@drawable/round_rect"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="打卡记录"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/m_margin"
+            android:layout_marginEnd="@dimen/m_margin"
+            android:background="@color/colorDiv"/>
 
         <Button
             android:id="@+id/statistic_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_normal"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="@dimen/s_padding_top_and_bottom"
+            android:paddingBottom="@dimen/s_padding_top_and_bottom"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorWhite"
-            android:textColor="@color/colorDarkBackground"
+            android:background="@drawable/round_rect"
+            android:textColor="@color/colorPrimaryDark"
             android:text="关于"/>
 
         <View
@@ -109,12 +128,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_normal"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="@dimen/s_padding_top_and_bottom"
+            android:paddingBottom="@dimen/s_padding_top_and_bottom"
             android:layout_marginStart="@dimen/m_margin"
             android:layout_marginEnd="@dimen/m_margin"
-            android:background="@color/colorWhite"
-            android:textColor="@color/colorDarkBackground"
+            android:background="@drawable/round_rect"
+            android:textColor="@color/colorAccent"
             android:text="注销"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/m_margin"
+            android:layout_marginEnd="@dimen/m_margin"
+            android:background="@color/colorDiv"/>
     </LinearLayout>
 </LinearLayout>

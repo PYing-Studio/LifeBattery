@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -19,5 +20,8 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView uv = (TextView) findViewById(R.id.statistic_user_name);
         uv.setText(userName);
         //  TODO: set use time
+
+        //  TODO: set Calendar
+//        CalendarView cv = (CalendarView) findViewById(R.id.statistic_cal);
     }
 }

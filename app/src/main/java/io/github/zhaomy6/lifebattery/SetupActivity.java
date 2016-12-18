@@ -30,7 +30,7 @@ public class SetupActivity extends Activity {
         anim.start();
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
-        final boolean hasLoginBefore = sp.getBoolean("hasLoginBefore", true);
+        final boolean hasLoginBefore = sp.getBoolean("hasLoginBefore", false);
 //        final boolean hasLoginBefore = false;
 
         new Handler().postDelayed(new Runnable() {

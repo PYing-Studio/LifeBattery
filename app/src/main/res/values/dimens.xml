@@ -16,4 +16,5 @@
 
     <dimen name="p_list_margin">10dp</dimen>
 
+    <dimen name="s_padding_top_and_bottom">10dp</dimen>
 </resources>

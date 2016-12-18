@@ -7,9 +7,65 @@
     android:layout_height="match_parent"
     tools:context="io.github.zhaomy6.lifebattery.MainActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/main_bottom_bar"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/m_plan_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/font_normal"
+            android:text="@string/m_plan_btn_str"/>
+
+        <View
+            android:layout_width="@dimen/div_margin"
+            android:layout_height="match_parent"
+            android:background="@color/colorDiv"/>
+
+        <Button
+            android:id="@+id/m_store_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/font_normal"
+            android:text="@string/m_store_btn_str"/>
+
+        <View
+            android:layout_width="@dimen/div_margin"
+            android:layout_height="match_parent"
+            android:background="@color/colorDiv"/>
+
+        <Button
+            android:id="@+id/m_summary_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/font_normal"
+            android:text="@string/m_summary_btn_str"
+            android:elevation="3dp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/m_sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/main_bottom_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -213,57 +269,4 @@
             </TableLayout>
         </LinearLayout>
     </ScrollView>
-
-
-    <LinearLayout
-        android:id="@+id/main_bottom_bar"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/m_plan_button"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_normal"
-            android:text="@string/m_plan_btn_str"/>
-
-        <View
-            android:layout_width="@dimen/div_margin"
-            android:layout_height="match_parent"
-            android:background="@color/colorDiv"/>
-
-        <Button
-            android:id="@+id/m_store_button"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_normal"
-            android:text="@string/m_store_btn_str"/>
-
-        <View
-            android:layout_width="@dimen/div_margin"
-            android:layout_height="match_parent"
-            android:background="@color/colorDiv"/>
-
-        <Button
-            android:id="@+id/m_summary_button"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_normal"
-            android:text="@string/m_summary_btn_str"
-            android:elevation="3dp"/>
-    </LinearLayout>
 </RelativeLayout>
