@@ -7,6 +7,12 @@
     <string name="m_summary_btn_str">统计</string>
 
     <string name="store_add_btn">添加</string>
+    <string-array name="spinner">
+        <item>紧急且重要</item>
+        <item>紧急但不重要</item>
+        <item>重要但不紧急</item>
+        <item>不重且不紧急</item>
+    </string-array>
 
     <string name="store_description">点击电池以查看具体规划</string>
 </resources>

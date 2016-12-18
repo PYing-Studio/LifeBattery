@@ -1,11 +1,14 @@
 package io.github.zhaomy6.lifebattery;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,13 +19,10 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-
-import java.util.List;
+import android.widget.Toast;
 
 public class PlansActivity extends AppCompatActivity {
     private ListView listView;
-    private PlanAdapter planAdapter;
-    private List<Plan> planList;
     private MyDB myDB;
     private SimpleCursorAdapter sca;
 
@@ -33,8 +33,23 @@ public class PlansActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(PlansActivity.this, AddActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             }
+//            else if (menuItem.getItemId() == R.id.shareAction) {
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("text/plain");
+//                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
+//                intent.putExtra(Intent.EXTRA_TEXT, "okokok");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(Intent.createChooser(intent, getTitle()));
+//                return true;
+//            }
+
+//            } else if (menuItem.getItemId() == R.id.searchAction) {
+////                Cursor cursor = searchWithKeywords("")
+//                return true;
+//            }
             return false;
         }
     };
@@ -42,6 +57,28 @@ public class PlansActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.searchAction).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent();
+                intent.setClass(PlansActivity.this, HandleSearchActivity.class);
+                intent.putExtra("query", query);
+                startActivityForResult(intent, 1);
+//                Toast.makeText(PlansActivity.this, query, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -79,7 +116,6 @@ public class PlansActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.planList);
         listView.setAdapter(sca);
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,7 +126,6 @@ public class PlansActivity extends AppCompatActivity {
 
                 TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
-                TextView d_planTag = (TextView)views.findViewById(R.id.d_planTag);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
@@ -102,10 +137,9 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
 
-                final String progressText = cursor1.getString(cursor1.getColumnIndex("progress"));
-                d_planTag.setText(progressText);
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
+                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
 
                 builder.setTitle(titleText);
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

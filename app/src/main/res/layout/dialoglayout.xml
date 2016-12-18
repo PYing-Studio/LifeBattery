@@ -23,18 +23,18 @@
         android:textSize="@dimen/font_normal"
         android:textColor="@color/colorDarkBackground"
         android:text="ddl"/>
-    <TextView
-        android:id="@+id/d_planTag"
-        android:layout_below="@+id/d_planDDL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:textSize="@dimen/font_normal"
-        android:textColor="@color/colorDarkBackground"/>
+    <!--<TextView-->
+        <!--android:id="@+id/d_planTag"-->
+        <!--android:layout_below="@+id/d_planDDL"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:textSize="@dimen/font_normal"-->
+        <!--android:textColor="@color/colorDarkBackground"/>-->
     <TextView
         android:id="@+id/d_planDetail"
-        android:layout_below="@+id/d_planTag"
+        android:layout_below="@+id/d_planDDL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

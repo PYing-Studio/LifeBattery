@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,39 +12,58 @@
 
     <EditText
         android:id="@+id/titleEdit"
+        android:layout_centerHorizontal="true"
         style="?android:attr/editTextStyle"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/font_normal"
         android:hint="请输入任务名"/>
     <LinearLayout
+        android:layout_below="@+id/titleEdit"
+        android:id="@+id/DDLContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:gravity="top">
-        <TextView
-           android:id="@+id/a_planDDL"
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent"
-           android:gravity="top"
-           android:textSize="@dimen/font_normal"
-           android:text="截止日期："/>
-
-        <!--TODO: 修改为日期选取控件-->
-        <EditText
-           android:id="@+id/DDLEdit"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:gravity="top"
-           android:textSize="@dimen/font_normal"/>
+        <Button
+            android:id="@+id/a_planDDL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:textSize="@dimen/font_normal"
+            android:text="点击设置截止日期"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:visibility="gone"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                ></DatePicker>
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:timePickerMode="spinner"
+                android:layout_height="wrap_content"
+                ></TimePicker>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/typeContainer"
+        android:layout_below="@+id/DDLContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/a_planProgress"
             android:layout_width="wrap_content"
@@ -53,32 +71,49 @@
             android:gravity="top"
             android:textSize="@dimen/font_normal"
             android:text="任务类别:"/>
-        <!--TODO: 此处应修改为下拉框-->
-        <EditText
-            android:id="@+id/progressEdit"
+        <Spinner
+            android:id="@+id/spinner"
+            android:entries="@array/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top"
-            android:textSize="@dimen/font_normal"/>
+            android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/progressContainer"-->
+        <!--android:layout_below="@+id/typeContainer"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:text="当前进度"-->
+            <!--android:textSize="@dimen/font_normal"-->
+            <!--android:gravity="bottom"-->
+            <!--android:layout_height="match_parent" />-->
+        <!--<EditText-->
+            <!--android:id="@+id/progressEdit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="bottom"-->
+            <!--android:textSize="@dimen/font_normal"/>-->
+    <!--</LinearLayout>-->
 
     <EditText
+        android:layout_below="@+id/typeContainer"
         android:id="@+id/detailEdit"
         android:hint="任务描述:"
         android:inputType="textMultiLine|text"
         android:layout_width="match_parent"
         android:gravity="top"
-        android:layout_height="0dp"
-        android:layout_weight="3"/>
-
+        android:minLines="3"
+        android:layout_height="wrap_content"
+        />
     <LinearLayout
+        android:layout_below="@+id/detailEdit"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
-
         <Button
             android:id="@+id/addButton"
             style="?android:attr/buttonBarButtonStyle"
@@ -87,7 +122,6 @@
             android:layout_gravity="center"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:text="增加"/>
-
         <Button
             android:id="@+id/cancelButton"
             style="?android:attr/buttonBarButtonStyle"
@@ -96,4 +130,4 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:text="取消"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

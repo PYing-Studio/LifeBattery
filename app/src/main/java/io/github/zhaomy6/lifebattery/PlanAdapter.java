@@ -60,23 +60,23 @@ public class PlanAdapter extends BaseAdapter {
     public class ViewHolder {
         TextView Title;
         TextView DDL;
-//        TextView Progress;
-//        TextView Detail;
     }
 }
 
 class Plan {
     private String title;
     private String DDL;
-    private String currentProgress;
+    private String planType;
     private String planDetail;
+    private String finished;
     private String color;
 
-    public Plan(String title, String DDL, String currentProgress, String planDetail) {
+    public Plan(String title, String DDL, String planType, String planDetail, String finished) {
         this.title = title;
         this.DDL = DDL;
-        this.currentProgress = currentProgress;
         this.planDetail = planDetail;
+        this.planType = planType;
+        this.finished = finished;
     }
 
     public String getTitle() {
@@ -87,27 +87,36 @@ class Plan {
         return DDL;
     }
 
-    public String getCurrentProgress() {
-        return currentProgress;
-    }
 
     public String getPlanDetail() {
         return planDetail;
+    }
+
+    public String getFinished() {
+        return finished;
     }
 
 //    public String getColor() {
 //        return color;
 //    }
 
+    public String getPlanType() {
+        return planType;
+    }
+
     public void setDDL(String DDL) {
         this.DDL = DDL;
     }
 
-    public void setCurrentProgress(String currentProgress) {
-        this.currentProgress = currentProgress;
-    }
-
     public void setPlanDetail(String planDetail) {
         this.planDetail = planDetail;
+    }
+
+    public void setPlanType(String planType) {
+        this.planType = planType;
+    }
+
+    public void setFinished(String finished) {
+        this.finished = finished;
     }
 }

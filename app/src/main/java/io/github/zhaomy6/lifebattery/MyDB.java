@@ -14,8 +14,8 @@ import static android.content.ContentValues.TAG;
  */
 
 public class MyDB extends SQLiteOpenHelper {
-    private static final String DB_Name = "PlanStores";
-    private static final String Table_Name = "Plans2";
+    private static final String DB_Name = "PlanStores3";
+    private static final String Table_Name = "Plans4";
     private static final int DB_Version = 1;
 
     public MyDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -31,7 +31,7 @@ public class MyDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String Create_Table = "CREATE TABLE if not exists "
                 + Table_Name
-                + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, progress TEXT, detail TEXT)";
+                + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, type TEXT, detail TEXT, finished TEXT)";
         db.execSQL(Create_Table);
     }
 
@@ -39,24 +39,26 @@ public class MyDB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public void insert2DB(String title, String DDL, String progress, String detail) {
+    public void insert2DB(String title, String DDL, String type, String detail, String finished) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("title", title);
         cv.put("DDL", DDL);
-        cv.put("progress", progress);
+        cv.put("type", type);
         cv.put("detail", detail);
+        cv.put("finished", finished);
         long res = db.insert(Table_Name, null, cv);
         db.close();
     }
 
-    public void updateDB(String title, String DDL, String progress, String detail) {
+    public void updateDB(String title, String DDL, String type, String detail, String finished) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("title", title);
         cv.put("DDL", DDL);
-        cv.put("progress", progress);
+        cv.put("type", type);
         cv.put("detail", detail);
+        cv.put("finished", finished);
         String whereClause = "title=?";
         String[] whereArgs = {title};
         long res = db.update(Table_Name, cv, whereClause, whereArgs);
@@ -85,7 +87,7 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor getWithTitle(String title) {
         SQLiteDatabase db = getWritableDatabase();
-        String[] colums = {"_id", "title", "DDL", "progress", "detail"};
+        String[] colums = {"_id", "title", "DDL", "type", "detail", "finished"};
         String whereClause = "title=?";
         String[] whereArgs = {title};
         Cursor cursor = db.query(Table_Name, colums, whereClause, whereArgs, null, null, null);
@@ -104,7 +106,7 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor getAll() {
         SQLiteDatabase db = getWritableDatabase();
-        String[] tableColumns = {"_id", "title", "DDL", "progress", "detail"};
+        String[] tableColumns = {"_id", "title", "DDL", "type", "detail", "finished"};
         return db.query(Table_Name, tableColumns,
                 null, null, null, null, null);
     }
@@ -114,5 +116,15 @@ public class MyDB extends SQLiteOpenHelper {
         String[] tableColumns = {"_id", "title", "DDL"};
         return db.query(Table_Name, tableColumns,
                 null, null, null, null, null);
+    }
+
+    public Cursor queryWithKeyword(String keyword) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query_sql = "SELECT * FROM " + Table_Name + " WHERE title LIKE '%" + keyword
+                + "%' OR DDL LIKE '%" + keyword + "%' OR type LIKE '%" + keyword + "%' OR detail LIKE '%"
+                + keyword + "%' OR finished LIKE '%" + keyword + "%'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
     }
 }

@@ -15,6 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".AddActivity" />
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".StoreActivity" />
+        <activity android:name=".HandleSearchActivity"/>
         <activity android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".MainActivity"/>
@@ -22,9 +27,6 @@
             android:theme="@style/Appbar"
             android:launchMode="singleTop">
         </activity>
-        <activity android:name=".AddActivity"/>
-        <activity android:name=".StatisticsActivity"/>
-        <activity android:name=".StoreActivity"/>
     </application>
 
 </manifest>
