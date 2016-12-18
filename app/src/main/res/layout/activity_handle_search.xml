@@ -10,12 +10,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.github.zhaomy6.lifebattery.HandleSearchActivity">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="已完成"
+            android:id="@+id/g_count"
+            android:text="已完成: 10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ListView

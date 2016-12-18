@@ -15,7 +15,6 @@ import android.widget.Toast;
 public class AddActivity extends AppCompatActivity {
     private EditText title;
     private  Button DDL;
-    private EditText progress;
     private EditText detail;
     private Button button;
     private  MyDB myDB = new MyDB(this);
@@ -36,14 +35,12 @@ public class AddActivity extends AppCompatActivity {
         timePicker.setIs24HourView(true);
         title = (EditText) findViewById(R.id.titleEdit);
         DDL = (Button) findViewById(R.id.a_planDDL);
-        progress = (EditText) findViewById(R.id.progressEdit);
         detail = (EditText) findViewById(R.id.detailEdit);
         button = (Button) findViewById(R.id.addButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String titleText = title.getText().toString();
-                String progressText = progress.getText().toString();
                 String detailText = detail.getText().toString();
 
                 if (titleText.equals("")) {
@@ -52,7 +49,7 @@ public class AddActivity extends AppCompatActivity {
                     if (myDB.isExists(titleText)) {
                         Toast.makeText(AddActivity.this, "此任务已经存在", Toast.LENGTH_SHORT).show();
                     } else {
-                        myDB.insert2DB(titleText, DDLText, typeText, progressText, detailText);
+                        myDB.insert2DB(titleText, DDLText, typeText, detailText, "未完成");
                         Intent intent = new Intent();
                         intent.setClass(AddActivity.this, PlansActivity.class);
                         startActivity(intent);

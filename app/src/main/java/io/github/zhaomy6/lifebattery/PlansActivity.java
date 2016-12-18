@@ -36,6 +36,15 @@ public class PlansActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
+//            else if (menuItem.getItemId() == R.id.shareAction) {
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("text/plain");
+//                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
+//                intent.putExtra(Intent.EXTRA_TEXT, "okokok");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(Intent.createChooser(intent, getTitle()));
+//                return true;
+//            }
 
 //            } else if (menuItem.getItemId() == R.id.searchAction) {
 ////                Cursor cursor = searchWithKeywords("")
@@ -61,7 +70,7 @@ public class PlansActivity extends AppCompatActivity {
                 intent.setClass(PlansActivity.this, HandleSearchActivity.class);
                 intent.putExtra("query", query);
                 startActivityForResult(intent, 1);
-                Toast.makeText(PlansActivity.this, query, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PlansActivity.this, query, Toast.LENGTH_SHORT).show();
                 return true;
             }
 
@@ -117,7 +126,6 @@ public class PlansActivity extends AppCompatActivity {
 
                 TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
-                TextView d_planTag = (TextView)views.findViewById(R.id.d_planTag);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
@@ -129,8 +137,6 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
 
-                final String progressText = cursor1.getString(cursor1.getColumnIndex("progress"));
-                d_planTag.setText(progressText);
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
                 Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();

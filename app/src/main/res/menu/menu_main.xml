@@ -15,4 +15,8 @@
         android:title="添加"
         android:icon="@drawable/add_btn"
         app:showAsAction="ifRoom" />
+    <!--<item android:id="@+id/shareAction"-->
+        <!--android:title="分享"-->
+        <!--android:icon="@drawable/arrow_small"-->
+        <!--android:showAsAction="ifRoom"/>-->
 </menu>
