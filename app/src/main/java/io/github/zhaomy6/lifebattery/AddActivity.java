@@ -59,6 +59,14 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        //  处理取消按钮逻辑，点击直接返回上一页面
+        findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         DDL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,9 +99,7 @@ public class AddActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 

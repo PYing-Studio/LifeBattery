@@ -8,13 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="io.github.zhaomy6.lifebattery.AddActivity">
+    tools:context="io.github.zhaomy6.lifebattery.AddActivity"
+    android:background="@color/colorWhiteLilac">
 
     <EditText
         android:id="@+id/titleEdit"
-        android:layout_centerHorizontal="true"
         style="?android:attr/editTextStyle"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_normal"
@@ -23,16 +23,20 @@
         android:layout_below="@+id/titleEdit"
         android:id="@+id/DDLContainer"
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
         android:gravity="top">
         <Button
             android:id="@+id/a_planDDL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:gravity="top"
             android:textSize="@dimen/font_normal"
-            android:text="点击设置截止日期"/>
+            android:text="截止日期"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -45,8 +49,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                ></DatePicker>
+                android:layout_gravity="center_horizontal"/>
+
             <TimePicker
                 android:id="@+id/timePicker"
                 android:layout_gravity="center_horizontal"
@@ -54,8 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:timePickerMode="spinner"
-                android:layout_height="wrap_content"
-                ></TimePicker>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -67,15 +70,17 @@
         <TextView
             android:id="@+id/a_planProgress"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:gravity="top"
             android:textSize="@dimen/font_normal"
             android:text="任务类别:"/>
         <Spinner
             android:id="@+id/spinner"
             android:entries="@array/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
     <!--<LinearLayout-->
         <!--android:id="@+id/progressContainer"-->
@@ -103,10 +108,9 @@
         android:hint="任务描述:"
         android:inputType="textMultiLine|text"
         android:layout_width="match_parent"
-        android:gravity="top"
-        android:minLines="3"
         android:layout_height="wrap_content"
-        />
+        android:gravity="top"
+        android:minLines="3" />
     <LinearLayout
         android:layout_below="@+id/detailEdit"
         style="?android:attr/buttonBarStyle"

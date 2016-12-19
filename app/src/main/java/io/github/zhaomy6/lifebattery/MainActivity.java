@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
     private TextView title, DDL, progress;
-    private Button planBotton, storeBotton, summaryButton;
+    private Button planButton, storeButton, summaryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
