@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:elevation="3dp"
-    android:weightSum="5">
+    android:elevation="3dp">
     <!--自动生成规划页面，按时间放置待办事件-->
 
     <ImageView
@@ -17,9 +16,9 @@
         android:id="@+id/planDDL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_gravity="center_vertical"
-        android:textSize="@dimen/font_normal"
+        android:textSize="@dimen/font_little"
         android:textColor="@color/colorDarkBackground"
         android:text="12-12"/>
     <TextView
@@ -27,13 +26,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:textSize="@dimen/font_normal"
         android:textColor="@color/colorDarkBackground"
         android:text="Android Project"/>
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:src="@drawable/arrow_small_alpha"/>

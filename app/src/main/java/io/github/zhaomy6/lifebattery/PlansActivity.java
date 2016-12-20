@@ -33,7 +33,6 @@ public class PlansActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(PlansActivity.this, AddActivity.class);
                 startActivity(intent);
-                finish();
                 return true;
             }
 //            else if (menuItem.getItemId() == R.id.shareAction) {
@@ -124,14 +123,13 @@ public class PlansActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
                 builder.setView(views);
 
-                TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
+                TextView d_planType = (TextView)views.findViewById(R.id.d_planType);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                d_planTitle.setText(titleText);
-                final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
+                final String DDLText = "截止日期：" + cursor.getString(cursor.getColumnIndex("DDL"));
                 d_planDDL.setText(DDLText);
 
                 Cursor cursor1 = myDB.getWithTitle(titleText);
@@ -139,8 +137,11 @@ public class PlansActivity extends AppCompatActivity {
 
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
+                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+                d_planType.setText(typeText);
 
+                //  对话框属性
                 builder.setTitle(titleText);
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -156,8 +157,6 @@ public class PlansActivity extends AppCompatActivity {
                     }
                 });
 
-                d_planTitle.setText(titleText);
-                d_planDDL.setText(DDLText);
                 builder.create().show();
             }
 
