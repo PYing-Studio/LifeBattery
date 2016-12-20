@@ -17,12 +17,12 @@
   - [12.18基本完成] PlansActivity添加表项中日期选择器与下拉框
   - [12.20 已完成] 主页面点击生命电池查看无DDL的计划（静态）
   - [12.20 已完成] PlanActivity Dialog 布局调整
+  - [12.21 已完成] AddActivity 布局调整
 - 待完成：
   - [进行中] UI优化
   - [进行中] StoreActivity页面具体制作与设计（需要进行数据库操作）
   - [进行中] StatisticActivity中打卡功能制作
   - 主页面点击生命电池查看无DDL的计划与**数据库连接**
-  - AddActivity 布局调整
   - 分享功能
   - Widget设计与整合
   - Service对用户的后台提示功能实现

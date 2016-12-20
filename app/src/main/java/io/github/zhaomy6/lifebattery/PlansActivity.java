@@ -102,7 +102,7 @@ public class PlansActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
+        final Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
         toolbar.setTitle("LifeBattery");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
@@ -129,8 +129,10 @@ public class PlansActivity extends AppCompatActivity {
 
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                final String DDLText = "截止日期：" + cursor.getString(cursor.getColumnIndex("DDL"));
-                d_planDDL.setText(DDLText);
+                final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
+                String[] frag = DDLText.split("\n");
+                String timeTextToShow = "截止日期：\n" + frag[0] + frag[1];
+                d_planDDL.setText(timeTextToShow);
 
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
