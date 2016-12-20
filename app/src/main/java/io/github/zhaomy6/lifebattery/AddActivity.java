@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText title;
     private  Button DDL;
     private EditText detail;
@@ -23,84 +23,94 @@ public class AddActivity extends AppCompatActivity {
     private Spinner spinner;
     private String DDLText = "";
     private String typeText = "紧急且重要";
+
+    //  简化设计，type分为两种：有DDL和无DDL
+    //  SwitchCompat on 为有DDL；否则为无DDL
+    //  字符串存储type == "true"即为有DDL；type == "false"即为无DDL
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        setTitle("添加计划");
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        timePicker.setIs24HourView(true);
-        title = (EditText) findViewById(R.id.titleEdit);
-        DDL = (Button) findViewById(R.id.a_planDDL);
-        detail = (EditText) findViewById(R.id.detailEdit);
-        button = (Button) findViewById(R.id.addButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String titleText = title.getText().toString();
-                String detailText = detail.getText().toString();
-
-                if (titleText.equals("")) {
-                    Toast.makeText(AddActivity.this, "任务名为空,请完善", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (myDB.isExists(titleText)) {
-                        Toast.makeText(AddActivity.this, "此任务已经存在", Toast.LENGTH_SHORT).show();
-                    } else {
-                        myDB.insert2DB(titleText, DDLText, typeText, detailText, "未完成");
-                        Intent intent = new Intent();
-                        intent.setClass(AddActivity.this, PlansActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            }
-        });
-
-        //  处理取消按钮逻辑，点击直接返回上一页面
-        findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        DDL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = DDL.getText().toString();
-                if (text.equals("点击设置截止日期")) {
-                    datePicker.setVisibility(View.VISIBLE);
-                    timePicker.setVisibility(View.VISIBLE);
-                    DDL.setText("设置完成");
-                } else if (text.equals("设置完成")) {
-                    int y = datePicker.getYear();
-                    int mon = datePicker.getMonth();
-                    int d = datePicker.getDayOfMonth();
-                    int h = timePicker.getCurrentHour();
-                    int min = timePicker.getCurrentMinute();
-
-                    DDLText = "" + y + mon + d + h + min;
-                    datePicker.setVisibility(View.GONE);
-                    timePicker.setVisibility(View.GONE);
-                    DDL.setText("点击设置截止日期");
-                }
-            }
-        });
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-                String[] types = getResources().getStringArray(R.array.spinner);
-                typeText = types[pos];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+//        setTitle("添加计划");
+//        datePicker = (DatePicker) findViewById(R.id.datePicker);
+//        timePicker = (TimePicker) findViewById(R.id.timePicker);
+//        spinner = (Spinner) findViewById(R.id.spinner);
+//        timePicker.setIs24HourView(true);
+//        title = (EditText) findViewById(R.id.titleEdit);
+//        DDL = (Button) findViewById(R.id.a_planDDL);
+//        detail = (EditText) findViewById(R.id.detailEdit);
+//        button = (Button) findViewById(R.id.addButton);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String titleText = title.getText().toString();
+//                String detailText = detail.getText().toString();
+//
+//                if (titleText.equals("")) {
+//                    Toast.makeText(AddActivity.this, "任务名为空,请完善", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    if (myDB.isExists(titleText)) {
+//                        Toast.makeText(AddActivity.this, "此任务已经存在", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        myDB.insert2DB(titleText, DDLText, typeText, detailText, "未完成");
+//                        Intent intent = new Intent();
+//                        intent.setClass(AddActivity.this, PlansActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+//            }
+//        });
+//
+//        //  处理取消按钮逻辑，点击直接返回上一页面
+        findViewById(R.id.cancelButton).setOnClickListener(this);
+//
+//        DDL.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String text = DDL.getText().toString();
+//                if (text.equals("点击设置截止日期")) {
+//                    datePicker.setVisibility(View.VISIBLE);
+//                    timePicker.setVisibility(View.VISIBLE);
+//                    DDL.setText("设置完成");
+//                } else if (text.equals("设置完成")) {
+//                    int y = datePicker.getYear();
+//                    int mon = datePicker.getMonth();
+//                    int d = datePicker.getDayOfMonth();
+//                    int h = timePicker.getCurrentHour();
+//                    int min = timePicker.getCurrentMinute();
+//
+//                    DDLText = "" + y + mon + d + h + min;
+//                    datePicker.setVisibility(View.GONE);
+//                    timePicker.setVisibility(View.GONE);
+//                    DDL.setText("点击设置截止日期");
+//                }
+//            }
+//        });
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int pos, long id) {
+//                String[] types = getResources().getStringArray(R.array.spinner);
+//                typeText = types[pos];
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {}
+//        });
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.cancelButton:
+                finish();
+                break;
+            default:
+                Toast.makeText(this, "未处理的OnClick事件", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
