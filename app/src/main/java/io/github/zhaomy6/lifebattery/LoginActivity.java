@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -50,7 +48,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     return;
                 }
 
-                SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences("LieBatteryPre", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("hasLoginBefore", true);
                 editor.putString("username", username);
