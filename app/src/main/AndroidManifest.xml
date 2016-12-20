@@ -28,6 +28,7 @@
             android:theme="@style/Appbar"
             android:launchMode="singleTop">
         </activity>
+        <activity android:name=".CalendarActivity" android:theme="@style/FullScreen"/>
     </application>
 
 </manifest>

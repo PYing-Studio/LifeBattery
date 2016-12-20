@@ -18,8 +18,8 @@
 - 待完成：
   - [进行中] UI优化
   - [进行中] 主页面点击生命电池查看无DDL的计划
-  - [进行中] StoreActivity页面具体制作与设计
-  - StatisticActivity中打卡功能制作
+  - [进行中] StoreActivity页面具体制作与设计（需要进行数据库操作）
+  - [进行中] StatisticActivity中打卡功能制作
   - 分享功能
   - Widget设计与整合
   - Service对用户的提示功能实现
