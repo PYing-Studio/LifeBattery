@@ -36,20 +36,6 @@ public class PlansActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-//            else if (menuItem.getItemId() == R.id.shareAction) {
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.setType("text/plain");
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
-//                intent.putExtra(Intent.EXTRA_TEXT, "okokok");
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(Intent.createChooser(intent, getTitle()));
-//                return true;
-//            }
-
-//            } else if (menuItem.getItemId() == R.id.searchAction) {
-////                Cursor cursor = searchWithKeywords("")
-//                return true;
-//            }
             return false;
         }
     };
@@ -139,13 +125,20 @@ public class PlansActivity extends AppCompatActivity {
 
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
+                final String type = cursor1.getString(cursor1.getColumnIndex("type"));
+                Toast.makeText(PlansActivity.this, type, Toast.LENGTH_SHORT).show();
 
                 builder.setTitle(titleText);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("修改任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //  do nothing
+                        Intent intent = new Intent();
+                        intent.setClass(PlansActivity.this, AddActivity.class);
+                        intent.putExtra("title", titleText);
+                        intent.putExtra("DDL", DDLText);
+                        intent.putExtra("detail", detailText);
+                        intent.putExtra("type", type);
+                        startActivityForResult(intent, 1);
                     }
                 });
                 builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {

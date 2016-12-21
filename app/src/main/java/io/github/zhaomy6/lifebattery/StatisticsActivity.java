@@ -20,5 +20,8 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView uv = (TextView) findViewById(R.id.statistic_user_name);
         uv.setText(userName);
         //  TODO: set use time
+
+        //  TODO: set Calendar
+//        CalendarView cv = (CalendarView) findViewById(R.id.statistic_cal);
     }
 }

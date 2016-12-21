@@ -63,6 +63,8 @@ public class PlanAdapter extends BaseAdapter {
     }
 }
 
+/**
+ */
 class Plan {
     private String title;
     private String DDL;

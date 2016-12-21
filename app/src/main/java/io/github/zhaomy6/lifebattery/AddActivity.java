@@ -12,6 +12,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+/**
+ * 新建任务
+ */
+
 public class AddActivity extends AppCompatActivity {
     private EditText title;
     private  Button DDL;
@@ -23,6 +27,7 @@ public class AddActivity extends AppCompatActivity {
     private Spinner spinner;
     private String DDLText = "";
     private String typeText = "紧急且重要";
+    private boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,22 @@ public class AddActivity extends AppCompatActivity {
         DDL = (Button) findViewById(R.id.a_planDDL);
         detail = (EditText) findViewById(R.id.detailEdit);
         button = (Button) findViewById(R.id.addButton);
+
+//        Intent intent = getIntent();
+//        Bundle extras = intent.getExtras();
+//        if (extras != null) {
+//            // 在数据库中搜索输入的关键词
+//            String titleText = extras.getString("title");
+//            String DDLText = extras.getString("DDL");
+//            String typeText = extras.getString("type");
+//            String detailText = extras.getString("detail");
+//            flag = true;
+//            title.setText(titleText);
+//            title.setEnabled(false);
+//            detail.setText(detailText);
+//        }
+
+        // 点击添加任务, 不可重复添加
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +80,20 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        //  处理取消按钮逻辑，点击直接返回上一页面
+        findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        // 设置截止时间, 动态显示日期选择器
         DDL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = DDL.getText().toString();
-                if (text.equals("点击设置截止日期")) {
+                if (text.equals("截止日期")) {
                     datePicker.setVisibility(View.VISIBLE);
                     timePicker.setVisibility(View.VISIBLE);
                     DDL.setText("设置完成");
@@ -77,11 +107,12 @@ public class AddActivity extends AppCompatActivity {
                     DDLText = "" + y + mon + d + h + min;
                     datePicker.setVisibility(View.GONE);
                     timePicker.setVisibility(View.GONE);
-                    DDL.setText("点击设置截止日期");
+                    DDL.setText("截止日期");
                 }
             }
         });
 
+        // 任务类型下拉框
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -91,9 +122,7 @@ public class AddActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 

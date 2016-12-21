@@ -3,7 +3,6 @@ package io.github.zhaomy6.lifebattery;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
     private TextView title, DDL, progress;
-    private Button planBotton, storeBotton, summaryButton;
+    private Button planButton, storeButton, summaryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity
 //        progress.setText(progressContent);
     }
 
+    // 界面底部导航逻辑跳转
     @Override
     public void onClick(View view) {
         Intent intent = null;

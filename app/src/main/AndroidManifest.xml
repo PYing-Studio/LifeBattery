@@ -18,7 +18,8 @@
 
         <activity android:name=".AddActivity" />
         <activity android:name=".StatisticsActivity" />
-        <activity android:name=".StoreActivity" />
+        <activity android:name=".StoreActivity"
+            android:theme="@style/Appbar"/>
         <activity android:name=".HandleSearchActivity"/>
         <activity android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize"/>

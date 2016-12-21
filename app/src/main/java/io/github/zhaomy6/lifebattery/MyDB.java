@@ -111,6 +111,7 @@ public class MyDB extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
+    // 获取表中部分列
     public Cursor getPart() {
         SQLiteDatabase db = getWritableDatabase();
         String[] tableColumns = {"_id", "title", "DDL"};
@@ -118,6 +119,7 @@ public class MyDB extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
+    // 根据关键词对任务的每一列进行匹配
     public Cursor queryWithKeyword(String keyword) {
         SQLiteDatabase db = getWritableDatabase();
 

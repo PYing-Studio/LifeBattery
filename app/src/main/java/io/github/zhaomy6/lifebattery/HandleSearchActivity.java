@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+/**
+ * 对搜索关键词进行模糊匹配, 相应用户搜索
+ */
+
 public class HandleSearchActivity extends AppCompatActivity {
     private ListView listView;
     private MyDB myDB;
@@ -27,6 +31,7 @@ public class HandleSearchActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+    // 仅有一个Activity实例存在
     @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
@@ -36,18 +41,24 @@ public class HandleSearchActivity extends AppCompatActivity {
         myDB = new MyDB(this);
         listView = (ListView) findViewById(R.id.groundList);
         g_count = (TextView)findViewById(R.id.g_count);
+
+        // 通过Bundle传递数据
         Bundle extras = intent.getExtras();
         if (extras != null) {
+            // 在数据库中搜索输入的关键词
             String query = extras.getString("query");
             Cursor listItems = myDB.queryWithKeyword(query);
             sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
                     listItems, new String[] {"title", "DDL"},
                     new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
             listView.setAdapter(sca);
+
+            //显示搜索结果数量
             int count = listView.getCount();
             g_count.setText("已完成: " + count);
         }
 
+        // 点击查看搜索结果详情
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
