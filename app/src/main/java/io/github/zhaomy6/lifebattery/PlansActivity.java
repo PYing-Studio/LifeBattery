@@ -19,7 +19,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PlansActivity extends AppCompatActivity {
     private ListView listView;
@@ -116,8 +115,14 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
                 final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
-                String[] frag = DDLText.split("\n");
-                String timeTextToShow = "截止日期：\n" + frag[0] + frag[1];
+                String timeTextToShow = "";
+                if (DDLText.equals("\n")) {
+                    timeTextToShow = "长期计划";
+                } else {
+                    String[] frag = DDLText.split("\n");
+                    timeTextToShow = "截止日期：\n" + frag[0] + frag[1];
+                }
+
                 d_planDDL.setText(timeTextToShow);
 
                 Cursor cursor1 = myDB.getWithTitle(titleText);
@@ -125,9 +130,6 @@ public class PlansActivity extends AppCompatActivity {
 
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-                final String type = cursor1.getString(cursor1.getColumnIndex("type"));
-                Toast.makeText(PlansActivity.this, type, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
                 String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
                 d_planType.setText(typeText);
 

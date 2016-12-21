@@ -66,26 +66,6 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.m_summary_button).setOnClickListener(this);
 
         findViewById(R.id.main_battery_info).setOnClickListener(this);
-//        storeBotton= (Button) findViewById(R.id.m_store_button);
-//        summaryButton = (Button) findViewById(R.id.m_summary_button);
-//        myDB = new MyDB(this);
-//        title = (TextView)findViewById(R.id.m_plan_title);
-//        DDL = (TextView)findViewById(R.id.m_plan_ddl);
-//        progress = (TextView)findViewById(R.id.m_plan_progress);
-//
-//        Cursor cursor = myDB.getAll();
-//        String titleContent = "", DDLContent= "", progressContent = "";
-//        while (cursor.moveToNext()) {
-//            String tmp = cursor.getString(cursor.getColumnIndex("DDL"));
-//            if (tmp.compareTo(DDLContent) > 0) {
-//                titleContent = cursor.getString(cursor.getColumnIndex("title"));
-//                DDLContent = tmp;
-//                progressContent = cursor.getString(cursor.getColumnIndex("progress"));
-//            }
-//        }
-//        title.setText(titleContent);
-//        DDL.setText(DDLContent);
-//        progress.setText(progressContent);
     }
 
     // 界面底部导航逻辑跳转
