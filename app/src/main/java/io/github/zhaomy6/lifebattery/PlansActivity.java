@@ -33,7 +33,6 @@ public class PlansActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(PlansActivity.this, AddActivity.class);
                 startActivity(intent);
-                finish();
                 return true;
             }
             return false;
@@ -89,7 +88,7 @@ public class PlansActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
+        final Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
         toolbar.setTitle("LifeBattery");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
@@ -110,15 +109,16 @@ public class PlansActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
                 builder.setView(views);
 
-                TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
+                TextView d_planType = (TextView)views.findViewById(R.id.d_planType);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                d_planTitle.setText(titleText);
                 final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
-                d_planDDL.setText(DDLText);
+                String[] frag = DDLText.split("\n");
+                String timeTextToShow = "截止日期：\n" + frag[0] + frag[1];
+                d_planDDL.setText(timeTextToShow);
 
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
@@ -127,18 +127,16 @@ public class PlansActivity extends AppCompatActivity {
                 d_planDetail.setText(detailText);
                 final String type = cursor1.getString(cursor1.getColumnIndex("type"));
                 Toast.makeText(PlansActivity.this, type, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
+                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+                d_planType.setText(typeText);
 
+                //  对话框属性
                 builder.setTitle(titleText);
-                builder.setNegativeButton("修改任务", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent();
-                        intent.setClass(PlansActivity.this, AddActivity.class);
-                        intent.putExtra("title", titleText);
-                        intent.putExtra("DDL", DDLText);
-                        intent.putExtra("detail", detailText);
-                        intent.putExtra("type", type);
-                        startActivityForResult(intent, 1);
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
                 builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {
@@ -149,8 +147,6 @@ public class PlansActivity extends AppCompatActivity {
                     }
                 });
 
-                d_planTitle.setText(titleText);
-                d_planDDL.setText(DDLText);
                 builder.create().show();
             }
 

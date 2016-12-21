@@ -11,6 +11,8 @@
 
     <dimen name="login_margin">40dp</dimen>
 
+    <dimen name="add_margin">25dp</dimen>
+
     <dimen name="m_margin">20dp</dimen>
     <dimen name="m_padding_top_and_bottom">16dp</dimen>
 

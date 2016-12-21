@@ -67,13 +67,12 @@ public class HandleSearchActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HandleSearchActivity.this);
                 builder.setView(views);
 
-                TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
+                TextView d_planType = (TextView)views.findViewById(R.id.d_planType);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                d_planTitle.setText(titleText);
                 final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
                 d_planDDL.setText(DDLText);
 
@@ -83,6 +82,9 @@ public class HandleSearchActivity extends AppCompatActivity {
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
 
+                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+                d_planType.setText(typeText);
+
                 builder.setTitle(titleText);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -91,7 +93,6 @@ public class HandleSearchActivity extends AppCompatActivity {
                     }
                 });
 
-                d_planTitle.setText(titleText);
                 d_planDDL.setText(DDLText);
                 builder.create().show();
             }
