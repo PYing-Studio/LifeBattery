@@ -75,6 +75,16 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateTimeout(String currentTime) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("finished", "超时");
+        String whereClause = "type = ? AND DDL < ?";
+        String[] whereArgs = {"false", currentTime};
+        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
     public void deleteDB(String title) {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = "title=?";
@@ -123,15 +133,6 @@ public class MyDB extends SQLiteOpenHelper {
 
     // 获取表中部分列
     public Cursor getPart() {
-//        SQLiteDatabase db = getWritableDatabase();
-//        String[] tableColumns = {"_id", "title", "DDL"};
-////        return db.query(Table_Name, tableColumns,
-////                null, null, null, null, null);
-//
-//        String whereClause = "type=?";
-//        String[] whereArgs = {new String("false")};
-//        return db.query(Table_Name, tableColumns, whereClause, whereArgs, null, null, null);
-//
         SQLiteDatabase db = getWritableDatabase();
         String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
         Cursor cursor = db.rawQuery(query_sql, null);

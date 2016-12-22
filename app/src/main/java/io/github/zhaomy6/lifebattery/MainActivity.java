@@ -1,10 +1,13 @@
 package io.github.zhaomy6.lifebattery;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
@@ -29,10 +34,29 @@ public class MainActivity extends AppCompatActivity
     private TextView title, DDL, progress;
     private Button planButton, storeButton, summaryButton;
 
+
+    private Timer timer;
+    private TimerTask timerTask;
+    private PlanRecorder planRecorder;
+
+    private ServiceConnection sc = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            planRecorder = ((PlanRecorder.MyBinder)service).getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            planRecorder = null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        planRecordHandleStart();
+        bindServiceConnection();
 
         //  更新剩余周以及百分比
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
@@ -152,5 +176,21 @@ public class MainActivity extends AppCompatActivity
             p.height = 1300;
             window.setAttributes(p);
         }
+    }
+
+    private void bindServiceConnection() {
+        Intent intent = new Intent(this, PlanRecorder.class);
+        bindService(intent, sc, this.BIND_AUTO_CREATE);
+    }
+
+    private void planRecordHandleStart() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                planRecorder.updatePlanDB();
+            }
+        };
+        timer.schedule(timerTask, 60 * 1000, 60 * 1000);
     }
 }

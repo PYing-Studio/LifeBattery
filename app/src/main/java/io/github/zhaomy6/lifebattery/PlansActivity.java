@@ -160,7 +160,14 @@ public class PlansActivity extends AppCompatActivity {
                         startActivityForResult(intent, 1);
                     }
                 });
-                builder.setPositiveButton("确定", null);
+
+
+
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
                 builder.create().show();
             }
@@ -187,19 +194,6 @@ public class PlansActivity extends AppCompatActivity {
                 builder.setPositiveButton("完成任务",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        Date currentTime = new Date();
-//                        String formatString = "yyyy-MM-dd HH:mm a";
-//                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString, Locale.CHINA);
-//                        String res = simpleDateFormat.format(currentTime);
-//                        Toast.makeText(PlansActivity.this, res, Toast.LENGTH_SHORT).show();
-//
-//                        String[] frag = DDL.split("\n");
-//                        String DDLFormat = frag[0] + " " + frag[1];
-//                        if (DDLFormat.compareTo(res) == -1) {
-//
-//                        }
-//                        boolean fuck = DateFormat.is24HourFormat(getApplicationContext());
-
                         myDB.updateFinished(title, "完成");
                         updateListView();
                     }
