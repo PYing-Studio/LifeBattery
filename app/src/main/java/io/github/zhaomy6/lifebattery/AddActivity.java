@@ -66,26 +66,20 @@ public class AddActivity extends AppCompatActivity implements
         }
     }
 
-
+    // 修改计划
     private void modifyPlanWithBundle(Bundle extras) {
         updateFlag = true;
         String title = extras.getString("titleText");
         String DDL = extras.getString("DDLText");
         String detail = extras.getString("detailText");
+        longPlanFlag.setEnabled(false);
 
         mToDoTextBodyEditText.setText(title);
         mToDoTextBodyEditText.setEnabled(false);
         mDetailEdit.setText(detail);
-        if (DDL.equals("\n")) {
-            longPlanFlag.setChecked(false);
-            findViewById(R.id.date_time_picker_bar).setVisibility(View.INVISIBLE);
-        } else {
-            longPlanFlag.setChecked(true);
-            findViewById(R.id.date_time_picker_bar).setVisibility(View.VISIBLE);
-            String[] frag = DDL.split("\n");
-            mDateEditText.setText(frag[0]);
-            mTimeEditText.setText(frag[1]);
-        }
+        String[] frag = DDL.split("\n");
+        mDateEditText.setText(frag[0]);
+        mTimeEditText.setText(frag[1]);
 
     }
 
@@ -134,6 +128,7 @@ public class AddActivity extends AppCompatActivity implements
         } else {
             dateFormat = "HH:mm a";
         }
+//        dateFormat = "HH:mm a";
         mTimeEditText.setText(formatDate(dateFormat, mUserReminderDate));
     }
 
@@ -195,7 +190,7 @@ public class AddActivity extends AppCompatActivity implements
         String typeText = longPlanFlag.isChecked() ? "true" : "false";
 
        if (updateFlag) {
-           myDB.updateDB(titleText, DDLText, typeText, detailText, "未完成");
+           myDB.updateDB(titleText, DDLText, typeText, detailText);
            Intent intent = new Intent();
            intent.setClass(AddActivity.this, PlansActivity.class);
            startActivity(intent);

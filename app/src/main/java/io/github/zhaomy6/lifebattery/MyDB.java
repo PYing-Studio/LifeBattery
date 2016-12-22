@@ -51,13 +51,23 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateDB(String title, String DDL, String type, String detail, String finished) {
+    public void updateDB(String title, String DDL, String type, String detail) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("title", title);
         cv.put("DDL", DDL);
         cv.put("type", type);
         cv.put("detail", detail);
+        String whereClause = "title=?";
+        String[] whereArgs = {title};
+        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
+    public void updateFinished(String title, String finished) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", title);
         cv.put("finished", finished);
         String whereClause = "title=?";
         String[] whereArgs = {title};
@@ -113,10 +123,20 @@ public class MyDB extends SQLiteOpenHelper {
 
     // 获取表中部分列
     public Cursor getPart() {
+//        SQLiteDatabase db = getWritableDatabase();
+//        String[] tableColumns = {"_id", "title", "DDL"};
+////        return db.query(Table_Name, tableColumns,
+////                null, null, null, null, null);
+//
+//        String whereClause = "type=?";
+//        String[] whereArgs = {new String("false")};
+//        return db.query(Table_Name, tableColumns, whereClause, whereArgs, null, null, null);
+//
         SQLiteDatabase db = getWritableDatabase();
-        String[] tableColumns = {"_id", "title", "DDL"};
-        return db.query(Table_Name, tableColumns,
-                null, null, null, null, null);
+        String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
+
     }
 
     // 根据关键词对任务的每一列进行匹配
@@ -126,6 +146,14 @@ public class MyDB extends SQLiteOpenHelper {
         String query_sql = "SELECT * FROM " + Table_Name + " WHERE title LIKE '%" + keyword
                 + "%' OR DDL LIKE '%" + keyword + "%' OR type LIKE '%" + keyword + "%' OR detail LIKE '%"
                 + keyword + "%' OR finished LIKE '%" + keyword + "%'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
+    }
+
+    public Cursor sortWithTime() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' ORDER BY DDL";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
     }

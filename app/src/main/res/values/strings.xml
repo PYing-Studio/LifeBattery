@@ -15,4 +15,6 @@
     </string-array>
 
     <string name="store_description">点击电池以查看具体规划</string>
+    <string name="appwidget_text">LifeBattery</string>
+    <string name="add_widget">Add widget</string>
 </resources>

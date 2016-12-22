@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+
 public class PlansActivity extends AppCompatActivity {
     private ListView listView;
     private MyDB myDB;
@@ -33,6 +34,9 @@ public class PlansActivity extends AppCompatActivity {
                 intent.setClass(PlansActivity.this, AddActivity.class);
                 startActivity(intent);
                 return true;
+            } else if (menuItem.getItemId() == R.id.sortAction) {
+                Cursor cursors = myDB.sortWithTime();
+                sca.swapCursor(cursors);
             }
             return false;
         }
@@ -122,12 +126,14 @@ public class PlansActivity extends AppCompatActivity {
                 DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
                 timeTextToShow = "";
 
-                if (DDLText.equals("\n")) {
-                    timeTextToShow = "长期计划";
-                } else {
-                    String[] frag = DDLText.split("\n");
-                    timeTextToShow = "截止日期:\n" + frag[0] + " " + frag[1];
-                }
+                Intent intent = new Intent("widgetReceiver");
+                intent.setClass(PlansActivity.this, WidgetReceiver.class);
+                intent.putExtra("DDL", DDLText);
+                intent.putExtra("title", titleText);
+                sendBroadcast(intent);
+
+                String[] frag = DDLText.split("\n");
+                timeTextToShow = "截止日期:\n" + frag[0] + " " + frag[1];
 
                 d_planDDL.setText(timeTextToShow);
 
@@ -136,7 +142,8 @@ public class PlansActivity extends AppCompatActivity {
 
                 detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+
+                String typeText = "任务类型类型: " + "近期计划";
                 d_planType.setText(typeText);
 
                 //  对话框属性
@@ -165,6 +172,7 @@ public class PlansActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String title = cursor.getString(cursor.getColumnIndex("title"));
+                final String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
                 builder.setTitle("任务管理");
 
@@ -176,7 +184,26 @@ public class PlansActivity extends AppCompatActivity {
                     }
                 });
 
-                builder.setPositiveButton("完成任务", null);
+                builder.setPositiveButton("完成任务",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        Date currentTime = new Date();
+//                        String formatString = "yyyy-MM-dd HH:mm a";
+//                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString, Locale.CHINA);
+//                        String res = simpleDateFormat.format(currentTime);
+//                        Toast.makeText(PlansActivity.this, res, Toast.LENGTH_SHORT).show();
+//
+//                        String[] frag = DDL.split("\n");
+//                        String DDLFormat = frag[0] + " " + frag[1];
+//                        if (DDLFormat.compareTo(res) == -1) {
+//
+//                        }
+//                        boolean fuck = DateFormat.is24HourFormat(getApplicationContext());
+
+                        myDB.updateFinished(title, "完成");
+                        updateListView();
+                    }
+                });
                 builder.create().show();
                 return true;
             }
