@@ -38,12 +38,14 @@ public class AddActivity extends AppCompatActivity implements
     private EditText mDetailEdit;
     private SwitchCompat longPlanFlag;
     private FloatingActionButton mAddButton;
+    private boolean updateFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         setTitle("添加计划");
+
         mToDoTextBodyEditText = (EditText) findViewById(R.id.titleEdit);
         mDateEditText = (EditText) findViewById(R.id.pickerButton1);
         mTimeEditText = (EditText) findViewById(R.id.pickerButton2);
@@ -56,6 +58,35 @@ public class AddActivity extends AppCompatActivity implements
         mTimeEditText.setOnClickListener(this);
         longPlanFlag.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
+        updateFlag = false;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            modifyPlanWithBundle(extras);
+        }
+    }
+
+
+    private void modifyPlanWithBundle(Bundle extras) {
+        updateFlag = true;
+        String title = extras.getString("titleText");
+        String DDL = extras.getString("DDLText");
+        String detail = extras.getString("detailText");
+
+        mToDoTextBodyEditText.setText(title);
+        mToDoTextBodyEditText.setEnabled(false);
+        mDetailEdit.setText(detail);
+        if (DDL.equals("\n")) {
+            longPlanFlag.setChecked(false);
+            findViewById(R.id.date_time_picker_bar).setVisibility(View.INVISIBLE);
+        } else {
+            longPlanFlag.setChecked(true);
+            findViewById(R.id.date_time_picker_bar).setVisibility(View.VISIBLE);
+            String[] frag = DDL.split("\n");
+            mDateEditText.setText(frag[0]);
+            mTimeEditText.setText(frag[1]);
+        }
+
     }
 
     private void hideKeyboard(EditText et){
@@ -149,21 +180,40 @@ public class AddActivity extends AppCompatActivity implements
         String titleText = mToDoTextBodyEditText.getText().toString();
         String detailText = mDetailEdit.getText().toString();
         String DDLText = mDateEditText.getText().toString() + "\n" + mTimeEditText.getText().toString();
-        String typeText = longPlanFlag.isChecked() ? "true" : "false";
-
-        if (titleText.equals("")) {
-            Toast.makeText(AddActivity.this, "任务名为空,请完善", Toast.LENGTH_SHORT).show();
-        } else {
-            if (myDB.isExists(titleText)) {
-                Toast.makeText(AddActivity.this, "此任务已经存在", Toast.LENGTH_SHORT).show();
-            } else {
-                myDB.insert2DB(titleText, DDLText, typeText, detailText, "未完成");
-                Intent intent = new Intent();
-                intent.setClass(AddActivity.this, PlansActivity.class);
-                startActivity(intent);
-                finish();
+        if (!longPlanFlag.isChecked()) {
+            if (DDLText.equals("\n")) {
+                Toast.makeText(AddActivity.this, "请设置时间", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (DDLText.indexOf('\n') == DDLText.length() - 1) {
+                DDLText += "00:00 上午";
+            } else if (DDLText.indexOf('\n') == 0) {
+                Calendar calendar = Calendar.getInstance();
+                DDLText = "" + calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + DDLText;
             }
         }
+
+        String typeText = longPlanFlag.isChecked() ? "true" : "false";
+
+       if (updateFlag) {
+           myDB.updateDB(titleText, DDLText, typeText, detailText, "未完成");
+           Intent intent = new Intent();
+           intent.setClass(AddActivity.this, PlansActivity.class);
+           startActivity(intent);
+           finish();
+       } else {
+           updateFlag = false;
+           if (titleText.equals("")) {
+               Toast.makeText(AddActivity.this, "任务名为空,请完善", Toast.LENGTH_SHORT).show();
+           } else if (myDB.isExists(titleText)) {
+               Toast.makeText(AddActivity.this, "此任务已经存在", Toast.LENGTH_SHORT).show();
+           } else {
+               myDB.insert2DB(titleText, DDLText, typeText, detailText, "未完成");
+               Intent intent = new Intent();
+               intent.setClass(AddActivity.this, PlansActivity.class);
+               startActivity(intent);
+               finish();
+           }
+       }
     }
 
     @Override

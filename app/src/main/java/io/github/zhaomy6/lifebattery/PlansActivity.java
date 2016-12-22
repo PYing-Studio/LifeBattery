@@ -101,6 +101,11 @@ public class PlansActivity extends AppCompatActivity {
         listView.setAdapter(sca);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            private String titleText;
+            private String DDLText;
+            private String detailText;
+            private String timeTextToShow;
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LayoutInflater factory = LayoutInflater.from(PlansActivity.this);
@@ -113,14 +118,15 @@ public class PlansActivity extends AppCompatActivity {
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
-                final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
-                String timeTextToShow = "";
+                titleText = cursor.getString(cursor.getColumnIndex("title"));
+                DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
+                timeTextToShow = "";
+
                 if (DDLText.equals("\n")) {
                     timeTextToShow = "长期计划";
                 } else {
                     String[] frag = DDLText.split("\n");
-                    timeTextToShow = "截止日期：\n" + frag[0] + frag[1];
+                    timeTextToShow = "截止日期:\n" + frag[0] + " " + frag[1];
                 }
 
                 d_planDDL.setText(timeTextToShow);
@@ -128,26 +134,26 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
 
-                final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
+                detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
                 String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
                 d_planType.setText(typeText);
 
                 //  对话框属性
                 builder.setTitle(titleText);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("修改任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent = new Intent();
+                        intent.setClass(PlansActivity.this, AddActivity.class);
+//                        intent.putExtra("intent", "modify added plan");
+                        intent.putExtra("titleText", titleText);
+                        intent.putExtra("DDLText", DDLText);
+                        intent.putExtra("detailText", detailText);
+                        startActivityForResult(intent, 1);
                     }
                 });
-                builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        myDB.deleteDB(titleText);
-                        updateListView();
-                    }
-                });
+                builder.setPositiveButton("确定", null);
 
                 builder.create().show();
             }
@@ -160,9 +166,9 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String title = cursor.getString(cursor.getColumnIndex("title"));
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
-                builder.setTitle("是否删除");
+                builder.setTitle("任务管理");
 
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("取消任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         myDB.deleteDB(title);
@@ -170,7 +176,7 @@ public class PlansActivity extends AppCompatActivity {
                     }
                 });
 
-                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("完成任务", null);
                 builder.create().show();
                 return true;
             }
