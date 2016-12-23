@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
@@ -34,9 +33,6 @@ public class MainActivity extends AppCompatActivity
     private TextView title, DDL, progress;
     private Button planButton, storeButton, summaryButton;
 
-
-    private Timer timer;
-    private TimerTask timerTask;
     private PlanRecorder planRecorder;
 
     private ServiceConnection sc = new ServiceConnection() {
@@ -184,13 +180,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void planRecordHandleStart() {
-        timer = new Timer();
-        timerTask = new TimerTask() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 planRecorder.updatePlanDB();
             }
-        };
-        timer.schedule(timerTask, 60 * 1000, 60 * 1000);
+        }, 60 * 1000);
     }
 }

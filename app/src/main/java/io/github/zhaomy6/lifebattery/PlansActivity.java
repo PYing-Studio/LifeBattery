@@ -1,15 +1,21 @@
 package io.github.zhaomy6.lifebattery;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +25,11 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class PlansActivity extends AppCompatActivity {
@@ -86,6 +97,8 @@ public class PlansActivity extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +110,8 @@ public class PlansActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         myDB = new MyDB(this);
+        updateDBImmediately();
+
         Cursor listItems = myDB.getPart();
         sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
                 listItems, new String[] {"title", "DDL"},
@@ -202,6 +217,23 @@ public class PlansActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void updateDBImmediately() {
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        String minuteFormat = "";
+        if (DateFormat.is24HourFormat(getApplicationContext())) {
+            minuteFormat += "k:mm";
+        } else {
+            minuteFormat += "HH:mm a";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
+        String d_string = simpleDateFormat.format(date);
+
+        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
+        String m_string = simpleDateFormat.format(date);
+        myDB.updateTimeout(d_string + "\n" + m_string);
     }
 
     @Override

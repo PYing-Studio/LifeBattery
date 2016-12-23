@@ -16,6 +16,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -171,7 +172,7 @@ public class AddActivity extends AppCompatActivity implements
         }
     }
 
-    private void addEvent() {
+    private void addEvent() throws ParseException {
         String titleText = mToDoTextBodyEditText.getText().toString();
         String detailText = mDetailEdit.getText().toString();
         String DDLText = mDateEditText.getText().toString() + "\n" + mTimeEditText.getText().toString();
@@ -185,6 +186,24 @@ public class AddActivity extends AppCompatActivity implements
                 Calendar calendar = Calendar.getInstance();
                 DDLText = "" + calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + DDLText;
             }
+
+            String minuteFormat = "";
+            if (DateFormat.is24HourFormat(getApplicationContext())) {
+                minuteFormat += "k:mm";
+            } else {
+                minuteFormat += "HH:mm a";
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
+            String[] frag = DDLText.split("\n");
+            String dstr = frag[0] + " " + frag[1];
+            Date date = sdf.parse(dstr);
+            long s1 = date.getTime();
+            long s2 = System.currentTimeMillis();
+            if (s2 - s1 > 0) {
+                Toast.makeText(this, "时间不可倒流", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
         }
 
         String typeText = longPlanFlag.isChecked() ? "true" : "false";
@@ -234,7 +253,11 @@ public class AddActivity extends AppCompatActivity implements
                 timePickEditTextDialog();
                 break;
             case R.id.addButton:
-                addEvent();
+                try {
+                    addEvent();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.add_longPlan:
                 switchEvent();

@@ -47,7 +47,7 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("type", type);
         cv.put("detail", detail);
         cv.put("finished", finished);
-        long res = db.insert(Table_Name, null, cv);
+        db.insert(Table_Name, null, cv);
         db.close();
     }
 
@@ -60,7 +60,7 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("detail", detail);
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.update(Table_Name, cv, whereClause, whereArgs);
         db.close();
     }
 
@@ -71,7 +71,7 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("finished", finished);
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.update(Table_Name, cv, whereClause, whereArgs);
         db.close();
     }
 
@@ -81,7 +81,7 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("finished", "超时");
         String whereClause = "type = ? AND DDL < ?";
         String[] whereArgs = {"false", currentTime};
-        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.update(Table_Name, cv, whereClause, whereArgs);
         db.close();
     }
 
@@ -89,7 +89,7 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        long res = db.delete(Table_Name, whereClause, whereArgs);
+        db.delete(Table_Name, whereClause, whereArgs);
         db.close();
     }
 
@@ -124,6 +124,13 @@ public class MyDB extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getLatestPlan() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT title, MIN(DDL) AS DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
+    }
+
     public Cursor getAll() {
         SQLiteDatabase db = getWritableDatabase();
         String[] tableColumns = {"_id", "title", "DDL", "type", "detail", "finished"};
@@ -143,7 +150,6 @@ public class MyDB extends SQLiteOpenHelper {
     // 根据关键词对任务的每一列进行匹配
     public Cursor queryWithKeyword(String keyword) {
         SQLiteDatabase db = getWritableDatabase();
-
         String query_sql = "SELECT * FROM " + Table_Name + " WHERE title LIKE '%" + keyword
                 + "%' OR DDL LIKE '%" + keyword + "%' OR type LIKE '%" + keyword + "%' OR detail LIKE '%"
                 + keyword + "%' OR finished LIKE '%" + keyword + "%'";
@@ -153,8 +159,7 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor sortWithTime() {
         SQLiteDatabase db = getWritableDatabase();
-
-        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' ORDER BY DDL";
+        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
     }
