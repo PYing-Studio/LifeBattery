@@ -11,8 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import java.util.Timer;
-
 public class SetupActivity extends Activity {
     private final int DISPLAY_LENGTH = 1700;
 

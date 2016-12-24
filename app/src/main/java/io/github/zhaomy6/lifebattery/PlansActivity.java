@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,11 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class PlansActivity extends AppCompatActivity {
     private ListView listView;
@@ -33,23 +39,11 @@ public class PlansActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(PlansActivity.this, AddActivity.class);
                 startActivity(intent);
-                finish();
                 return true;
+            } else if (menuItem.getItemId() == R.id.sortAction) {
+                Cursor cursors = myDB.sortWithTime();
+                sca.swapCursor(cursors);
             }
-//            else if (menuItem.getItemId() == R.id.shareAction) {
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.setType("text/plain");
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
-//                intent.putExtra(Intent.EXTRA_TEXT, "okokok");
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(Intent.createChooser(intent, getTitle()));
-//                return true;
-//            }
-
-//            } else if (menuItem.getItemId() == R.id.searchAction) {
-////                Cursor cursor = searchWithKeywords("")
-//                return true;
-//            }
             return false;
         }
     };
@@ -82,6 +76,7 @@ public class PlansActivity extends AppCompatActivity {
         return true;
     }
 
+    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
     public void updateListView() {
         Cursor cursors = myDB.getPart();
         sca.swapCursor(cursors);
@@ -103,12 +98,14 @@ public class PlansActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
+        final Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
         toolbar.setTitle("LifeBattery");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
         myDB = new MyDB(this);
+        updateDBImmediately();
+
         Cursor listItems = myDB.getPart();
         sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
                 listItems, new String[] {"title", "DDL"},
@@ -117,6 +114,11 @@ public class PlansActivity extends AppCompatActivity {
         listView.setAdapter(sca);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            private String titleText;
+            private String DDLText;
+            private String detailText;
+            private String timeTextToShow;
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LayoutInflater factory = LayoutInflater.from(PlansActivity.this);
@@ -124,40 +126,59 @@ public class PlansActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
                 builder.setView(views);
 
-                TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
+                TextView d_planType = (TextView)views.findViewById(R.id.d_planType);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
-                final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                d_planTitle.setText(titleText);
-                final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
-                d_planDDL.setText(DDLText);
+                titleText = cursor.getString(cursor.getColumnIndex("title"));
+                DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
+                timeTextToShow = "";
+
+                Intent intent = new Intent("widgetReceiver");
+                intent.setClass(PlansActivity.this, WidgetReceiver.class);
+                intent.putExtra("DDL", DDLText);
+                intent.putExtra("title", titleText);
+                sendBroadcast(intent);
+
+                String[] frag = DDLText.split("\n");
+                timeTextToShow = "截止日期:\n" + frag[0] + " " + frag[1];
+
+                d_planDDL.setText(timeTextToShow);
 
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
 
-                final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
+                detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-                Toast.makeText(PlansActivity.this, cursor1.getString(cursor1.getColumnIndex("type")), Toast.LENGTH_SHORT).show();
 
+                String typeText = "任务类型类型: " + "近期计划";
+                d_planType.setText(typeText);
+
+                //  对话框属性
                 builder.setTitle(titleText);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //  do nothing
-                    }
-                });
-                builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("修改任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        myDB.deleteDB(titleText);
-                        updateListView();
+                        Intent intent = new Intent();
+                        intent.setClass(PlansActivity.this, AddActivity.class);
+//                        intent.putExtra("intent", "modify added plan");
+                        intent.putExtra("titleText", titleText);
+                        intent.putExtra("DDLText", DDLText);
+                        intent.putExtra("detailText", detailText);
+                        startActivityForResult(intent, 1);
+                        finish();
                     }
                 });
 
-                d_planTitle.setText(titleText);
-                d_planDDL.setText(DDLText);
+
+
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
                 builder.create().show();
             }
 
@@ -168,10 +189,11 @@ public class PlansActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String title = cursor.getString(cursor.getColumnIndex("title"));
+                final String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
-                builder.setTitle("是否删除");
+                builder.setTitle("任务管理");
 
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("取消任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         myDB.deleteDB(title);
@@ -179,11 +201,38 @@ public class PlansActivity extends AppCompatActivity {
                     }
                 });
 
-                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("完成任务",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        myDB.updateFinished(title, "完成");
+                        updateListView();
+                    }
+                });
                 builder.create().show();
                 return true;
             }
         });
+    }
+
+    //  TODO: 设置超时提醒
+    private void updateDBImmediately() {
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        String minuteFormat = "";
+        if (DateFormat.is24HourFormat(getApplicationContext())) {
+            minuteFormat += "k:mm";
+        } else {
+            minuteFormat += "HH:mm a";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
+        String d_string = simpleDateFormat.format(date);
+
+        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
+        String m_string = simpleDateFormat.format(date);
+        myDB.updateTimeout(d_string + "\n" + m_string);
+
+        int num = myDB.getOvertimeTaskNum();
+        Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override

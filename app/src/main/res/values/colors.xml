@@ -11,4 +11,7 @@
     <color name="colorWhiteLilac">#E9E9E9</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDiv">#12000000</color>
+    <color name="secondary_text">#18000000</color>
+
+    <color name="colorGossamer">#009688</color>
 </resources>

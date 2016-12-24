@@ -47,21 +47,54 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("type", type);
         cv.put("detail", detail);
         cv.put("finished", finished);
-        long res = db.insert(Table_Name, null, cv);
+        db.insert(Table_Name, null, cv);
         db.close();
     }
 
-    public void updateDB(String title, String DDL, String type, String detail, String finished) {
+    public void updateDB(String title, String DDL, String type, String detail) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("title", title);
         cv.put("DDL", DDL);
         cv.put("type", type);
         cv.put("detail", detail);
+        String whereClause = "title=?";
+        String[] whereArgs = {title};
+        db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
+    private void updateDBItemById(int id, String newTitle, String newDDL, String newType, String newDetail) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", newTitle);
+        cv.put("DDL", newDDL);
+        cv.put("type", newType);
+        cv.put("detail", newDetail);
+        String whereClause = "_id=?";
+        String[] whereArgs = {"" + id};
+        db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
+    public void updateFinished(String title, String finished) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", title);
         cv.put("finished", finished);
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        long res = db.update(Table_Name, cv, whereClause, whereArgs);
+        db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
+    public void updateTimeout(String currentTime) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("finished", "超时");
+        String whereClause = "type = ? AND DDL <= ?";
+        String[] whereArgs = {"false", currentTime};
+        db.update(Table_Name, cv, whereClause, whereArgs);
         db.close();
     }
 
@@ -69,7 +102,7 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        long res = db.delete(Table_Name, whereClause, whereArgs);
+        db.delete(Table_Name, whereClause, whereArgs);
         db.close();
     }
 
@@ -104,6 +137,13 @@ public class MyDB extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getLatestPlan() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT title, MIN(DDL) AS DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
+    }
+
     public Cursor getAll() {
         SQLiteDatabase db = getWritableDatabase();
         String[] tableColumns = {"_id", "title", "DDL", "type", "detail", "finished"};
@@ -111,19 +151,45 @@ public class MyDB extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
+    // 获取表中部分列
     public Cursor getPart() {
         SQLiteDatabase db = getWritableDatabase();
-        String[] tableColumns = {"_id", "title", "DDL"};
-        return db.query(Table_Name, tableColumns,
-                null, null, null, null, null);
+        String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
     }
 
+    //  返回所有超时的任务数，并将这些任务的title以及内容置空
+    public int getOvertimeTaskNum() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '超时'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        int num = cursor.getCount();
+        while (cursor.moveToNext()) {
+            int id = Integer.parseInt(cursor.getString(0));
+            String title = cursor.getString(1);
+            String DDL = cursor.getString(2);
+//            Log.d("test db", title + " " + DDL);
+            //  | title | ddl | type | detail |
+            updateDBItemById(id, "", "", "false", "");
+        }
+        cursor.close();
+        return num;
+    }
+
+    // 根据关键词对任务的每一列进行匹配
     public Cursor queryWithKeyword(String keyword) {
         SQLiteDatabase db = getWritableDatabase();
-
         String query_sql = "SELECT * FROM " + Table_Name + " WHERE title LIKE '%" + keyword
                 + "%' OR DDL LIKE '%" + keyword + "%' OR type LIKE '%" + keyword + "%' OR detail LIKE '%"
                 + keyword + "%' OR finished LIKE '%" + keyword + "%'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
+    }
+
+    public Cursor sortWithTime() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
     }

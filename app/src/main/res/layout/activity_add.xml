@@ -1,133 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="io.github.zhaomy6.lifebattery.AddActivity">
-
-    <EditText
-        android:id="@+id/titleEdit"
-        android:layout_centerHorizontal="true"
-        style="?android:attr/editTextStyle"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/font_normal"
-        android:hint="请输入任务名"/>
-    <LinearLayout
-        android:layout_below="@+id/titleEdit"
-        android:id="@+id/DDLContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="4">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:gravity="top">
-        <Button
-            android:id="@+id/a_planDDL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:textSize="@dimen/font_normal"
-            android:text="点击设置截止日期"/>
-        <LinearLayout
-            android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="1.6"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/cancelButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_clear_white"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/add_margin"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:id="@+id/titleEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <DatePicker
-                android:id="@+id/datePicker"
-                android:visibility="gone"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                ></DatePicker>
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:timePickerMode="spinner"
-                android:layout_height="wrap_content"
-                ></TimePicker>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/typeContainer"
-        android:layout_below="@+id/DDLContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/a_planProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="top"
-            android:textSize="@dimen/font_normal"
-            android:text="任务类别:"/>
-        <Spinner
-            android:id="@+id/spinner"
-            android:entries="@array/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-    </LinearLayout>
-    <!--<LinearLayout-->
-        <!--android:id="@+id/progressContainer"-->
-        <!--android:layout_below="@+id/typeContainer"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:text="当前进度"-->
-            <!--android:textSize="@dimen/font_normal"-->
-            <!--android:gravity="bottom"-->
-            <!--android:layout_height="match_parent" />-->
-        <!--<EditText-->
-            <!--android:id="@+id/progressEdit"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="bottom"-->
-            <!--android:textSize="@dimen/font_normal"/>-->
-    <!--</LinearLayout>-->
-
-    <EditText
-        android:layout_below="@+id/typeContainer"
-        android:id="@+id/detailEdit"
-        android:hint="任务描述:"
-        android:inputType="textMultiLine|text"
-        android:layout_width="match_parent"
-        android:gravity="top"
-        android:minLines="3"
-        android:layout_height="wrap_content"
-        />
-    <LinearLayout
-        android:layout_below="@+id/detailEdit"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <Button
-            android:id="@+id/addButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:text="增加"/>
-        <Button
-            android:id="@+id/cancelButton"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="@dimen/login_margin"
+            android:layout_marginEnd="@dimen/login_margin"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/colorWhite"
+            android:hint="请输入标题"/>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="-25dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_done_white"
+        android:background="@drawable/ic_done_float"
+        android:layout_gravity="end"
+        android:elevation="5dp"
+        app:elevation="5dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.4">
+        <EditText
+            android:id="@+id/detailEdit"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/login_margin"
+            android:layout_marginEnd="@dimen/login_margin"
+            android:hint="任务描述（可选）"
+            android:gravity="top"/>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/login_margin"
+            android:src="@drawable/ic_av_timer_black_alpha"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_normal"
+            android:textColor="@color/colorDarkBackground"
+            android:text="长期计划"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/add_longPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:text="取消"/>
+            android:layout_marginEnd="@dimen/login_margin"/>
     </LinearLayout>
-</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/date_time_picker_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="@dimen/login_margin"
+        android:layout_marginEnd="@dimen/login_margin">
+
+        <EditText
+            android:id="@+id/pickerButton1"
+            android:inputType="none"
+            android:gravity="center"
+            android:textIsSelectable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="当前日期"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_normal"
+            android:textColor="@color/colorDarkBackground"
+            android:text="  //  "/>
+
+        <EditText
+            android:id="@+id/pickerButton2"
+            android:inputType="none"
+            android:gravity="center"
+            android:textIsSelectable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="当前时刻"/>
+        
+    </LinearLayout>
+</LinearLayout>

@@ -8,13 +8,13 @@
     <!--自动生成规划页面，按时间放置待办事件-->
 
     <ImageView
-        android:id="@+id/battery_state"
+        android:id="@+id/appwidget_battery"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_weight="1"
         android:src="@drawable/state1"/>
     <TextView
-        android:id="@+id/planDDL"
+        android:id="@+id/appwidget_DDL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
@@ -26,20 +26,14 @@
         android:textColor="@color/colorDarkBackground"
         android:text="12-12"/>
     <TextView
-        android:id="@+id/planTitle"
+        android:id="@+id/appwidget_Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textSize="@dimen/font_normal"
         android:textColor="@color/colorDarkBackground"
         android:text="Android Project"/>
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/arrow_small_alpha"/>
 </LinearLayout>

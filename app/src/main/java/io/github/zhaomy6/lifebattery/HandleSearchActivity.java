@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+/**
+ * 对搜索关键词进行模糊匹配, 相应用户搜索
+ */
+
 public class HandleSearchActivity extends AppCompatActivity {
     private ListView listView;
     private MyDB myDB;
@@ -27,6 +31,7 @@ public class HandleSearchActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+    // 仅有一个Activity实例存在
     @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
@@ -36,18 +41,24 @@ public class HandleSearchActivity extends AppCompatActivity {
         myDB = new MyDB(this);
         listView = (ListView) findViewById(R.id.groundList);
         g_count = (TextView)findViewById(R.id.g_count);
+
+        // 通过Bundle传递数据
         Bundle extras = intent.getExtras();
         if (extras != null) {
+            // 在数据库中搜索输入的关键词
             String query = extras.getString("query");
             Cursor listItems = myDB.queryWithKeyword(query);
             sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
                     listItems, new String[] {"title", "DDL"},
                     new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
             listView.setAdapter(sca);
+
+            //显示搜索结果数量
             int count = listView.getCount();
-            g_count.setText("已完成: " + count);
+            g_count.setText("搜索结果有: " + count + "项");
         }
 
+        // 点击查看搜索结果详情
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -56,13 +67,12 @@ public class HandleSearchActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HandleSearchActivity.this);
                 builder.setView(views);
 
-                TextView d_planTitle = (TextView)views.findViewById(R.id.d_planTitle);
+                TextView d_planType = (TextView)views.findViewById(R.id.d_planType);
                 TextView d_planDDL = (TextView)views.findViewById(R.id.d_planDDL);
                 TextView d_planDetail = (TextView)views.findViewById(R.id.d_planDetail);
 
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String titleText = cursor.getString(cursor.getColumnIndex("title"));
-                d_planTitle.setText(titleText);
                 final String DDLText = cursor.getString(cursor.getColumnIndex("DDL"));
                 d_planDDL.setText(DDLText);
 
@@ -72,6 +82,9 @@ public class HandleSearchActivity extends AppCompatActivity {
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
 
+                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+                d_planType.setText(typeText);
+
                 builder.setTitle(titleText);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -80,7 +93,6 @@ public class HandleSearchActivity extends AppCompatActivity {
                     }
                 });
 
-                d_planTitle.setText(titleText);
                 d_planDDL.setText(DDLText);
                 builder.create().show();
             }

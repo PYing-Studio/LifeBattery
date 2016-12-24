@@ -7,16 +7,18 @@
     android:layout_height="wrap_content">
     <item android:id="@+id/searchAction"
         android:title="搜索"
-        android:icon="@drawable/search"
+        android:icon="@drawable/ic_search_white"
         android:imeOptions="actionSearch"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom" />
+        app:showAsAction="always" />
+    <item android:id="@+id/sortAction"
+        android:title="按时间排序"
+        android:icon="@mipmap/sort_with_time"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
+
     <item android:id="@+id/addAction"
         android:title="添加"
-        android:icon="@drawable/add_btn"
-        app:showAsAction="ifRoom" />
-    <!--<item android:id="@+id/shareAction"-->
-        <!--android:title="分享"-->
-        <!--android:icon="@drawable/arrow_small"-->
-        <!--android:showAsAction="ifRoom"/>-->
+        android:icon="@drawable/add_icon"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

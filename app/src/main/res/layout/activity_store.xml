@@ -1,130 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background="@color/colorWhiteLilac">
+    android:layout_width="match_parent"
+    android:background="@color/colorWhiteLilac"
+    android:orientation="vertical">
 
-    <TableRow android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="@dimen/m_margin"
-        android:layout_marginEnd="@dimen/m_margin">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/store_toolBar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:titleTextColor="@color/colorWhite">-->
+    <!--</android.support.v7.widget.Toolbar>-->
 
-        <TextView android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/round_rect"
-            android:gravity="center"
-            android:textSize="@dimen/font_normal"
-            android:textColor="@color/colorPrimaryLight"
-            android:text="@string/store_description"/>
-    </TableRow>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-    <TableRow android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/div_margin"
-        android:layout_marginStart="@dimen/m_margin"
-        android:layout_marginEnd="@dimen/m_margin">
-        <ImageView
-            android:id="@+id/store_battery0"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state3"
-            android:elevation="@dimen/div_margin"/>
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/store_battery1"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
+            <TableRow android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin">
 
-        <ImageView
-            android:id="@+id/store_battery2"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
-    </TableRow>
+                <TextView android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/round_rect"
+                    android:gravity="center"
+                    android:textSize="@dimen/font_normal"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:text="@string/store_description"/>
+            </TableRow>
 
-    <TableRow android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/div_margin"
-        android:layout_marginStart="@dimen/m_margin"
-        android:layout_marginEnd="@dimen/m_margin">
-        <ImageView
-            android:id="@+id/store_battery3"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
+            <TableRow android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/div_margin"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin">
+                <ImageView
+                    android:id="@+id/store_battery0"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state3"
+                    android:elevation="@dimen/div_margin"/>
 
-        <ImageView
-            android:id="@+id/store_battery4"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
+                <ImageView
+                    android:id="@+id/store_battery1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
 
-        <ImageView
-            android:id="@+id/store_battery5"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
-    </TableRow>
+                <ImageView
+                    android:id="@+id/store_battery2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+            </TableRow>
 
-    <TableRow android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/div_margin"
-        android:layout_marginStart="@dimen/m_margin"
-        android:layout_marginEnd="@dimen/m_margin">
-        <ImageView
-            android:id="@+id/store_battery6"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
+            <TableRow android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/div_margin"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin">
+                <ImageView
+                    android:id="@+id/store_battery3"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
 
-        <ImageView
-            android:id="@+id/store_battery7"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
+                <ImageView
+                    android:id="@+id/store_battery4"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
 
-        <ImageView
-            android:id="@+id/store_battery8"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_rect"
-            android:src="@drawable/state1"
-            android:elevation="@dimen/div_margin"/>
-    </TableRow>
+                <ImageView
+                    android:id="@+id/store_battery5"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+            </TableRow>
 
-</TableLayout>
+            <TableRow android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/div_margin"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin">
+                <ImageView
+                    android:id="@+id/store_battery6"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+
+                <ImageView
+                    android:id="@+id/store_battery7"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+
+                <ImageView
+                    android:id="@+id/store_battery8"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+            </TableRow>
+
+            <TableRow android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/div_margin"
+                android:layout_marginStart="@dimen/m_margin"
+                android:layout_marginEnd="@dimen/m_margin">
+                <ImageView
+                    android:id="@+id/store_battery9"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+
+                <ImageView
+                    android:id="@+id/store_battery10"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+
+                <ImageView
+                    android:id="@+id/store_battery11"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_rect"
+                    android:src="@drawable/state1"
+                    android:elevation="@dimen/div_margin"/>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>
