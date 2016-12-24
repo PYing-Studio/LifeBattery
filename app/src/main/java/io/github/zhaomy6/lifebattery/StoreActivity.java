@@ -26,10 +26,10 @@ public class StoreActivity extends AppCompatActivity
         setContentView(R.layout.activity_store);
 
         //  配置工具栏
-        Toolbar toolbar = (Toolbar)findViewById(R.id.store_toolBar);
-        toolbar.setTitle("LifeBattery");
-        setSupportActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(this);
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.store_toolBar);
+//        toolbar.setTitle("LifeBattery");
+//        setSupportActionBar(toolbar);
+//        toolbar.setOnMenuItemClickListener(this);
 
         for (int id : this.batteriesID) {
             findViewById(id).setOnClickListener(this);
@@ -42,6 +42,7 @@ public class StoreActivity extends AppCompatActivity
         return true;
     }
 
+    //  TODO: 处理点击电池的逻辑
     @Override
     public void onClick(View view) {
         boolean isImgButton = false;

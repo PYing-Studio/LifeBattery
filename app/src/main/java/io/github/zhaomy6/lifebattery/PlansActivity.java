@@ -20,6 +20,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,6 +76,7 @@ public class PlansActivity extends AppCompatActivity {
         return true;
     }
 
+    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
     public void updateListView() {
         Cursor cursors = myDB.getPart();
         sca.swapCursor(cursors);
@@ -212,6 +214,7 @@ public class PlansActivity extends AppCompatActivity {
         });
     }
 
+    //  TODO: 设置超时提醒
     private void updateDBImmediately() {
         Date date = new Date();
         String dateFormat = "yyyy-MM-dd";
@@ -227,6 +230,9 @@ public class PlansActivity extends AppCompatActivity {
         simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
         String m_string = simpleDateFormat.format(date);
         myDB.updateTimeout(d_string + "\n" + m_string);
+
+        int num = myDB.getOvertimeTaskNum();
+        Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override

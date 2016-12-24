@@ -64,6 +64,19 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    private void updateDBItemById(int id, String newTitle, String newDDL, String newType, String newDetail) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", newTitle);
+        cv.put("DDL", newDDL);
+        cv.put("type", newType);
+        cv.put("detail", newDetail);
+        String whereClause = "_id=?";
+        String[] whereArgs = {"" + id};
+        db.update(Table_Name, cv, whereClause, whereArgs);
+        db.close();
+    }
+
     public void updateFinished(String title, String finished) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -144,7 +157,24 @@ public class MyDB extends SQLiteOpenHelper {
         String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
+    }
 
+    //  返回所有超时的任务数，并将这些任务的title以及内容置空
+    public int getOvertimeTaskNum() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '超时'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        int num = cursor.getCount();
+        while (cursor.moveToNext()) {
+            int id = Integer.parseInt(cursor.getString(0));
+            String title = cursor.getString(1);
+            String DDL = cursor.getString(2);
+//            Log.d("test db", title + " " + DDL);
+            //  | title | ddl | type | detail |
+            updateDBItemById(id, "", "", "false", "");
+        }
+        cursor.close();
+        return num;
     }
 
     // 根据关键词对任务的每一列进行匹配

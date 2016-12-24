@@ -21,6 +21,7 @@ public class CalendarActivity extends AppCompatActivity {
         //  TODO: 从数据库读取打卡日期
         ArrayList<String> dates = new ArrayList<>();
         //  存储日期格式yyyy-mm-dd
+        //  用此格式标注有完成任务的那些日期即可
         dates.add("2016-12-21");
         dates.add("2016-12-22");
         dates.add("2016-12-23");

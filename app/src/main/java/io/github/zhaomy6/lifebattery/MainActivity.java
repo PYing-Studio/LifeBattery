@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity
         builder.setView(v);
         //  对话框属性
 
-        //  从数据库中读取无DDL任务
+        //  TODO:从数据库中读取无DDL任务
         //  或由上一Activity作为参数传入
         //  这里用静态数据代替
         ArrayList<Plan> plans = new ArrayList<>();
@@ -172,14 +172,14 @@ public class MainActivity extends AppCompatActivity
         });
 
         //  自定义对话框大小，显示对话框
-        Dialog dialog = builder.create();
-        Window window = dialog.getWindow();
-        dialog.show();
-        if (window != null) {
+//        Dialog dialog = builder.create();
+//        Window window = dialog.getWindow();
+//        dialog.show();
+//        if (window != null) {
 //            WindowManager.LayoutParams p = window.getAttributes();
 //            p.height = 1000;
 //            window.setAttributes(p);
-        }
+//        }
     }
 
     private void updateDBImmediately() {
