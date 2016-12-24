@@ -48,7 +48,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     return;
                 }
 
-                SharedPreferences sp = getSharedPreferences("LieBatteryPre", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("hasLoginBefore", true);
                 editor.putString("username", username);
