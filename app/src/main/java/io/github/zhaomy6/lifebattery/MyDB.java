@@ -79,7 +79,7 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("finished", "超时");
-        String whereClause = "type = ? AND DDL < ?";
+        String whereClause = "type = ? AND DDL <= ?";
         String[] whereArgs = {"false", currentTime};
         db.update(Table_Name, cv, whereClause, whereArgs);
         db.close();

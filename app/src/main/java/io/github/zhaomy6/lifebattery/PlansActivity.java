@@ -1,15 +1,10 @@
 package io.github.zhaomy6.lifebattery;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +21,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -96,8 +90,6 @@ public class PlansActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +165,7 @@ public class PlansActivity extends AppCompatActivity {
                         intent.putExtra("DDLText", DDLText);
                         intent.putExtra("detailText", detailText);
                         startActivityForResult(intent, 1);
+                        finish();
                     }
                 });
 

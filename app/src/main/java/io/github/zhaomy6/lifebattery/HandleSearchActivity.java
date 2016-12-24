@@ -55,7 +55,7 @@ public class HandleSearchActivity extends AppCompatActivity {
 
             //显示搜索结果数量
             int count = listView.getCount();
-            g_count.setText("已完成: " + count);
+            g_count.setText("搜索结果有: " + count + "项");
         }
 
         // 点击查看搜索结果详情

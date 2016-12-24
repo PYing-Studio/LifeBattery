@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -50,9 +51,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myDB = new MyDB(this);
+        updateDBImmediately();
 
-        planRecordHandleStart();
         bindServiceConnection();
+        planRecordHandleStart();
 
         //  更新剩余周以及百分比
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
@@ -88,6 +91,11 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.main_battery_info).setOnClickListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(sc);
+    }
     // 界面底部导航逻辑跳转
     @Override
     public void onClick(View view) {
@@ -174,6 +182,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void updateDBImmediately() {
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        String minuteFormat = "";
+        if (DateFormat.is24HourFormat(getApplicationContext())) {
+            minuteFormat += "k:mm";
+        } else {
+            minuteFormat += "HH:mm a";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
+        String d_string = simpleDateFormat.format(date);
+
+        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
+        String m_string = simpleDateFormat.format(date);
+        myDB.updateTimeout(d_string + "\n" + m_string);
+    }
+
     private void bindServiceConnection() {
         Intent intent = new Intent(this, PlanRecorder.class);
         bindService(intent, sc, this.BIND_AUTO_CREATE);
@@ -181,11 +206,12 @@ public class MainActivity extends AppCompatActivity
 
     private void planRecordHandleStart() {
         Handler handler = new Handler();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                planRecorder.updatePlanDB();
+                planRecorder.startSendNotification();
             }
-        }, 60 * 1000);
+        }, 30 * 1000);
     }
 }

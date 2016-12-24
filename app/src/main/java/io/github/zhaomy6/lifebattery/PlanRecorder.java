@@ -9,14 +9,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.DateFormat;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,6 +50,8 @@ public class PlanRecorder extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        notification.cancel();
+        notification = null;
     }
 
     public class MyBinder extends Binder {
@@ -59,16 +60,7 @@ public class PlanRecorder extends Service {
         }
     }
 
-    public void updatePlanDB() {
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                start();
-            }
-        };
-        timer.schedule(timerTask, 0, 60 * 1000);
-
+    public void startSendNotification() {
         notification = new Timer();
         notificationTask = new TimerTask() {
             @Override
@@ -80,24 +72,7 @@ public class PlanRecorder extends Service {
                 }
             }
         };
-        notification.schedule(notificationTask, 0, 8 * 60 * 60 * 1000);
-    }
-
-    private void start() {
-        Date date = new Date();
-        String dateFormat = "yyyy-MM-dd";
-        String minuteFormat = "";
-        if (DateFormat.is24HourFormat(getApplicationContext())) {
-            minuteFormat += "k:mm";
-        } else {
-            minuteFormat += "HH:mm a";
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
-        String d_string = simpleDateFormat.format(date);
-
-        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
-        String m_string = simpleDateFormat.format(date);
-        myDB.updateTimeout(d_string + "\n" + m_string);
+        notification.schedule(notificationTask, 0, Math.round(Math.random() * 6 + 6) * 60 * 60 * 1000);
     }
 
     private void sendNotification() throws ParseException {
@@ -113,6 +88,7 @@ public class PlanRecorder extends Service {
             } else {
                 minuteFormat += "HH:mm a";
             }
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
             String[] frag = DDL.split("\n");
             String dstr = frag[0] + " " + frag[1];
@@ -125,7 +101,7 @@ public class PlanRecorder extends Service {
             Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.icon);
             Notification.Builder builder = new Notification.Builder(getApplicationContext());
             builder.setContentTitle("任务日程提醒")
-                    .setContentText(title + " 还有" + day + "天 " + hour + "小时")
+                    .setContentText(title + ",还有 " + day + " 天 " + hour + " 小时")
                     .setTicker("最近任务安排")
                     .setLargeIcon(bitmap)
                     .setSmallIcon(R.mipmap.icon)
