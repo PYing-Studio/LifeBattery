@@ -9,13 +9,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.text.SimpleDateFormat;
+
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.DateFormat;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -89,14 +91,14 @@ public class PlanRecorder extends Service {
                 minuteFormat += "HH:mm a";
             }
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
             String[] frag = DDL.split("\n");
             String dstr = frag[0] + " " + frag[1];
             Date date = sdf.parse(dstr);
             long s1 = date.getTime();
             long s2 = System.currentTimeMillis();
             long day = (s1 - s2) / 1000 / 60 / 60 / 24;
-            long hour = (s1 - s2) / 1000 / 60 / 60;
+            long hour = (s1 - s2) / 1000 / 60 / 60 - day * 24;
 
             Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.icon);
             Notification.Builder builder = new Notification.Builder(getApplicationContext());

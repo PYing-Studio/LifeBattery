@@ -193,7 +193,7 @@ public class AddActivity extends AppCompatActivity implements
             } else {
                 minuteFormat += "HH:mm a";
             }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
             String[] frag = DDLText.split("\n");
             String dstr = frag[0] + " " + frag[1];
             Date date = sdf.parse(dstr);
