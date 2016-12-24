@@ -176,9 +176,9 @@ public class MainActivity extends AppCompatActivity
         Window window = dialog.getWindow();
         dialog.show();
         if (window != null) {
-            WindowManager.LayoutParams p = window.getAttributes();
-            p.height = 1300;
-            window.setAttributes(p);
+//            WindowManager.LayoutParams p = window.getAttributes();
+//            p.height = 1000;
+//            window.setAttributes(p);
         }
     }
 
