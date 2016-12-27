@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,10 +80,14 @@ public class PlanRecorder extends Service {
 
     private void sendNotification() throws ParseException {
         Cursor cursor = myDB.getLatestPlan();
-        if (cursor != null && cursor.getCount() != 0) {
+        boolean flag = cursor.moveToNext();
+        if (flag && cursor.getCount() != 0) {
             cursor.moveToFirst();
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+
+            //  防止没有未完成事件时闪退
+            if (title == null || DDL == null) return;
 
             String minuteFormat = "";
             if (DateFormat.is24HourFormat(getApplicationContext())) {

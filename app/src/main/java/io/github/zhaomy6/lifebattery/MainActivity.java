@@ -172,9 +172,9 @@ public class MainActivity extends AppCompatActivity
         });
 
         //  自定义对话框大小，显示对话框
-//        Dialog dialog = builder.create();
+        Dialog dialog = builder.create();
 //        Window window = dialog.getWindow();
-//        dialog.show();
+        dialog.show();
 //        if (window != null) {
 //            WindowManager.LayoutParams p = window.getAttributes();
 //            p.height = 1000;
