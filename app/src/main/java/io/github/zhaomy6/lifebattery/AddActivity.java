@@ -212,7 +212,6 @@ public class AddActivity extends AppCompatActivity implements
                 Toast.makeText(this, "时间不可倒流", Toast.LENGTH_SHORT).show();
                 return;
             }
-
         }
 
         String typeText = longPlanFlag.isChecked() ? "true" : "false";

@@ -26,9 +26,10 @@ public class MyDB extends SQLiteOpenHelper {
         super(context, DB_Name, null, DB_Version);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //  type == true: 短期计划
+        //  type == false: 长远计划
         String Create_Table = "CREATE TABLE if not exists "
                 + Table_Name
                 + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, type TEXT, detail TEXT, finished TEXT)";

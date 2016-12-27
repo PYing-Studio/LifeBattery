@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -129,18 +130,19 @@ public class MainActivity extends AppCompatActivity
         builder.setView(v);
         //  对话框属性
 
-        //  TODO:从数据库中读取无DDL任务
-        //  或由上一Activity作为参数传入
-        //  这里用静态数据代替
         ArrayList<Plan> plans = new ArrayList<>();
-        plans.add(new Plan("周游世界", "", "", "", "false"));
-        plans.add(new Plan("学习Linux内核2", "", "", "", "false"));
-        plans.add(new Plan("周游世界3", "", "", "", "false"));
-        plans.add(new Plan("学习Linux内核4", "", "", "", "false"));
-        plans.add(new Plan("周游世界5", "", "", "", "false"));
-        plans.add(new Plan("学习Linux内核6", "", "", "", "false"));
-        plans.add(new Plan("周游世界7", "", "", "", "false"));
-        plans.add(new Plan("学习Linux内核8", "", "", "", "false"));
+        Cursor cursor =  myDB.getAll();
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            if ("".equals(title)) continue;
+            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+            String type = cursor.getString(cursor.getColumnIndex("type"));
+            if ("".equals(type) || !"true".equals(type)) continue;
+            String detail = cursor.getString(cursor.getColumnIndex("detail"));
+            String finished = cursor.getString(cursor.getColumnIndex("finished"));
+            plans.add(new Plan(title, DDL, type, detail, finished));
+        }
+
         final PlanAdapter adapter = new PlanAdapter(v.getContext(), plans, true);
         ListView lv = (ListView) v.findViewById(R.id.long_plan_list);
         lv.setAdapter(adapter);
