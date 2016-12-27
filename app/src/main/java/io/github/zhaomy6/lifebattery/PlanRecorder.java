@@ -91,6 +91,7 @@ public class PlanRecorder extends Service {
                 minuteFormat += "HH:mm a";
             }
 
+            //  TODO： BUG 没有任务时发送Notification会闪退！
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
             String[] frag = DDL.split("\n");
             String dstr = frag[0] + " " + frag[1];

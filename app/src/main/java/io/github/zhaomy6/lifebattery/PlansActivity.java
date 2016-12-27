@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -184,7 +186,7 @@ public class PlansActivity extends AppCompatActivity {
 
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 Cursor cursor = (Cursor)sca.getItem(position);
@@ -206,6 +208,18 @@ public class PlansActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         myDB.updateFinished(title, "完成");
                         updateListView();
+
+                        //  将完成任务的时间写入
+                        String finishDate = DDL.split("\n")[0];
+                        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                        String finishList = sp.getString("finishList", "");
+                        SharedPreferences.Editor editor = sp.edit();
+                        if (!"".equals(finishList)) {
+                            finishList += ";";
+                        }
+                        finishList += finishDate;
+                        editor.putString("finishList", finishList);
+                        editor.apply();
                     }
                 });
                 builder.create().show();

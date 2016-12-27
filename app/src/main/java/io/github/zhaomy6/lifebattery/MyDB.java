@@ -9,13 +9,13 @@ import android.util.Log;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by zhangsht on 2016/12/10.
- */
-
 public class MyDB extends SQLiteOpenHelper {
     private static final String DB_Name = "PlanStores3";
     private static final String Table_Name = "Plans4";
+
+    //  新建一个表存储已完成事件
+    //  为了解决无法重复添加同名事件的BUG
+    private static final String Table_Finish_Task = "FinishPlans";
     private static final int DB_Version = 1;
 
     public MyDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -33,6 +33,12 @@ public class MyDB extends SQLiteOpenHelper {
                 + Table_Name
                 + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, type TEXT, detail TEXT, finished TEXT)";
         db.execSQL(Create_Table);
+
+        //  新建一个表存储已完成事件
+        String Create_Finish_Table = "CREATE TABLE if not exists "
+                + Table_Finish_Task
+                + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, type TEXT, detail TEXT, finished TEXT)";
+        db.execSQL(Create_Finish_Table);
     }
 
     @Override
@@ -48,6 +54,19 @@ public class MyDB extends SQLiteOpenHelper {
         cv.put("detail", detail);
         cv.put("finished", finished);
         db.insert(Table_Name, null, cv);
+        db.close();
+    }
+
+    //  插入到存储已完成任务的表中
+    public void insert2FinishTable(String title, String DDL, String type, String detail, String finished) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("title", title);
+        cv.put("DDL", DDL);
+        cv.put("type", type);
+        cv.put("detail", detail);
+        cv.put("finished", finished);
+        db.insert(Table_Finish_Task, null, cv);
         db.close();
     }
 
@@ -77,14 +96,17 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    //  完成任务时，需要从原表中删除，并添加到新表中
     public void updateFinished(String title, String finished) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("title", title);
-        cv.put("finished", finished);
-        String whereClause = "title=?";
-        String[] whereArgs = {title};
-        db.update(Table_Name, cv, whereClause, whereArgs);
+
+        Cursor cursor = getWithTitle(title);
+        cursor.moveToFirst();
+        final String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+        final String detailText = cursor.getString(cursor.getColumnIndex("detail"));
+        final String typeText = cursor.getString(cursor.getColumnIndex("type"));
+        insert2FinishTable(title, DDL, typeText, detailText, finished);
+        deleteDB(title);
         db.close();
     }
 
@@ -171,7 +193,7 @@ public class MyDB extends SQLiteOpenHelper {
             String DDL = cursor.getString(2);
 //            Log.d("test db", title + " " + DDL);
             //  | title | ddl | type | detail |
-            updateDBItemById(id, "", "", "false", "");
+            updateDBItemById(id, "", DDL, "false", "");
         }
         cursor.close();
         return num;
