@@ -20,6 +20,7 @@
         <activity
             android:name=".AddActivity"
             android:theme="@style/FullScreen"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".StatisticsActivity" />
         <activity

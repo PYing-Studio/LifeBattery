@@ -23,7 +23,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         TextView uv = (TextView) findViewById(R.id.statistic_user_name);
         uv.setText(userName);
 
-        //  TODO: set use time
+        //  TODO: 从数据库中读取并设置统计信息
 
         findViewById(R.id.statistic_detail).setOnClickListener(this);
     }

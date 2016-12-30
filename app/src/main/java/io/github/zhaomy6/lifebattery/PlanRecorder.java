@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.text.SimpleDateFormat;
+
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,10 +80,14 @@ public class PlanRecorder extends Service {
 
     private void sendNotification() throws ParseException {
         Cursor cursor = myDB.getLatestPlan();
-        if (cursor != null && cursor.getCount() != 0) {
+        boolean flag = cursor.moveToNext();
+        if (flag && cursor.getCount() != 0) {
             cursor.moveToFirst();
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+
+            //  防止没有未完成事件时闪退
+            if (title == null || DDL == null) return;
 
             String minuteFormat = "";
             if (DateFormat.is24HourFormat(getApplicationContext())) {
@@ -89,14 +96,15 @@ public class PlanRecorder extends Service {
                 minuteFormat += "HH:mm a";
             }
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
+            //  TODO： BUG 没有任务时发送Notification会闪退！
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
             String[] frag = DDL.split("\n");
             String dstr = frag[0] + " " + frag[1];
             Date date = sdf.parse(dstr);
             long s1 = date.getTime();
             long s2 = System.currentTimeMillis();
             long day = (s1 - s2) / 1000 / 60 / 60 / 24;
-            long hour = (s1 - s2) / 1000 / 60 / 60;
+            long hour = (s1 - s2) / 1000 / 60 / 60 - day * 24;
 
             Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.mipmap.icon);
             Notification.Builder builder = new Notification.Builder(getApplicationContext());

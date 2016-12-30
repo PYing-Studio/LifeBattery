@@ -38,6 +38,7 @@
                 android:id="@+id/login_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:textSize="@dimen/font_normal"
                 android:textColorHint="@color/colorWhite"
                 android:hint="请输入用户名"/>
@@ -51,14 +52,27 @@
             android:layout_gravity="center"
             android:paddingStart="@dimen/login_margin"
             android:paddingEnd="@dimen/login_margin">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/login_input_birth"
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/login_input_birth"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/font_normal"-->
+                <!--android:inputType="date"-->
+                <!--android:textColorHint="@color/colorPrimary"-->
+                <!--android:hint="请输入您的生日"/>-->
+
+            <EditText
+                android:id="@+id/login_input_birth_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textIsSelectable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:textSize="@dimen/font_normal"
-                android:inputType="date"
                 android:textColorHint="@color/colorPrimary"
                 android:hint="请输入您的生日"/>
+
         </android.support.design.widget.TextInputLayout>
 
         <Button

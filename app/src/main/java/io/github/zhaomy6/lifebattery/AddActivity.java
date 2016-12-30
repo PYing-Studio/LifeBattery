@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.date.MonthAdapter;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -141,7 +143,7 @@ public class AddActivity extends AppCompatActivity implements
         reminderCalendar.set(year, month, day);
 
         if(reminderCalendar.before(calendar)){
-            Toast.makeText(this, "My time-machine is a bit rusty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "时间不可倒流", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -193,17 +195,23 @@ public class AddActivity extends AppCompatActivity implements
             } else {
                 minuteFormat += "HH:mm a";
             }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
             String[] frag = DDLText.split("\n");
             String dstr = frag[0] + " " + frag[1];
             Date date = sdf.parse(dstr);
-            long s1 = date.getTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            int hour = Integer.parseInt(frag[1].split(":")[0]);
+            c.set(Calendar.HOUR, hour);
+//            long s1 = date.getTime();
+            //  解决分钟级别先后顺序的bug
             long s2 = System.currentTimeMillis();
-            if (s2 - s1 > 0) {
+            long s3 = c.getTime().getTime();
+
+            if (s2 - s3 > 0) {
                 Toast.makeText(this, "时间不可倒流", Toast.LENGTH_SHORT).show();
                 return;
             }
-
         }
 
         String typeText = longPlanFlag.isChecked() ? "true" : "false";

@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,6 +78,7 @@ public class PlansActivity extends AppCompatActivity {
         return true;
     }
 
+    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
     public void updateListView() {
         Cursor cursors = myDB.getPart();
         sca.swapCursor(cursors);
@@ -182,7 +186,7 @@ public class PlansActivity extends AppCompatActivity {
 
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 Cursor cursor = (Cursor)sca.getItem(position);
@@ -204,6 +208,18 @@ public class PlansActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         myDB.updateFinished(title, "完成");
                         updateListView();
+
+                        //  将完成任务的时间写入
+                        String finishDate = DDL.split("\n")[0];
+                        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                        String finishList = sp.getString("finishList", "");
+                        SharedPreferences.Editor editor = sp.edit();
+                        if (!"".equals(finishList)) {
+                            finishList += ";";
+                        }
+                        finishList += finishDate;
+                        editor.putString("finishList", finishList);
+                        editor.apply();
                     }
                 });
                 builder.create().show();
@@ -212,6 +228,7 @@ public class PlansActivity extends AppCompatActivity {
         });
     }
 
+    //  TODO: 设置超时提醒
     private void updateDBImmediately() {
         Date date = new Date();
         String dateFormat = "yyyy-MM-dd";
@@ -227,6 +244,9 @@ public class PlansActivity extends AppCompatActivity {
         simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
         String m_string = simpleDateFormat.format(date);
         myDB.updateTimeout(d_string + "\n" + m_string);
+
+        int num = myDB.getOvertimeTaskNum();
+        Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
