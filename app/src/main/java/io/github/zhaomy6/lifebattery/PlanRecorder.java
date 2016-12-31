@@ -9,11 +9,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,6 +77,7 @@ public class PlanRecorder extends Service {
     }
 
     private void sendNotification() throws ParseException {
+        updateDBImmediately();
         Cursor cursor = myDB.getLatestPlan();
         boolean flag = cursor.moveToNext();
         if (flag && cursor.getCount() != 0) {
@@ -123,5 +122,21 @@ public class PlanRecorder extends Service {
             Notification notification = builder.build();
             manager.notify(0, notification);
         }
+    }
+    private void updateDBImmediately() {
+        Date date = new Date();
+        String dateFormat = "yyyy-MM-dd";
+        String minuteFormat = "";
+        if (DateFormat.is24HourFormat(getApplicationContext())) {
+            minuteFormat += "k:mm";
+        } else {
+            minuteFormat += "HH:mm a";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
+        String d_string = simpleDateFormat.format(date);
+
+        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
+        String m_string = simpleDateFormat.format(date);
+        myDB.updateTimeout(d_string + "\n" + m_string);
     }
 }
