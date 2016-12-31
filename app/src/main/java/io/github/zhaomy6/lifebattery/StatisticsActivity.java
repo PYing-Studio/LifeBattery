@@ -3,22 +3,37 @@ package io.github.zhaomy6.lifebattery;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.R.attr.button;
 
 public class StatisticsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
     private static final int PHOTO_REQUEST_CUT = 3;// 结果
-
-    /* 裁剪后图片的宽和高 */
-    private static int output_X = 220;
-    private static int output_Y = 220;
     private RoundedImageView headImage = null;
+    private TextView userName;
+    private TextView pastDays;
+    private TextView successedPlan;
+    private TextView failedPlan;
+    private Button ;
+    private MyDB myDB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,15 +41,47 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_statistics);
         setTitle("使用统计");
 
+        myDB = new MyDB(this);
+        userName = (TextView)findViewById(R.id.statistic_user_name);
+        pastDays = (TextView)findViewById(R.id.statistic_days);
+        successedPlan = (TextView)findViewById(R.id.statistic_tasks);
+        failedPlan = (TextView)findViewById(R.id.statistic_state);
+
+        button
         headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
         headImage.setOnClickListener(this);
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
-        String userName = sp.getString("username", "");
+        String userNameText = sp.getString("username", "");
         String registerTime = sp.getString("registerTime", "1996-03-01");
+        int flag = sp.getInt("flag", 0);
+        if (flag == 1) {
+            String path = Environment.getExternalStorageDirectory() + "LifeBattery/head.jpg";
+            File file = new File(path);
+            if (file.exists() && file.canRead()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+                this.headImage.setImageBitmap(bitmap);
+            }
+        }
 
-        TextView uv = (TextView) findViewById(R.id.statistic_user_name);
-        uv.setText(userName);
+        userName.setText(userNameText);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(registerTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long s1 = date.getTime();
+        long s2 = System.currentTimeMillis();
+        long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
+        pastDays.setText("已打卡 " + day + " 天");
+
+        int finishedCount = myDB.getFinisedTaskNum();
+        int overtimeCount = myDB.getOvertimeTaskNum();
+        int unFinishedCount = myDB.getUnfinishedTaskNum();
+        successedPlan.setText("已完成 " + finishedCount + " 任务");
+        failedPlan.setText("" + overtimeCount + " 待完成, " + unFinishedCount + " 已超时");
 
         //  TODO: 从数据库中读取并设置统计信息
 
@@ -103,6 +150,26 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             if (data != null) {
                 Bitmap bitmap = data.getParcelableExtra("data");
                 this.headImage.setImageBitmap(bitmap);
+                File file = new File(Environment.getExternalStorageDirectory() + "LifeBattery/head.jpg");
+                if (file.exists()) {
+                    file.delete();
+                }
+                FileOutputStream out;
+                try {
+                    out = new FileOutputStream(file);
+                    if (bitmap.compress(Bitmap.CompressFormat.PNG, 90, out)) {
+                        out.flush();
+                        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt("flag", 1);
+                        editor.apply();
+                        out.close();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

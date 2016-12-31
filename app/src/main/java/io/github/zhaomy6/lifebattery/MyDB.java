@@ -153,12 +153,12 @@ public class MyDB extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor queryDB(String title) {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query(Table_Name, new String[]{"title"}, null, null, null, null, null);
-        db.close();
-        return cursor;
-    }
+//    public Cursor queryDB(String title) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        Cursor cursor = db.query(Table_Name, new String[]{"title"}, null, null, null, null, null);
+//        db.close();
+//        return cursor;
+//    }
 
     public Cursor getLatestPlan() {
         SQLiteDatabase db = getWritableDatabase();
@@ -196,6 +196,23 @@ public class MyDB extends SQLiteOpenHelper {
             //  | title | ddl | type | detail |
             updateDBItemById(id, "", DDL, "false", "");
         }
+        cursor.close();
+        return num;
+    }
+
+    public int getUnfinishedTaskNum() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT _id FROM " + Table_Name;
+        Cursor cursor = db.rawQuery(query_sql, null);
+        int num = cursor.getCount();
+        cursor.close();
+        return num;
+    }
+    public int getFinisedTaskNum() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT _id FROM " + Table_Finish_Task;
+        Cursor cursor = db.rawQuery(query_sql, null);
+        int num = cursor.getCount();
         cursor.close();
         return num;
     }

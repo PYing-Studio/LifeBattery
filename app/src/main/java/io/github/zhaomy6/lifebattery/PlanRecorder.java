@@ -80,7 +80,7 @@ public class PlanRecorder extends Service {
         updateDBImmediately();
         Cursor cursor = myDB.getLatestPlan();
         boolean flag = cursor.moveToNext();
-        if (flag && cursor.getCount() != 0) {
+        if (flag && cursor.getCount() > 0) {
             cursor.moveToFirst();
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
