@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class PlansActivity extends AppCompatActivity {
     private ListView listView;
     private MyDB myDB;
@@ -50,51 +49,6 @@ public class PlansActivity extends AppCompatActivity {
     };
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.searchAction).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent intent = new Intent();
-                intent.setClass(PlansActivity.this, HandleSearchActivity.class);
-                intent.putExtra("query", query);
-                startActivityForResult(intent, 1);
-//                Toast.makeText(PlansActivity.this, query, Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return true;
-    }
-
-    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
-    public void updateListView() {
-        Cursor cursors = myDB.getPart();
-        sca.swapCursor(cursors);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
-            case RESULT_OK:
-                updateListView();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
@@ -113,13 +67,11 @@ public class PlansActivity extends AppCompatActivity {
                 new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         listView = (ListView) findViewById(R.id.planList);
         listView.setAdapter(sca);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             private String titleText;
             private String DDLText;
             private String detailText;
             private String timeTextToShow;
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LayoutInflater factory = LayoutInflater.from(PlansActivity.this);
@@ -144,15 +96,11 @@ public class PlansActivity extends AppCompatActivity {
 
                 String[] frag = DDLText.split("\n");
                 timeTextToShow = "截止日期:\n" + frag[0] + " " + frag[1];
-
                 d_planDDL.setText(timeTextToShow);
-
                 Cursor cursor1 = myDB.getWithTitle(titleText);
                 cursor1.moveToFirst();
-
                 detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-
                 String typeText = "任务类型类型: " + "近期计划";
                 d_planType.setText(typeText);
 
@@ -163,7 +111,6 @@ public class PlansActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent();
                         intent.setClass(PlansActivity.this, AddActivity.class);
-//                        intent.putExtra("intent", "modify added plan");
                         intent.putExtra("titleText", titleText);
                         intent.putExtra("DDLText", DDLText);
                         intent.putExtra("detailText", detailText);
@@ -171,18 +118,13 @@ public class PlansActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
-
-
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
-
                 builder.create().show();
             }
-
         });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -191,9 +133,9 @@ public class PlansActivity extends AppCompatActivity {
                 Cursor cursor = (Cursor)sca.getItem(position);
                 final String title = cursor.getString(cursor.getColumnIndex("title"));
                 final String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlansActivity.this);
                 builder.setTitle("任务管理");
-
                 builder.setNegativeButton("取消任务", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -201,13 +143,11 @@ public class PlansActivity extends AppCompatActivity {
                         updateListView();
                     }
                 });
-
                 builder.setPositiveButton("完成任务",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         myDB.updateFinished(title, "完成");
                         updateListView();
-
                         //  将完成任务的时间写入
                         String finishDate = DDL.split("\n")[0];
                         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
@@ -225,6 +165,49 @@ public class PlansActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.searchAction).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent();
+                intent.setClass(PlansActivity.this, HandleSearchActivity.class);
+                intent.putExtra("query", query);
+                startActivityForResult(intent, 1);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
+    public void updateListView() {
+        Cursor cursors = myDB.getPart();
+        sca.swapCursor(cursors);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case RESULT_OK:
+                updateListView();
+                break;
+            default:
+                break;
+        }
     }
 
     //  TODO: 设置超时提醒

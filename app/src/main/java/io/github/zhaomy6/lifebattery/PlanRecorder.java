@@ -23,8 +23,6 @@ import java.util.TimerTask;
 public class PlanRecorder extends Service {
     public final IBinder binder = new MyBinder();
     private MyDB myDB;
-    private Timer timer;
-    private TimerTask timerTask;
     private Timer notification;
     private TimerTask notificationTask;
 

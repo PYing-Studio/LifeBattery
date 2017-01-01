@@ -24,13 +24,6 @@ public class StoreActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-
-        //  配置工具栏
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.store_toolBar);
-//        toolbar.setTitle("LifeBattery");
-//        setSupportActionBar(toolbar);
-//        toolbar.setOnMenuItemClickListener(this);
-
         for (int id : this.batteriesID) {
             findViewById(id).setOnClickListener(this);
         }

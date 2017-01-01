@@ -16,7 +16,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +27,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 主界面:
+ */
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
     private TextView latestTitle, latestDDL, latestProgress;
-    private Button planButton, storeButton, summaryButton;
-
     private PlanRecorder planRecorder;
 
     private ServiceConnection sc = new ServiceConnection() {
@@ -52,10 +52,57 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 初始化界面
+        init();
+        fillWithLatestPlan();
+
+        // 绑定服务
+        bindServiceConnection();
+        planRecordHandleStart();
+
+        //  更新剩余周以及百分比
+        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+        int totalWeeks = sp.getInt("totalWeeks", 9999);
+        String[] birthday = sp.getString("birthday", "0/0/0").split("/");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+
+        //  生日日期获取
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.parseInt(birthday[0]),
+                Integer.parseInt(birthday[1]) - 1,
+                Integer.parseInt(birthday[2]));
+        Date birthDate = calendar.getTime();
+
+        //  当前日期获取
+        String[] curTime = df.format(new Date()).split("-");
+        calendar.set(Integer.parseInt(curTime[0]),
+                Integer.parseInt(curTime[1]) - 1,
+                Integer.parseInt(curTime[2]));
+        Date curDate = calendar.getTime();
+
+        int usedWeeks = (int) ((curDate.getTime() - birthDate.getTime()) / 1000 / 60 / 60 / 24 / 7);
+        int leftWeeks = totalWeeks - usedWeeks;
+        int percent = 100 - (int) Math.floor((double) usedWeeks / (double) totalWeeks * 100);
+        String showMes = leftWeeks + "\n" + percent + "%";
+        TextView m_display = (TextView) findViewById(R.id.m_left_weeks);
+        m_display.setText(showMes);
+    }
+
+    // 初始化
+    private void init() {
         latestTitle = (TextView) findViewById(R.id.m_plan_title);
         latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
         latestProgress = (TextView) findViewById(R.id.m_plan_progress);
         myDB = new MyDB(this);
+
+        findViewById(R.id.m_plan_button).setOnClickListener(this);
+        findViewById(R.id.m_store_button).setOnClickListener(this);
+        findViewById(R.id.m_summary_button).setOnClickListener(this);
+        findViewById(R.id.main_battery_info).setOnClickListener(this);
+    }
+
+    // 获取最近任务
+    private void fillWithLatestPlan() {
         Cursor cursor = myDB.getLatestPlan();
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -86,49 +133,13 @@ public class MainActivity extends AppCompatActivity
                 latestProgress.setText("剩余 " + day + " 天");
             }
         }
-
-        bindServiceConnection();
-        planRecordHandleStart();
-
-        //  更新剩余周以及百分比
-        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
-        int totalWeeks = sp.getInt("totalWeeks", 9999);
-        String[] birthday = sp.getString("birthday", "0/0/0").split("/");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-
-        //  生日日期获取
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(birthday[0]),
-                Integer.parseInt(birthday[1]) - 1,
-                Integer.parseInt(birthday[2]));
-        Date birthDate = calendar.getTime();
-
-        //  当前日期获取
-        String[] curTime = df.format(new Date()).split("-");
-        calendar.set(Integer.parseInt(curTime[0]),
-                Integer.parseInt(curTime[1]) - 1,
-                Integer.parseInt(curTime[2]));
-        Date curDate = calendar.getTime();
-
-        int usedWeeks = (int) ((curDate.getTime() - birthDate.getTime()) / 1000 / 60 / 60 / 24 / 7);
-        int leftWeeks = totalWeeks - usedWeeks;
-        int percent = 100 - (int) Math.floor((double) usedWeeks / (double) totalWeeks * 100);
-        String showMes = leftWeeks + "\n" + percent + "%";
-        TextView m_display = (TextView) findViewById(R.id.m_left_weeks);
-        m_display.setText(showMes);
-
-        findViewById(R.id.m_plan_button).setOnClickListener(this);
-        findViewById(R.id.m_store_button).setOnClickListener(this);
-        findViewById(R.id.m_summary_button).setOnClickListener(this);
-
-        findViewById(R.id.main_battery_info).setOnClickListener(this);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbindService(sc);
     }
+
     // 界面底部导航逻辑跳转
     @Override
     public void onClick(View view) {
