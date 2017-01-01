@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +31,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
-    private TextView title, DDL, progress;
+    private TextView latestTitle, latestDDL, latestProgress;
     private Button planButton, storeButton, summaryButton;
 
     private PlanRecorder planRecorder;
@@ -50,7 +51,41 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        latestTitle = (TextView) findViewById(R.id.m_plan_title);
+        latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
+        latestProgress = (TextView) findViewById(R.id.m_plan_progress);
         myDB = new MyDB(this);
+        Cursor cursor = myDB.getLatestPlan();
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            latestTitle.setText(title);
+            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+            latestDDL.setText(DDL);
+            if (title != null || DDL != null) {
+                String minuteFormat = "";
+                if (DateFormat.is24HourFormat(getApplicationContext())) {
+                    minuteFormat += "k:mm";
+                } else {
+                    minuteFormat += "HH:mm a";
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
+                String[] frag = DDL.split("\n");
+                String dstr = frag[0] + " " + frag[1];
+                Date date = null;
+                try {
+                    date = sdf.parse(dstr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long s1 = date.getTime();
+                long s2 = System.currentTimeMillis();
+                long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
+                latestProgress.setText("剩余 " + day + " 天");
+            }
+        }
 
         bindServiceConnection();
         planRecordHandleStart();

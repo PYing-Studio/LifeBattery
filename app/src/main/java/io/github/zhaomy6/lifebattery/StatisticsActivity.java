@@ -3,10 +3,8 @@ package io.github.zhaomy6.lifebattery;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,15 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static android.R.attr.button;
 
 public class StatisticsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
@@ -32,8 +24,9 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     private TextView pastDays;
     private TextView successedPlan;
     private TextView failedPlan;
-    private Button ;
     private MyDB myDB;
+    private Button aboutButton;
+    private Button logOffButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,9 +38,10 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         userName = (TextView)findViewById(R.id.statistic_user_name);
         pastDays = (TextView)findViewById(R.id.statistic_days);
         successedPlan = (TextView)findViewById(R.id.statistic_tasks);
-        failedPlan = (TextView)findViewById(R.id.statistic_state);
+        failedPlan = (TextView) findViewById(R.id.statistic_state);
+        findViewById(R.id.statistic_about).setOnClickListener(this);
+        findViewById(R.id.statistic_logout).setOnClickListener(this);
 
-        button
         headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
         headImage.setOnClickListener(this);
 
@@ -56,12 +50,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         String registerTime = sp.getString("registerTime", "1996-03-01");
         int flag = sp.getInt("flag", 0);
         if (flag == 1) {
-            String path = Environment.getExternalStorageDirectory() + "LifeBattery/head.jpg";
-            File file = new File(path);
-            if (file.exists() && file.canRead()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(path);
-                this.headImage.setImageBitmap(bitmap);
-            }
+
         }
 
         userName.setText(userNameText);
@@ -99,6 +88,16 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.statistic_avatar:
                 gallery();
+                break;
+            case R.id.statistic_about:
+                intent = new Intent(StatisticsActivity.this, AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.statistic_logout:
+                intent = new Intent(StatisticsActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
             default:
                 break;
         }
@@ -150,26 +149,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             if (data != null) {
                 Bitmap bitmap = data.getParcelableExtra("data");
                 this.headImage.setImageBitmap(bitmap);
-                File file = new File(Environment.getExternalStorageDirectory() + "LifeBattery/head.jpg");
-                if (file.exists()) {
-                    file.delete();
-                }
-                FileOutputStream out;
-                try {
-                    out = new FileOutputStream(file);
-                    if (bitmap.compress(Bitmap.CompressFormat.PNG, 90, out)) {
-                        out.flush();
-                        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putInt("flag", 1);
-                        editor.apply();
-                        out.close();
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

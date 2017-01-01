@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.zhaomy6.lifebattery">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -22,8 +23,8 @@
         </activity>
         <activity
             android:name=".AddActivity"
-            android:theme="@style/FullScreen"
             android:launchMode="singleInstance"
+            android:theme="@style/FullScreen"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".StatisticsActivity" />
         <activity
@@ -63,7 +64,9 @@
         <service
             android:name=".PlanRecorder"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
