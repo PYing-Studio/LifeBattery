@@ -1,17 +1,20 @@
 package io.github.zhaomy6.lifebattery;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,8 +28,6 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
     private TextView successedPlan;
     private TextView failedPlan;
     private MyDB myDB;
-    private Button aboutButton;
-    private Button logOffButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,9 +49,17 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
         String userNameText = sp.getString("username", "");
         String registerTime = sp.getString("registerTime", "1996-03-01");
-        int flag = sp.getInt("flag", 0);
-        if (flag == 1) {
-
+        boolean flag = sp.getBoolean("hasChoose", false);
+        if (flag) {
+            String name = "test.jpg";
+            try{
+                FileInputStream fis = getApplicationContext().openFileInput(name);
+                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                fis.close();
+                headImage.setImageBitmap(bitmap);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
         }
 
         userName.setText(userNameText);
@@ -149,7 +158,19 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             if (data != null) {
                 Bitmap bitmap = data.getParcelableExtra("data");
                 this.headImage.setImageBitmap(bitmap);
-
+                SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("hasChoose", true);
+                editor.apply();
+                String name = "test.jpg";
+                FileOutputStream out;
+                try {
+                    out = getApplicationContext().openFileOutput(name, Context.MODE_PRIVATE);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
