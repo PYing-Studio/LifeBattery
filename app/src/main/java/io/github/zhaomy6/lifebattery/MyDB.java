@@ -153,12 +153,12 @@ public class MyDB extends SQLiteOpenHelper {
         return cursor;
     }
 
-//    public Cursor queryDB(String title) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        Cursor cursor = db.query(Table_Name, new String[]{"title"}, null, null, null, null, null);
-//        db.close();
-//        return cursor;
-//    }
+    public Cursor queryDB(String title) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query(Table_Name, new String[]{"title"}, null, null, null, null, null);
+        db.close();
+        return cursor;
+    }
 
     public Cursor getLatestPlan() {
         SQLiteDatabase db = getWritableDatabase();
@@ -172,6 +172,13 @@ public class MyDB extends SQLiteOpenHelper {
         String[] tableColumns = {"_id", "title", "DDL", "type", "detail", "finished"};
         return db.query(Table_Name, tableColumns,
                 null, null, null, null, null);
+    }
+
+    public Cursor getLongTimePlan() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query_sql = "SELECT _id, title, DDL, type, detail, finished FROM " + Table_Name + " WHERE type = 'true'";
+        Cursor cursor = db.rawQuery(query_sql, null);
+        return cursor;
     }
 
     // 获取表中部分列
@@ -192,9 +199,10 @@ public class MyDB extends SQLiteOpenHelper {
             int id = Integer.parseInt(cursor.getString(0));
             String title = cursor.getString(1);
             String DDL = cursor.getString(2);
+            String detail = cursor.getString(4);
 //            Log.d("test db", title + " " + DDL);
             //  | title | ddl | type | detail |
-            updateDBItemById(id, "", DDL, "false", "");
+            updateDBItemById(id, "", DDL, "false", detail);
         }
         cursor.close();
         return num;
@@ -208,7 +216,7 @@ public class MyDB extends SQLiteOpenHelper {
         cursor.close();
         return num;
     }
-    public int getFinisedTaskNum() {
+    public int getFinishedTaskNum() {
         SQLiteDatabase db = getWritableDatabase();
         String query_sql = "SELECT _id FROM " + Table_Finish_Task;
         Cursor cursor = db.rawQuery(query_sql, null);
@@ -229,7 +237,7 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor sortWithTime() {
         SQLiteDatabase db = getWritableDatabase();
-        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
+        String query_sql = "SELECT * FROM " + Table_Name + ", " + Table_Finish_Task + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
     }

@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     private MyDB myDB;
     private TextView latestTitle, latestDDL, latestProgress;
     private Button planButton, storeButton, summaryButton;
+    private ListView lv;
 
     private PlanRecorder planRecorder;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         latestTitle = (TextView) findViewById(R.id.m_plan_title);
         latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
         latestProgress = (TextView) findViewById(R.id.m_plan_progress);
+
         myDB = new MyDB(this);
         Cursor cursor = myDB.getLatestPlan();
         if (cursor != null && cursor.getCount() > 0) {
@@ -157,26 +159,28 @@ public class MainActivity extends AppCompatActivity
     private void popLongPlanDialog() {
         //  列举所有无DDL的任务
         LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-        View v = factory.inflate(R.layout.dialog_long_plan, null);
+        final View v = factory.inflate(R.layout.dialog_long_plan, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setView(v);
         //  对话框属性
 
-        ArrayList<Plan> plans = new ArrayList<>();
-        Cursor cursor =  myDB.getAll();
-        while (cursor.moveToNext()) {
-            String title = cursor.getString(cursor.getColumnIndex("title"));
-            if ("".equals(title)) continue;
-            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
-            String type = cursor.getString(cursor.getColumnIndex("type"));
-            if ("".equals(type) || !"true".equals(type)) continue;
-            String detail = cursor.getString(cursor.getColumnIndex("detail"));
-            String finished = cursor.getString(cursor.getColumnIndex("finished"));
-            plans.add(new Plan(title, DDL, type, detail, finished));
-        }
+//        ArrayList<Plan> plans = new ArrayList<>();
+//        Cursor cursor =  myDB.getLongTimePlan();
+//        if (cursor != null && cursor.getCount() > 0) {
+//            while (cursor.moveToNext()) {
+//                String title = cursor.getString(cursor.getColumnIndex("title"));
+//                if ("".equals(title)) continue;
+//                String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+//                String type = cursor.getString(cursor.getColumnIndex("type"));
+//                if ("".equals(type)) continue;
+//                String detail = cursor.getString(cursor.getColumnIndex("detail"));
+//                String finished = cursor.getString(cursor.getColumnIndex("finished"));
+//                plans.add(new Plan(title, DDL, type, detail, finished));
+//            }
+//        }
 
-        final PlanAdapter adapter = new PlanAdapter(v.getContext(), plans, true);
-        ListView lv = (ListView) v.findViewById(R.id.long_plan_list);
+        final PlanAdapter adapter = getPlansAdapter(v);
+        lv = (ListView) v.findViewById(R.id.long_plan_list);
         lv.setAdapter(adapter);
 
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         //  绑定对话框中事件
-        String dialogTitle = "长远任务（共" + plans.size() + "项）";
+        String dialogTitle = "长远任务（共" + lv.getCount() + "项）";
         builder.setTitle(dialogTitle);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -202,6 +206,11 @@ public class MainActivity extends AppCompatActivity
                 //  将已选中的任务从数据库中删除
                 //  selectedPlans中存有所有选中的Plan
                 ArrayList<Plan> selectedPlans = adapter.getSelectedPlans();
+                for (int k = 0; k < selectedPlans.size(); k++) {
+                    Plan tem = selectedPlans.get(k);
+                    myDB.updateFinished(tem.getTitle(), "完成");
+                }
+                lv.setAdapter(getPlansAdapter(v));
             }
         });
 
@@ -231,6 +240,24 @@ public class MainActivity extends AppCompatActivity
         simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
         String m_string = simpleDateFormat.format(date);
         myDB.updateTimeout(d_string + "\n" + m_string);
+    }
+
+    private PlanAdapter getPlansAdapter(View v) {
+        ArrayList<Plan> plans = new ArrayList<>();
+        Cursor cursor =  myDB.getLongTimePlan();
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                if ("".equals(title)) continue;
+                String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+                if ("".equals(type)) continue;
+                String detail = cursor.getString(cursor.getColumnIndex("detail"));
+                String finished = cursor.getString(cursor.getColumnIndex("finished"));
+                plans.add(new Plan(title, DDL, type, detail, finished));
+            }
+        }
+        return new PlanAdapter(v.getContext(), plans, true);
     }
 
     private void bindServiceConnection() {

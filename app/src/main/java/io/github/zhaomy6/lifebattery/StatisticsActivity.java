@@ -75,7 +75,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
         pastDays.setText("已打卡 " + day + " 天");
 
-        int finishedCount = myDB.getFinisedTaskNum();
+        int finishedCount = myDB.getFinishedTaskNum();
         int overtimeCount = myDB.getOvertimeTaskNum();
         int unFinishedCount = myDB.getUnfinishedTaskNum();
         successedPlan.setText("已完成 " + finishedCount + " 任务");

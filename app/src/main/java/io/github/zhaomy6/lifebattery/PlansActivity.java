@@ -245,7 +245,9 @@ public class PlansActivity extends AppCompatActivity {
         myDB.updateTimeout(d_string + "\n" + m_string);
 
         int num = myDB.getOvertimeTaskNum();
-        Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
+        if (num > 0) {
+            Toast.makeText(this, "提醒:\n又有 " + num + " 个计划超时", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
