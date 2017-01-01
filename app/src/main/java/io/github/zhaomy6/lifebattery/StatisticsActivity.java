@@ -35,16 +35,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_statistics);
         setTitle("使用统计");
 
-        myDB = new MyDB(this);
-        userName = (TextView)findViewById(R.id.statistic_user_name);
-        pastDays = (TextView)findViewById(R.id.statistic_days);
-        successedPlan = (TextView)findViewById(R.id.statistic_tasks);
-        failedPlan = (TextView) findViewById(R.id.statistic_state);
-        findViewById(R.id.statistic_about).setOnClickListener(this);
-        findViewById(R.id.statistic_logout).setOnClickListener(this);
-
-        headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
-        headImage.setOnClickListener(this);
+        init();
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
         String userNameText = sp.getString("username", "");
@@ -80,10 +71,21 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         int unFinishedCount = myDB.getUnfinishedTaskNum();
         successedPlan.setText("已完成 " + finishedCount + " 任务");
         failedPlan.setText("" + overtimeCount + " 待完成, " + unFinishedCount + " 已超时");
+    }
 
-        //  TODO: 从数据库中读取并设置统计信息
+    private void init() {
+        myDB = new MyDB(this);
+        userName = (TextView)findViewById(R.id.statistic_user_name);
+        pastDays = (TextView)findViewById(R.id.statistic_days);
+        successedPlan = (TextView)findViewById(R.id.statistic_tasks);
+        failedPlan = (TextView) findViewById(R.id.statistic_state);
+        findViewById(R.id.statistic_about).setOnClickListener(this);
+        findViewById(R.id.statistic_logout).setOnClickListener(this);
 
+        headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
+        headImage.setOnClickListener(this);
         findViewById(R.id.statistic_detail).setOnClickListener(this);
+
     }
 
     @Override

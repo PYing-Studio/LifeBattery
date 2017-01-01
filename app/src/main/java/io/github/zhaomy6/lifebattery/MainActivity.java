@@ -28,6 +28,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 主界面:
+ */
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        // 绑定服务
         bindServiceConnection();
         planRecordHandleStart();
 
@@ -118,19 +122,60 @@ public class MainActivity extends AppCompatActivity
         String showMes = leftWeeks + "\n" + percent + "%";
         TextView m_display = (TextView) findViewById(R.id.m_left_weeks);
         m_display.setText(showMes);
+    }
+
+    // 初始化
+    private void init() {
+        latestTitle = (TextView) findViewById(R.id.m_plan_title);
+        latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
+        latestProgress = (TextView) findViewById(R.id.m_plan_progress);
+        myDB = new MyDB(this);
 
         findViewById(R.id.m_plan_button).setOnClickListener(this);
         findViewById(R.id.m_store_button).setOnClickListener(this);
         findViewById(R.id.m_summary_button).setOnClickListener(this);
-
         findViewById(R.id.main_battery_info).setOnClickListener(this);
     }
 
+    // 获取最近任务
+    private void fillWithLatestPlan() {
+        Cursor cursor = myDB.getLatestPlan();
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            latestTitle.setText(title);
+            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+            latestDDL.setText(DDL);
+            if (title != null || DDL != null) {
+                String minuteFormat = "";
+                if (DateFormat.is24HourFormat(getApplicationContext())) {
+                    minuteFormat += "k:mm";
+                } else {
+                    minuteFormat += "HH:mm a";
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
+                String[] frag = DDL.split("\n");
+                String dstr = frag[0] + " " + frag[1];
+                Date date = null;
+                try {
+                    date = sdf.parse(dstr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long s1 = date.getTime();
+                long s2 = System.currentTimeMillis();
+                long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
+                latestProgress.setText("剩余 " + day + " 天");
+            }
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbindService(sc);
     }
+
     // 界面底部导航逻辑跳转
     @Override
     public void onClick(View view) {

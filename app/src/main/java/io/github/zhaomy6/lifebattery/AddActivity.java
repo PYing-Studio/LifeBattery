@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.date.MonthAdapter;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -49,6 +47,15 @@ public class AddActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add);
         setTitle("添加计划");
 
+        init();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            modifyPlanWithBundle(extras);
+        }
+    }
+
+    private void init() {
         mToDoTextBodyEditText = (EditText) findViewById(R.id.titleEdit);
         mDateEditText = (EditText) findViewById(R.id.pickerButton1);
         mTimeEditText = (EditText) findViewById(R.id.pickerButton2);
@@ -62,11 +69,6 @@ public class AddActivity extends AppCompatActivity implements
         longPlanFlag.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
         updateFlag = false;
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && !extras.isEmpty()) {
-            modifyPlanWithBundle(extras);
-        }
     }
 
     // 修改计划
@@ -131,7 +133,6 @@ public class AddActivity extends AppCompatActivity implements
         } else {
             dateFormat = "HH:mm a";
         }
-//        dateFormat = "HH:mm a";
         mTimeEditText.setText(formatDate(dateFormat, mUserReminderDate));
     }
 
@@ -203,7 +204,6 @@ public class AddActivity extends AppCompatActivity implements
             c.setTime(date);
             int hour = Integer.parseInt(frag[1].split(":")[0]);
             c.set(Calendar.HOUR, hour);
-//            long s1 = date.getTime();
             //  解决分钟级别先后顺序的bug
             long s2 = System.currentTimeMillis();
             long s3 = c.getTime().getTime();

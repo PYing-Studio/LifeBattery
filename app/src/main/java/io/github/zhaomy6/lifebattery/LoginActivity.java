@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,7 +36,7 @@ public class LoginActivity extends Activity
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ((Button) findViewById(R.id.login_btn)).setOnClickListener(this);
+        findViewById(R.id.login_btn).setOnClickListener(this);
 
         datePicker = (EditText) findViewById(R.id.login_input_birth_);
         datePicker.setOnClickListener(this);

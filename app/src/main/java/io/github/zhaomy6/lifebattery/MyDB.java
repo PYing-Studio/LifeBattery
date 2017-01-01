@@ -203,6 +203,7 @@ public class MyDB extends SQLiteOpenHelper {
 //            Log.d("test db", title + " " + DDL);
             //  | title | ddl | type | detail |
             updateDBItemById(id, "", DDL, "false", detail);
+
         }
         cursor.close();
         return num;
