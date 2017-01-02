@@ -84,13 +84,13 @@
                 android:elevation="3dp">
                 <ImageView
                     android:id="@+id/m_battery_icon"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
                     android:layout_centerVertical="true"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
                     android:layout_gravity="start"
-                    android:src="@drawable/main_battery"
+                    android:src="@drawable/life_full"
                     android:contentDescription="@string/app_name"/>
 
                 <TextView

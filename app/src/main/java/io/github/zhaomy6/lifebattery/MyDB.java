@@ -195,11 +195,13 @@ public class MyDB extends SQLiteOpenHelper {
         String query_sql = "SELECT _id, title, DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '超时'";
         Cursor cursor = db.rawQuery(query_sql, null);
         int num = cursor.getCount();
+        cursor.moveToFirst();
         while (cursor.moveToNext()) {
             int id = Integer.parseInt(cursor.getString(0));
-            String title = cursor.getString(1);
+//            String title = cursor.getString(1);
             String DDL = cursor.getString(2);
-            String detail = cursor.getString(4);
+//            String detail = cursor.getString(cursor.getColumnIndex("detail"));
+            String detail = "";
 //            Log.d("test db", title + " " + DDL);
             //  | title | ddl | type | detail |
             updateDBItemById(id, "", DDL, "false", detail);
@@ -232,14 +234,12 @@ public class MyDB extends SQLiteOpenHelper {
         String query_sql = "SELECT * FROM " + Table_Name + " WHERE title LIKE '%" + keyword
                 + "%' OR DDL LIKE '%" + keyword + "%' OR type LIKE '%" + keyword + "%' OR detail LIKE '%"
                 + keyword + "%' OR finished LIKE '%" + keyword + "%'";
-        Cursor cursor = db.rawQuery(query_sql, null);
-        return cursor;
+        return db.rawQuery(query_sql, null);
     }
 
     public Cursor sortWithTime() {
         SQLiteDatabase db = getWritableDatabase();
-        String query_sql = "SELECT * FROM " + Table_Name + ", " + Table_Finish_Task + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
-        Cursor cursor = db.rawQuery(query_sql, null);
-        return cursor;
+        String query_sql = "SELECT * FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成' ORDER BY DDL";
+        return db.rawQuery(query_sql, null);
     }
 }

@@ -32,6 +32,7 @@
             android:layout_marginStart="@dimen/login_margin"
             android:layout_marginEnd="@dimen/login_margin"
             android:layout_alignParentBottom="true"
+            android:inputType="text"
             android:textColor="@color/colorWhite"
             android:hint="请输入标题"/>
     </RelativeLayout>

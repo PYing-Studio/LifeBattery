@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,6 +123,9 @@ public class MainActivity extends AppCompatActivity
         String showMes = leftWeeks + "\n" + percent + "%";
         TextView m_display = (TextView) findViewById(R.id.m_left_weeks);
         m_display.setText(showMes);
+        updateBattery(percent);
+        init();
+        fillWithLatestPlan();
     }
 
     // 初始化
@@ -135,6 +139,32 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.m_store_button).setOnClickListener(this);
         findViewById(R.id.m_summary_button).setOnClickListener(this);
         findViewById(R.id.main_battery_info).setOnClickListener(this);
+    }
+
+    //  动态更新电池图标状态
+    private void updateBattery(int percent) {
+        ImageView status = (ImageView) findViewById(R.id.m_battery_icon);
+        if (percent > 95) {
+            status.setImageResource(R.drawable.life_full);
+        } else if (percent > 85) {
+            status.setImageResource(R.drawable.life_90);
+        } else if (percent > 75) {
+            status.setImageResource(R.drawable.life_80);
+        } else if (percent > 65) {
+            status.setImageResource(R.drawable.life_70);
+        } else if (percent > 55) {
+            status.setImageResource(R.drawable.life_60);
+        } else if (percent > 45) {
+            status.setImageResource(R.drawable.life_50);
+        } else if (percent > 35) {
+            status.setImageResource(R.drawable.life_40);
+        } else if (percent > 25) {
+            status.setImageResource(R.drawable.life_30);
+        } else if (percent > 15) {
+            status.setImageResource(R.drawable.life_20);
+        } else {
+            status.setImageResource(R.drawable.life_10);
+        }
     }
 
     // 获取最近任务

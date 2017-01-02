@@ -49,8 +49,10 @@ public class PlanRecorder extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        notification.cancel();
-        notification = null;
+        if (notification != null) {
+            notification.cancel();
+            notification = null;
+        }
     }
 
     public class MyBinder extends Binder {

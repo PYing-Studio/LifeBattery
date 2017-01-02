@@ -8,11 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class PlanAdapter extends BaseAdapter {
     private List<Plan> list;
@@ -65,14 +70,15 @@ public class PlanAdapter extends BaseAdapter {
                 viewHolder = new ViewHolder();
                 viewHolder.Title = (TextView) convertView.findViewById(R.id.planTitle);
                 viewHolder.DDL = (TextView) convertView.findViewById(R.id.planDDL);
+                viewHolder.state = (ImageView) convertView.findViewById(R.id.battery_state);
                 convertView.setTag(viewHolder);
             } else {
                 convertView = view;
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-
+            String ddlStr = list.get(position).getDDL().split("\n")[0];
             viewHolder.Title.setText(list.get(position).getTitle());
-            viewHolder.DDL.setText(list.get(position).getDDL());
+            viewHolder.DDL.setText(ddlStr);
         } else {
             //  作为无DDL任务的adapter
             if (view == null) {
@@ -137,6 +143,7 @@ public class PlanAdapter extends BaseAdapter {
         TextView Title;
         TextView DDL;
         CheckBox cb;
+        ImageView state;
     }
 }
 

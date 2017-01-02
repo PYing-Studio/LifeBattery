@@ -42,7 +42,8 @@ public class PlansActivity extends AppCompatActivity {
                 return true;
             } else if (menuItem.getItemId() == R.id.sortAction) {
                 Cursor cursors = myDB.sortWithTime();
-                sca.swapCursor(cursors);
+                if (cursors != null && sca != null)
+                    sca.swapCursor(cursors);
             }
             return false;
         }
@@ -62,11 +63,13 @@ public class PlansActivity extends AppCompatActivity {
         updateDBImmediately();
 
         Cursor listItems = myDB.getPart();
-        sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
-                listItems, new String[] {"title", "DDL"},
-                new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        sca = new PlanCursorAdapter(getApplicationContext(), listItems);
+//        sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
+//                listItems, new String[] {"title", "DDL"},
+//                new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         listView = (ListView) findViewById(R.id.planList);
         listView.setAdapter(sca);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             private String titleText;
             private String DDLText;
