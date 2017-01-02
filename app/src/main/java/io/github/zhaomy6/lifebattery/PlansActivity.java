@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -64,9 +63,6 @@ public class PlansActivity extends AppCompatActivity {
 
         Cursor listItems = myDB.getPart();
         sca = new PlanCursorAdapter(getApplicationContext(), listItems);
-//        sca = new SimpleCursorAdapter(getApplicationContext(), R.layout.plans_item,
-//                listItems, new String[] {"title", "DDL"},
-//                new int[]{R.id.planTitle, R.id.planDDL}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         listView = (ListView) findViewById(R.id.planList);
         listView.setAdapter(sca);
 
@@ -196,7 +192,6 @@ public class PlansActivity extends AppCompatActivity {
         return true;
     }
 
-    //  TODO: Bug 已完成的任务仍然占有title，于是无法创建与已完成任务同名的任务
     public void updateListView() {
         Cursor cursors = myDB.getPart();
         sca.swapCursor(cursors);
@@ -213,7 +208,7 @@ public class PlansActivity extends AppCompatActivity {
         }
     }
 
-    //  TODO: 设置超时提醒
+    // 设置超时提醒
     private void updateDBImmediately() {
         Date date = new Date();
         String dateFormat = "yyyy-MM-dd";

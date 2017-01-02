@@ -153,13 +153,6 @@ public class MyDB extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor queryDB(String title) {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query(Table_Name, new String[]{"title"}, null, null, null, null, null);
-        db.close();
-        return cursor;
-    }
-
     public Cursor getLatestPlan() {
         SQLiteDatabase db = getWritableDatabase();
         String query_sql = "SELECT title, MIN(DDL) AS DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
@@ -198,12 +191,8 @@ public class MyDB extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
             int id = Integer.parseInt(cursor.getString(0));
-//            String title = cursor.getString(1);
             String DDL = cursor.getString(2);
-//            String detail = cursor.getString(cursor.getColumnIndex("detail"));
             String detail = "";
-//            Log.d("test db", title + " " + DDL);
-            //  | title | ddl | type | detail |
             updateDBItemById(id, "", DDL, "false", detail);
 
         }

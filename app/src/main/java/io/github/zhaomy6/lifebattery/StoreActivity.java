@@ -34,9 +34,7 @@ public class StoreActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_store, menu);
         return true;
     }
-
-    //  TODO: 处理点击电池的逻辑
-    //  TODO: 电池图标动态变化
+    // 电池图标动态变化
     @Override
     public void onClick(View view) {
         boolean isImgButton = false;

@@ -32,7 +32,6 @@ public class AddActivity extends AppCompatActivity implements
 
     private  MyDB myDB = new MyDB(this);
     private Date mUserReminderDate = null;
-
     private EditText mToDoTextBodyEditText;
     private EditText mDateEditText;
     private EditText mTimeEditText;
@@ -47,15 +46,6 @@ public class AddActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add);
         setTitle("添加计划");
 
-        init();
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && !extras.isEmpty()) {
-            modifyPlanWithBundle(extras);
-        }
-    }
-
-    private void init() {
         mToDoTextBodyEditText = (EditText) findViewById(R.id.titleEdit);
         mDateEditText = (EditText) findViewById(R.id.pickerButton1);
         mTimeEditText = (EditText) findViewById(R.id.pickerButton2);
@@ -69,6 +59,11 @@ public class AddActivity extends AppCompatActivity implements
         longPlanFlag.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
         updateFlag = false;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            modifyPlanWithBundle(extras);
+        }
     }
 
     // 修改计划
@@ -181,10 +176,11 @@ public class AddActivity extends AppCompatActivity implements
         String DDLText = mDateEditText.getText().toString() + "\n" + mTimeEditText.getText().toString();
         if (!longPlanFlag.isChecked()) {
             if (DDLText.equals("\n")) {
-                Toast.makeText(AddActivity.this, "请设置时间", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddActivity.this, "请完善时间设置", Toast.LENGTH_SHORT).show();
                 return;
             } else if (DDLText.indexOf('\n') == DDLText.length() - 1) {
-                DDLText += "00:00 上午";
+                Toast.makeText(AddActivity.this, "请完善时间设置", Toast.LENGTH_SHORT).show();
+                return;
             } else if (DDLText.indexOf('\n') == 0) {
                 Calendar calendar = Calendar.getInstance();
                 DDLText = "" + calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + DDLText;
@@ -204,7 +200,7 @@ public class AddActivity extends AppCompatActivity implements
             c.setTime(date);
             int hour = Integer.parseInt(frag[1].split(":")[0]);
             c.set(Calendar.HOUR, hour);
-            //  解决分钟级别先后顺序的bug
+            //  分钟级别先后顺序
             long s2 = System.currentTimeMillis();
             long s3 = c.getTime().getTime();
 

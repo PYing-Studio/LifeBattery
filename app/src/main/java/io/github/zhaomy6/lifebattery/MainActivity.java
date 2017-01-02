@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
     private TextView latestTitle, latestDDL, latestProgress;
-    private Button planButton, storeButton, summaryButton;
     private ListView lv;
 
     private PlanRecorder planRecorder;
@@ -60,38 +59,9 @@ public class MainActivity extends AppCompatActivity
         latestTitle = (TextView) findViewById(R.id.m_plan_title);
         latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
         latestProgress = (TextView) findViewById(R.id.m_plan_progress);
-
         myDB = new MyDB(this);
-        Cursor cursor = myDB.getLatestPlan();
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            String title = cursor.getString(cursor.getColumnIndex("title"));
-            latestTitle.setText(title);
-            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
-            latestDDL.setText(DDL);
-            if (title != null || DDL != null) {
-                String minuteFormat = "";
-                if (DateFormat.is24HourFormat(getApplicationContext())) {
-                    minuteFormat += "k:mm";
-                } else {
-                    minuteFormat += "HH:mm a";
-                }
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
-                String[] frag = DDL.split("\n");
-                String dstr = frag[0] + " " + frag[1];
-                Date date = null;
-                try {
-                    date = sdf.parse(dstr);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                long s1 = date.getTime();
-                long s2 = System.currentTimeMillis();
-                long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
-                latestProgress.setText("剩余 " + day + " 天");
-            }
-        }
+        fillWithLatestPlan();
 
         // 绑定服务
         bindServiceConnection();
@@ -125,6 +95,12 @@ public class MainActivity extends AppCompatActivity
         m_display.setText(showMes);
         updateBattery(percent);
         init();
+        fillWithLatestPlan();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         fillWithLatestPlan();
     }
 
@@ -237,22 +213,6 @@ public class MainActivity extends AppCompatActivity
         final View v = factory.inflate(R.layout.dialog_long_plan, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setView(v);
-        //  对话框属性
-
-//        ArrayList<Plan> plans = new ArrayList<>();
-//        Cursor cursor =  myDB.getLongTimePlan();
-//        if (cursor != null && cursor.getCount() > 0) {
-//            while (cursor.moveToNext()) {
-//                String title = cursor.getString(cursor.getColumnIndex("title"));
-//                if ("".equals(title)) continue;
-//                String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
-//                String type = cursor.getString(cursor.getColumnIndex("type"));
-//                if ("".equals(type)) continue;
-//                String detail = cursor.getString(cursor.getColumnIndex("detail"));
-//                String finished = cursor.getString(cursor.getColumnIndex("finished"));
-//                plans.add(new Plan(title, DDL, type, detail, finished));
-//            }
-//        }
 
         final PlanAdapter adapter = getPlansAdapter(v);
         lv = (ListView) v.findViewById(R.id.long_plan_list);
@@ -291,30 +251,7 @@ public class MainActivity extends AppCompatActivity
 
         //  自定义对话框大小，显示对话框
         Dialog dialog = builder.create();
-//        Window window = dialog.getWindow();
         dialog.show();
-//        if (window != null) {
-//            WindowManager.LayoutParams p = window.getAttributes();
-//            p.height = 1000;
-//            window.setAttributes(p);
-//        }
-    }
-
-    private void updateDBImmediately() {
-        Date date = new Date();
-        String dateFormat = "yyyy-MM-dd";
-        String minuteFormat = "";
-        if (DateFormat.is24HourFormat(getApplicationContext())) {
-            minuteFormat += "k:mm";
-        } else {
-            minuteFormat += "HH:mm a";
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.CHINA);
-        String d_string = simpleDateFormat.format(date);
-
-        simpleDateFormat = new SimpleDateFormat(minuteFormat, Locale.CHINA);
-        String m_string = simpleDateFormat.format(date);
-        myDB.updateTimeout(d_string + "\n" + m_string);
     }
 
     private PlanAdapter getPlansAdapter(View v) {

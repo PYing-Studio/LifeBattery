@@ -1,7 +1,6 @@
 package io.github.zhaomy6.lifebattery;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class PlanAdapter extends BaseAdapter {
     private List<Plan> list;
@@ -155,7 +150,6 @@ class Plan {
     private String planType;
     private String planDetail;
     private String finished;
-    private String color;
 
     public Plan(String title, String DDL, String planType, String planDetail, String finished) {
         this.title = title;
@@ -181,10 +175,6 @@ class Plan {
     public String getFinished() {
         return finished;
     }
-
-//    public String getColor() {
-//        return color;
-//    }
 
     public String getPlanType() {
         return planType;

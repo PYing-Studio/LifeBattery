@@ -163,8 +163,7 @@
                         android:layout_weight="4"
                         android:id="@+id/m_plan_title"
                         android:textColor="@color/colorDarkBackground"
-                        android:textSize="@dimen/font_normal"
-                        android:text="最近计划名称"/>
+                        android:textSize="@dimen/font_normal" />
                 </TableRow>
 
                 <TableRow
@@ -205,8 +204,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="4"
                         android:textColor="@color/colorDarkBackground"
-                        android:textSize="@dimen/font_normal"
-                        android:text="截止时间"/>
+                        android:textSize="@dimen/font_normal" />
                 </TableRow>
 
                 <TableRow
@@ -247,8 +245,7 @@
                         android:layout_weight="4"
                         android:id="@+id/m_plan_progress"
                         android:textColor="@color/colorDarkBackground"
-                        android:textSize="@dimen/font_normal"
-                        android:text="剩余天数"/>
+                        android:textSize="@dimen/font_normal" />
                 </TableRow>
 
                 <TableRow

@@ -35,7 +35,17 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_statistics);
         setTitle("使用统计");
 
-        init();
+        myDB = new MyDB(this);
+        userName = (TextView)findViewById(R.id.statistic_user_name);
+        pastDays = (TextView)findViewById(R.id.statistic_days);
+        successedPlan = (TextView)findViewById(R.id.statistic_tasks);
+        failedPlan = (TextView) findViewById(R.id.statistic_state);
+        findViewById(R.id.statistic_about).setOnClickListener(this);
+        findViewById(R.id.statistic_logout).setOnClickListener(this);
+
+        headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
+        headImage.setOnClickListener(this);
+        findViewById(R.id.statistic_detail).setOnClickListener(this);
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
         String userNameText = sp.getString("username", "");
@@ -70,22 +80,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         int overtimeCount = myDB.getOvertimeTaskNum();
         int unFinishedCount = myDB.getUnfinishedTaskNum();
         successedPlan.setText("已完成 " + finishedCount + " 任务");
-        failedPlan.setText("" + overtimeCount + " 待完成, " + unFinishedCount + " 已超时");
-    }
-
-    private void init() {
-        myDB = new MyDB(this);
-        userName = (TextView)findViewById(R.id.statistic_user_name);
-        pastDays = (TextView)findViewById(R.id.statistic_days);
-        successedPlan = (TextView)findViewById(R.id.statistic_tasks);
-        failedPlan = (TextView) findViewById(R.id.statistic_state);
-        findViewById(R.id.statistic_about).setOnClickListener(this);
-        findViewById(R.id.statistic_logout).setOnClickListener(this);
-
-        headImage = (RoundedImageView)findViewById(R.id.statistic_avatar);
-        headImage.setOnClickListener(this);
-        findViewById(R.id.statistic_detail).setOnClickListener(this);
-
+        failedPlan.setText("" + unFinishedCount + " 待完成, " + overtimeCount + " 已超时");
     }
 
     @Override
