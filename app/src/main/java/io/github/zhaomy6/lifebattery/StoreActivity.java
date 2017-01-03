@@ -115,6 +115,8 @@ public class StoreActivity extends AppCompatActivity {
             left_battery.setImageResource(R.drawable.state4);
         }
     }
+
+    // 动态添加行
     private void addTableRow(TableLayout pastWeekTable) {
         View viewXml = getLayoutInflater().inflate(R.layout.table_row, pastWeekTable, false);
         TableRow tableRow = (TableRow) viewXml.findViewById(R.id.table_row);
@@ -129,6 +131,7 @@ public class StoreActivity extends AppCompatActivity {
         tableRow.addView(column3);
         pastWeekTable.addView(tableRow);
     }
+
     private void addColumn1(TableLayout pastWeekTable) {
         View viewXml = getLayoutInflater().inflate(R.layout.table_row, pastWeekTable, false);
         TableRow tableRow = (TableRow) viewXml.findViewById(R.id.table_row);
