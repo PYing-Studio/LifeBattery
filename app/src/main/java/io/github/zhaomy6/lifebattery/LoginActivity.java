@@ -115,7 +115,7 @@ public class LoginActivity extends Activity
         int age = Integer.parseInt(curYear) - Integer.parseInt(birthYear);
         Random rand = new Random();
         if (age <= 0) age = 0;
-        int acc = age > 80 ? age + 10 : 80;
+        int acc = age > 77 ? age + 10 : 77;
         return (acc + rand.nextInt(20)) * 52;
     }
 

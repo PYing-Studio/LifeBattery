@@ -121,6 +121,15 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public Cursor queryTimeInterval(String current, String endWeek) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] colums = {"_id", "title"};
+        String whereClause = "type = ? AND DDL > ? AND DDL <= ?";
+        String[] whereArgs = {"false", current, endWeek};
+        Cursor cursor = db.query(Table_Name, colums, whereClause, whereArgs, null, null, null);
+        return cursor;
+    }
+
     public void deleteDB(String title) {
         SQLiteDatabase db = getWritableDatabase();
         String whereClause = "title=?";

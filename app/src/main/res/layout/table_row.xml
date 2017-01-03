@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table_row"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/div_margin"
+    android:layout_marginStart="@dimen/m_margin"
+    android:layout_marginEnd="@dimen/m_margin"></TableRow>
+
