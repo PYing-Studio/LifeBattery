@@ -1,6 +1,7 @@
 package io.github.zhaomy6.lifebattery;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -73,7 +75,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
         }
         long s1 = date.getTime();
         long s2 = System.currentTimeMillis();
-        long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
+        long day = (s1 - s2) / 1000 / 60 / 60 / 24;
         pastDays.setText("已打卡 " + day + " 天");
 
         int finishedCount = myDB.getFinishedTaskNum();
@@ -100,13 +102,32 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 break;
             case R.id.statistic_logout:
-                intent = new Intent(StatisticsActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                popConfirmDialog();
                 break;
             default:
                 break;
         }
+    }
+
+    private void popConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(StatisticsActivity.this);
+        builder.setTitle("注销提醒:");
+        builder.setMessage("注销会清空所有数据!\n是否继续?");
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("继续",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myDB.deleteTable();
+                SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(StatisticsActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.create().show();
     }
 
     /*

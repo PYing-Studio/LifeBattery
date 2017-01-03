@@ -129,6 +129,13 @@ public class MyDB extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteTable() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Table_Name, null, null);
+        db.delete(Table_Finish_Task, null, null);
+        db.close();
+    }
+
     public boolean isExists(String title) {
         SQLiteDatabase db = getWritableDatabase();
         String[] columns = {"title"};
