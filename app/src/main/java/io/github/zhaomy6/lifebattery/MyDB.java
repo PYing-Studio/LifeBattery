@@ -14,7 +14,6 @@ public class MyDB extends SQLiteOpenHelper {
     private static final String Table_Name = "Plans4";
 
     //  新建一个表存储已完成事件
-    //  为了解决无法重复添加同名事件的BUG
     private static final String Table_Finish_Task = "FinishPlans";
     private static final int DB_Version = 1;
 
@@ -28,8 +27,7 @@ public class MyDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //  type == true: 短期计划
-        //  type == false: 长远计划
+        //  type == true: 短期计划, type == false: 长远计划
         String Create_Table = "CREATE TABLE if not exists "
                 + Table_Name
                 + " (_id INTEGER PRIMARY KEY, title TEXT, DDL TEXT, type TEXT, detail TEXT, finished TEXT)";
@@ -123,10 +121,10 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor queryTimeInterval(String current, String endWeek) {
         SQLiteDatabase db = getWritableDatabase();
-        String[] colums = {"_id", "title"};
+        String[] columns = {"_id", "title"};
         String whereClause = "type = ? AND DDL > ? AND DDL <= ?";
         String[] whereArgs = {"false", current, endWeek};
-        Cursor cursor = db.query(Table_Name, colums, whereClause, whereArgs, null, null, null);
+        Cursor cursor = db.query(Table_Name, columns, whereClause, whereArgs, null, null, null);
         return cursor;
     }
 
@@ -159,10 +157,10 @@ public class MyDB extends SQLiteOpenHelper {
 
     public Cursor getWithTitle(String title) {
         SQLiteDatabase db = getWritableDatabase();
-        String[] colums = {"_id", "title", "DDL", "type", "detail", "finished"};
+        String[] columns = {"_id", "title", "DDL", "type", "detail", "finished"};
         String whereClause = "title=?";
         String[] whereArgs = {title};
-        Cursor cursor = db.query(Table_Name, colums, whereClause, whereArgs, null, null, null);
+        Cursor cursor = db.query(Table_Name, columns, whereClause, whereArgs, null, null, null);
         if (cursor.getCount() > 0) {
             Log.i(TAG, "getWithTitle: count");
         }
@@ -174,13 +172,6 @@ public class MyDB extends SQLiteOpenHelper {
         String query_sql = "SELECT title, MIN(DDL) AS DDL FROM " + Table_Name + " WHERE type = 'false' AND finished = '未完成'";
         Cursor cursor = db.rawQuery(query_sql, null);
         return cursor;
-    }
-
-    public Cursor getAll() {
-        SQLiteDatabase db = getWritableDatabase();
-        String[] tableColumns = {"_id", "title", "DDL", "type", "detail", "finished"};
-        return db.query(Table_Name, tableColumns,
-                null, null, null, null, null);
     }
 
     public Cursor getLongTimePlan() {
@@ -210,7 +201,6 @@ public class MyDB extends SQLiteOpenHelper {
             String DDL = cursor.getString(2);
             String detail = "";
             updateDBItemById(id, "", DDL, "false", detail);
-
         }
         cursor.close();
         return num;
@@ -224,6 +214,7 @@ public class MyDB extends SQLiteOpenHelper {
         cursor.close();
         return num;
     }
+
     public int getFinishedTaskNum() {
         SQLiteDatabase db = getWritableDatabase();
         String query_sql = "SELECT _id FROM " + Table_Finish_Task;

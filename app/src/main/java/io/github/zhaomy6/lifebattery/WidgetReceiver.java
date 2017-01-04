@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 响应PlanActivity中listView点击事件，动态更新
+ */
 
 public class WidgetReceiver extends BroadcastReceiver {
     @Override
@@ -21,8 +25,8 @@ public class WidgetReceiver extends BroadcastReceiver {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
                 String DDL = bundle.getString("DDL");
-                String ddlStr = DDL.split("\n")[0];
-                int days = timeDistance(new Date(), ddlStr);
+                Calendar c = Calendar.getInstance();
+                int days = 7 - c.get(Calendar.DAY_OF_WEEK);
                 if (days > 5) {
                     rv.setImageViewResource(R.id.appwidget_battery, R.drawable.state1);
                 } else if (days > 3) {
@@ -38,19 +42,5 @@ public class WidgetReceiver extends BroadcastReceiver {
                 AppWidgetManager.getInstance(context).updateAppWidget(new ComponentName(context, AppWidget.class), rv);
             }
         }
-    }
-
-    private int timeDistance(Date fromWhen, String to) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-        int days = 7;
-//        String dstr="2008-4-24";  demo
-        try {
-            Date toWhen = sdf.parse(to);
-            long diff = toWhen.getTime() - fromWhen.getTime();
-            days = (int) diff / 1000 / 60 / 60 / 24;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return days;
     }
 }

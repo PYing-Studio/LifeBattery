@@ -16,7 +16,6 @@ import android.widget.ImageView;
 /**
  * 继承ImageView，显示圆形图片
  */
-
 public class RoundedImageView extends ImageView {
     public RoundedImageView(Context context) {
         super(context);
@@ -82,4 +81,3 @@ public class RoundedImageView extends ImageView {
         return output;
     }
 }
-

@@ -8,18 +8,14 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 /**
- * Implementation of App Widget functionality.
+ *显示本周剩余电池量, 关注的计划(日期、标题)
  */
 public class AppWidget extends AppWidgetProvider {
-
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
         CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         views.setTextViewText(R.id.appwidget_Title, widgetText);
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -33,7 +29,6 @@ public class AppWidget extends AppWidgetProvider {
         PendingIntent pi2 = PendingIntent.getActivity(context, 0, clickIntent2, 0);
 
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.app_widget);
-
         rv.setOnClickPendingIntent(R.id.appwidget_Title, pi);
         rv.setOnClickPendingIntent(R.id.appwidget_battery, pi2);
 

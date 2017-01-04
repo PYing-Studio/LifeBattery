@@ -21,6 +21,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 统计界面:对用户使用情况进行统计、打卡
+ */
 public class StatisticsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
     private static final int PHOTO_REQUEST_CUT = 3;// 结果

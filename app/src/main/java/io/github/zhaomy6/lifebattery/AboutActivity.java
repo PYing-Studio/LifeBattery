@@ -12,6 +12,6 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        setTitle("关于 LifeBattery");
+        setTitle("关于LifeBattery");
     }
 }
