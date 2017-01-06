@@ -1,30 +1,71 @@
 package io.github.zhaomy6.lifebattery;
 
+import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
+import android.os.Handler;
+import android.os.IBinder;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 主界面:
+ */
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener {
     private MyDB myDB;
-    private TextView title, DDL, progress;
-    private Button planBotton, storeBotton, summaryButton;
+    private TextView latestTitle, latestDDL, latestProgress;
+    private ListView lv;
+
+    private PlanRecorder planRecorder;
+
+    private ServiceConnection sc = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            planRecorder = ((PlanRecorder.MyBinder)service).getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            planRecorder = null;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        latestTitle = (TextView) findViewById(R.id.m_plan_title);
+        latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
+        latestProgress = (TextView) findViewById(R.id.m_plan_progress);
+        myDB = new MyDB(this);
+
+        fillWithLatestPlan();
+
+        // 绑定服务
+        bindServiceConnection();
+        planRecordHandleStart();
 
         //  更新剩余周以及百分比
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
@@ -52,34 +93,96 @@ public class MainActivity extends AppCompatActivity
         String showMes = leftWeeks + "\n" + percent + "%";
         TextView m_display = (TextView) findViewById(R.id.m_left_weeks);
         m_display.setText(showMes);
+        updateBattery(percent);
+        init();
+        fillWithLatestPlan();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fillWithLatestPlan();
+    }
+
+    // 初始化
+    private void init() {
+        latestTitle = (TextView) findViewById(R.id.m_plan_title);
+        latestDDL = (TextView) findViewById(R.id.m_plan_DDL);
+        latestProgress = (TextView) findViewById(R.id.m_plan_progress);
+        myDB = new MyDB(this);
 
         findViewById(R.id.m_plan_button).setOnClickListener(this);
         findViewById(R.id.m_store_button).setOnClickListener(this);
         findViewById(R.id.m_summary_button).setOnClickListener(this);
-
         findViewById(R.id.main_battery_info).setOnClickListener(this);
-//        storeBotton= (Button) findViewById(R.id.m_store_button);
-//        summaryButton = (Button) findViewById(R.id.m_summary_button);
-//        myDB = new MyDB(this);
-//        title = (TextView)findViewById(R.id.m_plan_title);
-//        DDL = (TextView)findViewById(R.id.m_plan_ddl);
-//        progress = (TextView)findViewById(R.id.m_plan_progress);
-//
-//        Cursor cursor = myDB.getAll();
-//        String titleContent = "", DDLContent= "", progressContent = "";
-//        while (cursor.moveToNext()) {
-//            String tmp = cursor.getString(cursor.getColumnIndex("DDL"));
-//            if (tmp.compareTo(DDLContent) > 0) {
-//                titleContent = cursor.getString(cursor.getColumnIndex("title"));
-//                DDLContent = tmp;
-//                progressContent = cursor.getString(cursor.getColumnIndex("progress"));
-//            }
-//        }
-//        title.setText(titleContent);
-//        DDL.setText(DDLContent);
-//        progress.setText(progressContent);
     }
 
+    //  动态更新电池图标状态
+    private void updateBattery(int percent) {
+        ImageView status = (ImageView) findViewById(R.id.m_battery_icon);
+        if (percent > 95) {
+            status.setImageResource(R.drawable.life_full);
+        } else if (percent > 85) {
+            status.setImageResource(R.drawable.life_90);
+        } else if (percent > 75) {
+            status.setImageResource(R.drawable.life_80);
+        } else if (percent > 65) {
+            status.setImageResource(R.drawable.life_70);
+        } else if (percent > 55) {
+            status.setImageResource(R.drawable.life_60);
+        } else if (percent > 45) {
+            status.setImageResource(R.drawable.life_50);
+        } else if (percent > 35) {
+            status.setImageResource(R.drawable.life_40);
+        } else if (percent > 25) {
+            status.setImageResource(R.drawable.life_30);
+        } else if (percent > 15) {
+            status.setImageResource(R.drawable.life_20);
+        } else {
+            status.setImageResource(R.drawable.life_10);
+        }
+    }
+
+    // 获取最近任务
+    private void fillWithLatestPlan() {
+        Cursor cursor = myDB.getLatestPlan();
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            latestTitle.setText(title);
+            String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+            latestDDL.setText(DDL);
+            if (title != null || DDL != null) {
+                String minuteFormat = "";
+                if (DateFormat.is24HourFormat(getApplicationContext())) {
+                    minuteFormat += "k:mm";
+                } else {
+                    minuteFormat += "HH:mm a";
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd " + minuteFormat, Locale.CHINA);
+                String[] frag = DDL.split("\n");
+                String dstr = frag[0] + " " + frag[1];
+                Date date = null;
+                try {
+                    date = sdf.parse(dstr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long s1 = date.getTime();
+                long s2 = System.currentTimeMillis();
+                long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
+                latestProgress.setText("剩余 " + day + " 天");
+            }
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(sc);
+    }
+
+    // 界面底部导航逻辑跳转
     @Override
     public void onClick(View view) {
         Intent intent = null;
@@ -97,12 +200,91 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.main_battery_info:
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-                String str = df.format(new Date());
-                Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+                popLongPlanDialog();
                 break;
             default:
                 Toast.makeText(this, "点击逻辑未处理", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void popLongPlanDialog() {
+        //  列举所有无DDL的任务
+        LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+        final View v = factory.inflate(R.layout.dialog_long_plan, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setView(v);
+
+        final PlanAdapter adapter = getPlansAdapter(v);
+        lv = (ListView) v.findViewById(R.id.long_plan_list);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        //  绑定对话框中事件
+        String dialogTitle = "长远任务（共" + lv.getCount() + "项）";
+        builder.setTitle(dialogTitle);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //  do nothing
+            }
+        });
+        builder.setPositiveButton("完成任务", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //  将已选中的任务从数据库中删除
+                //  selectedPlans中存有所有选中的Plan
+                ArrayList<Plan> selectedPlans = adapter.getSelectedPlans();
+                for (int k = 0; k < selectedPlans.size(); k++) {
+                    Plan tem = selectedPlans.get(k);
+                    myDB.updateFinished(tem.getTitle(), "完成");
+                }
+                lv.setAdapter(getPlansAdapter(v));
+            }
+        });
+
+        //  自定义对话框大小，显示对话框
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private PlanAdapter getPlansAdapter(View v) {
+        ArrayList<Plan> plans = new ArrayList<>();
+        Cursor cursor =  myDB.getLongTimePlan();
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                if ("".equals(title)) continue;
+                String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+                if ("".equals(type)) continue;
+                String detail = cursor.getString(cursor.getColumnIndex("detail"));
+                String finished = cursor.getString(cursor.getColumnIndex("finished"));
+                plans.add(new Plan(title, DDL, type, detail, finished));
+            }
+        }
+        return new PlanAdapter(v.getContext(), plans, true);
+    }
+
+    private void bindServiceConnection() {
+        Intent intent = new Intent(this, PlanRecorder.class);
+        bindService(intent, sc, this.BIND_AUTO_CREATE);
+    }
+
+    private void planRecordHandleStart() {
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                planRecorder.startSendNotification();
+            }
+        }, 30 * 1000);
     }
 }

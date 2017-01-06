@@ -11,10 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import java.util.Timer;
-
 public class SetupActivity extends Activity {
-    private final int DISPLAY_LENGTH = 1700;
+    private final int DISPLAY_LENGTH = 1500;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +29,6 @@ public class SetupActivity extends Activity {
 
         SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
         final boolean hasLoginBefore = sp.getBoolean("hasLoginBefore", false);
-//        final boolean hasLoginBefore = false;
 
         new Handler().postDelayed(new Runnable() {
             public void run() {

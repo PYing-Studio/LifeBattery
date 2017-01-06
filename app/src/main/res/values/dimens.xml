@@ -11,10 +11,18 @@
 
     <dimen name="login_margin">40dp</dimen>
 
+    <dimen name="add_margin">25dp</dimen>
+
     <dimen name="m_margin">20dp</dimen>
     <dimen name="m_padding_top_and_bottom">16dp</dimen>
 
     <dimen name="p_list_margin">10dp</dimen>
 
     <dimen name="s_padding_top_and_bottom">10dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_rect"
+    android:elevation="3dp">
+    <!--自动生成规划页面，按时间放置待办事件-->
+
+    <ImageView
+        android:id="@+id/appwidget_battery"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:src="@drawable/state2"/>
+    <TextView
+        android:id="@+id/appwidget_DDL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/font_little"
+        android:textColor="@color/colorDarkBackground"
+        android:text="12-12"/>
+    <TextView
+        android:id="@+id/appwidget_Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="@dimen/font_normal"
+        android:textColor="@color/colorDarkBackground"
+        android:text="Android Project"/>
+</LinearLayout>
