@@ -91,7 +91,7 @@ public class StatisticsActivity extends AppCompatActivity implements View.OnClic
             case R.id.statistic_detail:
                 Intent intent = new Intent(StatisticsActivity.this, CalendarActivity.class);
                 //  传入数据
-                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 break;
             case R.id.statistic_avatar:

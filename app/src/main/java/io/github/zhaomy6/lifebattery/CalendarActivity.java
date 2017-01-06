@@ -29,7 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
         String finishList = sp.getString("finishList", "");
         if (!"".equals(finishList)) {
             String[] list = finishList.split(";");
-            Log.d("Cal", finishList);
+//            Log.d("Cal", finishList);
             Collections.addAll(dates, list);
         }
 

@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class SetupActivity extends Activity {
-    private final int DISPLAY_LENGTH = 1700;
+    private final int DISPLAY_LENGTH = 1500;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
