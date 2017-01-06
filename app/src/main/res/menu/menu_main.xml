@@ -7,13 +7,13 @@
     android:layout_height="wrap_content">
     <item android:id="@+id/searchAction"
         android:title="搜索"
-        android:icon="@drawable/ic_search_white"
+        android:icon="@drawable/search"
         android:imeOptions="actionSearch"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
     <item android:id="@+id/sortAction"
         android:title="按时间排序"
-        android:icon="@mipmap/sort_with_time"
+        android:icon="@drawable/sort"
         app:showAsAction="ifRoom|collapseActionView"
         />
 
