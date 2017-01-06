@@ -225,9 +225,17 @@ public class PlansActivity extends AppCompatActivity {
         String m_string = simpleDateFormat.format(date);
         myDB.updateTimeout(d_string + "\n" + m_string);
 
+        SharedPreferences sp = getSharedPreferences("LifeBatteryPre", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        int lastCount = sp.getInt("overTimeLast", 0);
         int num = myDB.getOvertimeTaskNum();
-        if (num > 0) {
-            Toast.makeText(this, "提醒:\n又有 " + num + " 个计划超时", Toast.LENGTH_SHORT).show();
+        if (num > lastCount) {
+            editor.putInt("overTimeLast", num);
+            editor.commit();
+            num -= lastCount;
+            if (num > 0) {
+                Toast.makeText(this, "提醒:\n又有 " + num + " 个计划超时", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

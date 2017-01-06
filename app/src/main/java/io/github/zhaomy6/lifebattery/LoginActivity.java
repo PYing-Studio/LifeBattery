@@ -82,8 +82,6 @@ public class LoginActivity extends Activity
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("hasLoginBefore", true);
                 editor.putString("username", username);
-                //  birthday format: yyyy/mm/dd
-                //  ** need modify if the format is changed **
                 editor.putString("birthday", birthday);
                 String birthYear = birthday.split("/")[0];
                 int totalWeeks = calculateTotalWeeks(birthYear);

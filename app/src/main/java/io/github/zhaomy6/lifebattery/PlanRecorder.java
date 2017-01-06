@@ -20,6 +20,9 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 定期提醒用户service
+ */
 public class PlanRecorder extends Service {
     public final IBinder binder = new MyBinder();
     private MyDB myDB;
@@ -85,7 +88,6 @@ public class PlanRecorder extends Service {
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String DDL = cursor.getString(cursor.getColumnIndex("DDL"));
 
-            //  防止没有未完成事件时闪退
             if (title == null || DDL == null) return;
 
             String minuteFormat = "";
@@ -122,6 +124,7 @@ public class PlanRecorder extends Service {
             manager.notify(0, notification);
         }
     }
+
     private void updateDBImmediately() {
         Date date = new Date();
         String dateFormat = "yyyy-MM-dd";

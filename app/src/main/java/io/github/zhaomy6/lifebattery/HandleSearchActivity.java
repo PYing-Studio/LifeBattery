@@ -1,6 +1,5 @@
 package io.github.zhaomy6.lifebattery;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -55,7 +54,7 @@ public class HandleSearchActivity extends AppCompatActivity {
 
             //显示搜索结果数量
             int count = listView.getCount();
-            g_count.setText("搜索结果有: " + count + "项");
+            g_count.setText("搜索结果有: " + count + " 项");
         }
 
         // 点击查看搜索结果详情
@@ -81,17 +80,16 @@ public class HandleSearchActivity extends AppCompatActivity {
 
                 final String detailText = cursor1.getString(cursor1.getColumnIndex("detail"));
                 d_planDetail.setText(detailText);
-
-                String typeText = "任务类型类型：" + cursor1.getString(cursor1.getColumnIndex("type"));
+                String typeText = "任务类型类型：";
+                if (cursor1.getString(cursor1.getColumnIndex("type")).equals("false")) {
+                    typeText += "近期计划";
+                } else {
+                    typeText += "长期计划";
+                }
                 d_planType.setText(typeText);
 
                 builder.setTitle(titleText);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //  do nothing
-                    }
-                });
+                builder.setPositiveButton("确定", null);
 
                 d_planDDL.setText(DDLText);
                 builder.create().show();

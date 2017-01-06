@@ -112,7 +112,7 @@
             android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="当前日期"/>
+            android:hint="计划日期"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
             android:layout_weight="1.5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="当前时刻"/>
+            android:hint="具体时刻"/>
         
     </LinearLayout>
 </LinearLayout>

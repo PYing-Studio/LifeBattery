@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * 新建任务
+ * 新建任务或修改任务
  */
 public class AddActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -88,6 +88,7 @@ public class AddActivity extends AppCompatActivity implements
         imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 
+    // 弹出日期选择
     private void datePickEditTextDialog() {
         Date date = new Date();
         hideKeyboard(mToDoTextBodyEditText);
@@ -170,6 +171,7 @@ public class AddActivity extends AppCompatActivity implements
         }
     }
 
+    // 执行添加操作
     private void addEvent() throws ParseException {
         String titleText = mToDoTextBodyEditText.getText().toString();
         String detailText = mDetailEdit.getText().toString();
@@ -179,8 +181,11 @@ public class AddActivity extends AppCompatActivity implements
                 Toast.makeText(AddActivity.this, "请完善时间设置", Toast.LENGTH_SHORT).show();
                 return;
             } else if (DDLText.indexOf('\n') == DDLText.length() - 1) {
-                Toast.makeText(AddActivity.this, "请完善时间设置", Toast.LENGTH_SHORT).show();
-                return;
+                if (DateFormat.is24HourFormat(getApplicationContext())) {
+                    DDLText += "23:59";
+                } else {
+                    DDLText += "11:59 下午";
+                }
             } else if (DDLText.indexOf('\n') == 0) {
                 Calendar calendar = Calendar.getInstance();
                 DDLText = "" + calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + DDLText;
