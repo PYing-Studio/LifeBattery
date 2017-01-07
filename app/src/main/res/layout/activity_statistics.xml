@@ -34,7 +34,7 @@
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textSize="@dimen/font_big"
-            android:text="Pixel"/>
+            android:text=""/>
 
         <TextView
             android:id="@+id/statistic_days"
@@ -44,7 +44,7 @@
             android:layout_below="@id/statistic_user_name"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
-            android:text="已打卡  xx  天"/>
+            android:text=""/>
 
         <TextView
             android:id="@+id/statistic_tasks"
@@ -54,7 +54,7 @@
             android:layout_below="@id/statistic_days"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
-            android:text="已完成  xx  任务"/>
+            android:text=""/>
 
         <TextView
             android:id="@+id/statistic_state"
@@ -64,14 +64,13 @@
             android:layout_below="@id/statistic_tasks"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_normal"
-            android:text="xx  待完成／xx  已超时"/>
+            android:text=""/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <View
             android:layout_width="match_parent"
@@ -92,7 +91,7 @@
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@drawable/round_rect"
             android:textColor="@color/colorPrimaryDark"
-            android:text="打卡记录"/>
+            android:text="@string/record"/>
 
         <View
             android:layout_width="match_parent"
@@ -112,7 +111,7 @@
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@drawable/round_rect"
             android:textColor="@color/colorPrimaryDark"
-            android:text="关于"/>
+            android:text="@string/about"/>
 
         <View
             android:id="@+id/statistic_div"
@@ -133,7 +132,7 @@
             android:layout_marginEnd="@dimen/m_margin"
             android:background="@drawable/round_rect"
             android:textColor="@color/colorAccent"
-            android:text="注销"/>
+            android:text="@string/logOff"/>
 
         <View
             android:layout_width="match_parent"

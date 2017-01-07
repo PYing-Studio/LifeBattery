@@ -16,7 +16,7 @@
         android:background="@drawable/round_rect"
         android:gravity="center"
         android:textSize="@dimen/font_normal"
-        android:text="已经过去 100 周"/>
+       />
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,7 +48,6 @@
 
         <TextView
             android:gravity="center_vertical|left"
-            android:text="本周剩 5 天\n 3 个计划待完成:小黑、小白、小灰"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"

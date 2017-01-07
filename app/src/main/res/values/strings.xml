@@ -17,4 +17,22 @@
     <string name="store_description">点击电池以查看具体规划</string>
     <string name="appwidget_text">LifeBattery</string>
     <string name="add_widget">Add widget</string>
+    <string name="appIntroduction">应用说明:</string>
+    <string name="introContent">Life Battery是一款帮助用户克服拖延症、更充实享受人生的App</string>
+    <string name="author">开发作者:</string>
+    <string name="authorContent">赵明宇 张双涛 任美子 王思佳</string>
+    <string name="email">联系方式:</string>
+    <string name="emailContent">zhangsht95@qq.com</string>
+
+    <string name="titleHint">请输入标题</string>
+    <string name="detailHint">任务描述(可选)</string>
+    <string name="planDate">计划日期</string>
+    <string name="dateSpec">具体时刻</string>
+
+    <string name="record">打卡记录</string>
+    <string name="userNameHint">请输入用户名</string>
+    <string name="birthDayHint">请输入您的生日</string>
+    <string name="confirm">注册并登录</string>
+    <string name="about">关于</string>
+    <string name="logOff">注销</string>
 </resources>

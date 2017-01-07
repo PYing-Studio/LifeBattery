@@ -15,7 +15,7 @@
         android:padding="20dp"
         android:background="@drawable/round_rect"
         android:textSize="@dimen/font_normal"
-        android:text="打卡记录"/>
+        android:text="@string/record"/>
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendar"

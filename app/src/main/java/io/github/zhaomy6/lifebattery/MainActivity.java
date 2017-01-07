@@ -16,7 +16,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -174,6 +173,10 @@ public class MainActivity extends AppCompatActivity
                 long day = (s1 - s2) / 1000 / 60 / 60 / 24 + 1;
                 latestProgress.setText("剩余 " + day + " 天");
             }
+        } else {
+            latestTitle.setText("");
+            latestDDL.setText("");
+            latestProgress.setText("");
         }
     }
     @Override
